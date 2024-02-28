@@ -5,18 +5,18 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.lhs.dao.MemberDao">
 	<!-- resultType은 반드시 있어야 함 -->
-	<select id="memberList" parameterType="HashMap" resultType="HashMap">
+	<select id="memberList" parameterType="java.util.HashMap" resultType="HashMap">
 		SELECT *
 		FROM S_gyulbbe.member;
 	</select>
 	
 	<!-- public int totalMemberCnt(HashMap<String, Object> params) -->
-	<select id="totalMemberCnt" parameterType="HashMap" resultType="int">
+	<select id="totalMemberCnt" parameterType="java.util.HashMap" resultType="int">
 		SELECT count(*)
 		FROM S_gyulbbe.member;
 	</select>
 	
-	<select id="getMemberById" parameterType="HashMap" resultType="HashMap">
+	<select id="getMemberById" parameterType="java.util.HashMap" resultType="HashMap">
 		SELECT *
 		FROM S_gyulbbe.member
 		WHERE member_id = #{memberId};
@@ -27,7 +27,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- checkId(HashMap<String, String> params) -->
-	<select id="checkId" parameterType="HashMap" resultType="int">
+	<select id="checkId" parameterType="java.util.HashMap" resultType="int">
 		SELECT count(*)
 		FROM S_gyulbbe.member
 		WHERE member_id = #{memberId};
@@ -54,7 +54,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<!-- public int delMember(HashMap<String, Object> params) -->
-	<delete id = "delMember" parameterType="HashMap">
+	<delete id = "delMember" parameterType="java.util.HashMap">
 		DELETE FROM S_gyulbbe.member
 		WHERE member_id = #{memberId};
 	</delete>

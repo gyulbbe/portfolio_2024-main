@@ -44,16 +44,17 @@ public class MemberServiceImpl implements MemberService {
 	//아이디 중복 검사
 	@Override
 	public int checkId(HashMap<String, String> params) {
-		
 		return mDao.checkId(params);
 	}
 
+	//로그인
 	@Override
 	public HashMap<String, Object> login(HashMap<String, String> params) throws UserNotFoundException, PasswordMissMatchException {
 		HashMap<String, Object> member = mDao.getMemberById(params);
 		return member;
 	}
 
+	//회원삭제
 	@Override
 	public int delMember(HashMap<String, Object> params) {	
 		return mDao.delMember(params);
