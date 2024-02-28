@@ -2,6 +2,7 @@ package com.lhs.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,9 +32,16 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int join(HashMap<String, String> params) {
 		
-		//만약 비밀번호 길이가 6보다 작으면 안됨
+		//비밀번호 길이가 6보다 작으면 안됨
 		int pwLength = params.get("memberPw").length();
 		if(pwLength<6) {
+			return 0;
+		}
+		
+		//비밀번호와 비밀번호 확인이 같아야 함
+		String firstPw = params.get("memberPw");
+		String againPw = params.get("pwAgain");
+		if(!Objects.equals(firstPw, againPw)) {
 			return 0;
 		}
 		
