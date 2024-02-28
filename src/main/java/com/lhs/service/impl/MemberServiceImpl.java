@@ -31,6 +31,12 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int join(HashMap<String, String> params) {
 		
+		//만약 비밀번호 길이가 6보다 작으면 안됨
+		int pwLength = params.get("memberPw").length();
+		if(pwLength<6) {
+			return 0;
+		}
+		
 		//join이 제대로 실행되면 result는 1
 		int result = mDao.join(params);
 		
