@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lhs.service.AttFileService;
@@ -48,17 +46,6 @@ public class BoardController {
 		return mv;
 	}
 
-	@RequestMapping("/board/write.do")
-	@ResponseBody
-	public HashMap<String, Object> write(
-			@RequestParam HashMap<String, Object> params, 
-			MultipartHttpServletRequest mReq) {
-		if(!params.containsKey("typeSeq")) {
-			params.put("typeSeq", this.typeSeq);
-		}
-
-		return null;
-	}
 
 	@RequestMapping("/board/read.do")
 	public ModelAndView read(@RequestParam HashMap<String, Object> params) {
@@ -81,41 +68,6 @@ public class BoardController {
 		}
 		
 		return mv;
-
 	}
-
-	@RequestMapping("/board/update.do")
-	@ResponseBody // !!!!!!!!!!!! 비동기 응답 
-	public HashMap<String, Object> update(@RequestParam HashMap<String,Object> params, 
-			MultipartHttpServletRequest mReq) {
-
-		if(!params.containsKey("typeSeq")) {
-			params.put("typeSeq", this.typeSeq);
-		}
-
-		return null;
-	}
-
-	@RequestMapping("/board/delete.do")
-	@ResponseBody
-	public HashMap<String, Object> delete(@RequestParam HashMap<String, Object> params, HttpSession session) {
-
-		if(!params.containsKey("typeSeq")) {
-			params.put("typeSeq", this.typeSeq);
-		}
-		return null; // 비동기: map return 
-	}
-
-	@RequestMapping("/board/deleteAttFile.do")
-	@ResponseBody
-	public HashMap<String, Object> deleteAttFile(@RequestParam HashMap<String, Object> params) {
-
-		if(!params.containsKey("typeSeq")) {
-			params.put("typeSeq", this.typeSeq);
-		}
-		return null;
-	} 
-
-
 
 }

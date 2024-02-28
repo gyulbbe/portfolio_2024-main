@@ -18,6 +18,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<select id="read" parameterType="HashMap" resultType = "HashMap">
+	
 	</select>
 
 	<update id="updateHits" parameterType="HashMap" >

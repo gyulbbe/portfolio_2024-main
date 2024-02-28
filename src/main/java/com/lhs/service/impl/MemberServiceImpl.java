@@ -27,13 +27,24 @@ public class MemberServiceImpl implements MemberService {
 		return mDao.totalMemberCnt(params);
 	}
 
+	//회원가입
 	@Override
 	public int join(HashMap<String, String> params) {
-		return mDao.join(params);
+		
+		//join이 제대로 실행되면 result는 1
+		int result = mDao.join(params);
+		
+		//result가 1이라면 Dao의 join실행(회원가입)
+		if(result == 1) {
+		return result;
+		}
+		return 0;
 	}
 
+	//아이디 중복 검사
 	@Override
 	public int checkId(HashMap<String, String> params) {
+		
 		return mDao.checkId(params);
 	}
 

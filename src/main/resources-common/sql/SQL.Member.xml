@@ -6,31 +6,57 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.lhs.dao.MemberDao">
 	<!-- resultType은 반드시 있어야 함 -->
 	<select id="memberList" parameterType="HashMap" resultType="HashMap">
-	
+		SELECT *
+		FROM S_gyulbbe.member;
 	</select>
 	
-	
+	<!-- public int totalMemberCnt(HashMap<String, Object> params) -->
 	<select id="totalMemberCnt" parameterType="HashMap" resultType="int">
-	
+		SELECT count(*)
+		FROM S_gyulbbe.member;
 	</select>
 	
 	<select id="getMemberById" parameterType="HashMap" resultType="HashMap">
-	
+		SELECT *
+		FROM S_gyulbbe.member
+		WHERE member_id = #{memberId};
 	</select>
 	
 	<select id="makeCipherText" parameterType="map" resultType="String">
 	SELECT SHA2(MD5(#{memberPw}), 256) AS pw
 	</select>
 	
-	<select id="checkId" parameterType="map" resultType="int">
-	
+	<!-- checkId(HashMap<String, String> params) -->
+	<select id="checkId" parameterType="HashMap" resultType="int">
+		SELECT count(*)
+		FROM S_gyulbbe.member
+		WHERE member_id = #{memberId};
 	</select>
 	
-	<insert id="join" parameterType="map">
-
+	<!-- public int join(HashMap<String, String> params) -->
+	<insert id="join" parameterType="java.util.HashMap">
+	    <!-- keyProperty의 값을 key가 되고, parameterType의 객체에 저장된다.-->
+	    <selectKey resultType="int" keyProperty="seq" order="AFTER">
+	        SELECT LAST_INSERT_ID()
+	    </selectKey>
+	
+	    INSERT INTO S_gyulbbe.member
+	    (member_id, member_pw, member_name, member_nick, email, create_dtm, type_seq)
+	    VALUES(
+	        #{memberId}, 
+	        #{memberPw}, 
+	        #{memberNick}, 
+	        #{memberName}, 
+	        #{email}, 
+	        DATE_FORMAT(NOW(), '%Y%m%d%H%i%s'),
+	        1
+	    )
 	</insert>
+	
+	<!-- public int delMember(HashMap<String, Object> params) -->
 	<delete id = "delMember" parameterType="HashMap">
-		
-	</delete>		
+		DELETE FROM S_gyulbbe.member
+		WHERE member_id = #{memberId};
+	</delete>
 
 </mapper>
