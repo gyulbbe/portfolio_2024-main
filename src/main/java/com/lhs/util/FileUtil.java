@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class FileUtil {
 	
-	private Logger logger = Logger.getLogger(FileUtil.class);
+//	private Logger logger = Logger.getLogger(FileUtil.class);
 	
 	// config.ini 에 설정해둔 값을 찾아서 사용한다.
 	@Value("#{config['project.file.upload.location']}")

@@ -2,20 +2,14 @@ package com.lhs.controller;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.lhs.service.MemberService;
-
 @Controller
 public class MemberController {
-
-	@Autowired
-	MemberService mService;
 
 	@Value("#{config['site.context.path']}")
 	String ctx;

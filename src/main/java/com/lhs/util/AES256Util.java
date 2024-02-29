@@ -14,12 +14,11 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
-import org.apache.log4j.Logger;
-
+//import org.apache.log4j.Logger;
 
 public class AES256Util {
 
-	private Logger log = Logger.getLogger(AES256Util.class); 
+//	private Logger log = Logger.getLogger(AES256Util.class); 
 
 	private String iv;
 	private Key keySpec;
@@ -67,7 +66,7 @@ public class AES256Util {
 	InvalidAlgorithmParameterException,
 	IllegalBlockSizeException, 
 	BadPaddingException {
-		log.debug("str : ======================================" + str );
+//		log.debug("str : ======================================" + str );
 		Cipher c = Cipher.getInstance("AES/CBC/PKCS5Padding");
 		c.init(Cipher.DECRYPT_MODE, keySpec, new IvParameterSpec(iv.getBytes()));
 		byte[] byteStr = Base64.decodeBase64(str.getBytes());

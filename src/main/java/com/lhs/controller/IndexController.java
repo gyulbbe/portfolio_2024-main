@@ -2,7 +2,7 @@ package com.lhs.controller;
 
 import java.util.HashMap;
 
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +17,7 @@ public class IndexController {
 
 	@Autowired BoardService bService;
 
-	Logger logger = Logger.getLogger(MemberController.class);
+//	Logger logger = Logger.getLogger(MemberController.class);
 
 	@RequestMapping("/index.do")
 	public ModelAndView index(@RequestParam HashMap<String, String> params) {

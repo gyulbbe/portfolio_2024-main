@@ -15,8 +15,9 @@ public interface MemberDao {
 	
 	public HashMap<String, Object> getMemberById(HashMap<String, String> params);
 	
+	public String getMemberPwById(HashMap<String, String> params);
+	
 	public String makeCipherText(HashMap<String, String> params);
 	
 	public int delMember(HashMap<String,Object> params);
-	
 }

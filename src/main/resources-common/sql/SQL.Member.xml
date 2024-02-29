@@ -16,14 +16,20 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		FROM S_gyulbbe.member;
 	</select>
 	
-	<select id="getMemberById" parameterType="java.util.HashMap" resultType="HashMap">
-		SELECT *
+	<select id="getMemberById" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT member_id
+		FROM S_gyulbbe.member
+		WHERE member_id = #{memberId};
+	</select>
+	
+	<select id="getMemberPwById" parameterType="java.util.HashMap" resultType="String">
+		SELECT member_pw
 		FROM S_gyulbbe.member
 		WHERE member_id = #{memberId};
 	</select>
 	
 	<select id="makeCipherText" parameterType="map" resultType="String">
-	SELECT SHA2(MD5(#{memberPw}), 256) AS pw
+		SELECT SHA2(MD5(#{memberPw}), 256) AS pw
 	</select>
 	
 	<!-- checkId(HashMap<String, String> params) -->
@@ -58,5 +64,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		DELETE FROM S_gyulbbe.member
 		WHERE member_id = #{memberId};
 	</delete>
+	
+	
 
 </mapper>

@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.lhs.service.MemberService;
 
-import lombok.extern.slf4j.Slf4j;
+//import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
+//@Slf4j
 @RestController
 public class MemberRestController {
 
@@ -53,11 +53,14 @@ public class MemberRestController {
 	public HashMap<String, Object> login(@RequestParam HashMap<String, String> params, HttpSession session){
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		try {
-			session.setAttribute("sessionId", "memberId");
+			map.putAll(mService.login(params));
+			session.setAttribute("sessionId", params.get("memberId"));
+			map.put("msg", "로그인 성공");
+			System.out.println("Session ID: " + session.getAttribute("sessionId"));
 			map.put("nextPage", "/index.do");
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.error("", e);
+//			log.error("", e);
 			map.put("nextPage", "/index.do");
 			map.put("msg", e.getMessage());
 		}
