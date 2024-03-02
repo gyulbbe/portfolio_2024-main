@@ -24,7 +24,7 @@ public class MemberController {
 	public ModelAndView logout(HttpSession session){
 		session.invalidate();
 		ModelAndView mv = new ModelAndView();
-		RedirectView rv = new RedirectView("ROOT/index.do");
+		RedirectView rv = new RedirectView("pf/index.do");
 		mv.setView(rv);		
 		return mv;
 	}
