@@ -2,7 +2,6 @@ package com.lhs.controller;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -10,9 +9,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 public class MemberController {
-
-	@Value("#{config['site.context.path']}")
-	String ctx;
 
 	@RequestMapping("/member/goLoginPage.do")
 	public String goLogin() {
@@ -28,7 +24,7 @@ public class MemberController {
 	public ModelAndView logout(HttpSession session){
 		session.invalidate();
 		ModelAndView mv = new ModelAndView();
-		RedirectView rv = new RedirectView(ctx+"/index.do");
+		RedirectView rv = new RedirectView("ROOT/index.do");
 		mv.setView(rv);		
 		return mv;
 	}

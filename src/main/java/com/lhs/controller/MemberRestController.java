@@ -46,17 +46,19 @@ public class MemberRestController {
 		map.put("nextPage", cnt==1 ? "/member/goLoginPage.do" : "/member/goRegisterPage.do");
 		return map;
 	}
-
-
-
+	
 	@RequestMapping("/member/login.do")
 	public HashMap<String, Object> login(@RequestParam HashMap<String, String> params, HttpSession session){
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		try {
+			//mService맵 형태로 보냄
 			map.putAll(mService.login(params));
-			session.setAttribute("sessionId", params.get("memberId"));
-			map.put("msg", "로그인 성공");
-			System.out.println("Session ID: " + session.getAttribute("sessionId"));
+			
+			//세션 생성
+			String memberId = params.get("memberId");
+			session.setAttribute("memberId", memberId);
+			System.out.println("Session ID: " + session.getAttribute("memberId"));			
+			
 			map.put("nextPage", "/index.do");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -66,13 +68,12 @@ public class MemberRestController {
 		}
 		return map;
 	}
-
+	
 	@RequestMapping("/admin/memberList.do")//비동기식 호출
 	public HashMap<String, Object> memberList(@RequestParam HashMap<String, Object> params) {
 		// 페이징
 		// 모든 회원 가져오기
 		List<HashMap<String,Object>> memberList = new ArrayList<HashMap<String,Object>>();
-		
 		//go to  JSP 
 
 		HashMap<String,Object> result = new HashMap<String,Object>();
@@ -81,11 +82,9 @@ public class MemberRestController {
 		result.put("rows", memberList); // 불러온 회원목록 
 		result.put("total", 1);// 전체 페이지 
 		result.put("records", 10); //전체 회원수 
-
 		return result;
-
 	}
-
+	
 	@RequestMapping("/member/delMember.do")
 	public HashMap<String,Object> delMember(@RequestParam HashMap<String, Object> params){
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -93,6 +92,5 @@ public class MemberRestController {
 		map.put("msg", (result == 1) ? "삭제되었습니다.":"삭제 실패!");
 		map.put("result",result);
 		return map;
-
 	}
 }

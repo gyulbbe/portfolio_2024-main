@@ -25,7 +25,11 @@ public class BoardController {
 
 	@RequestMapping("/board/list.do")
 	public ModelAndView goLogin(@RequestParam HashMap<String, String> params){
-		return null;
+		ModelAndView mv = new ModelAndView();
+
+//		mv.addObject("nextPage", "/board/list");
+		mv.setViewName("/board/list");
+		return mv;
 	}
 
 	@RequestMapping("/test.do")
