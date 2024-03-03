@@ -32,7 +32,6 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int join(HashMap<String, String> params) {
 		
-		System.out.println("회원가입이 왜 안될까1");
 
 		//비밀번호 길이가 6보다 작으면 안됨
 		int pwLength = params.get("memberPw").length();
@@ -48,17 +47,15 @@ public class MemberServiceImpl implements MemberService {
 		if(!Objects.equals(firstPw, againPw)) {
 			return 0;
 		}
-		System.out.println("회원가입이 왜 안될까3");
+		
 		//비밀번호 암호화 후 저장
 		firstPw = mDao.makeCipherText(params);
 		params.put("memberPw",firstPw);
-		System.out.println("회원가입이 왜 안될까4");
+		
 		//join이 제대로 실행되면 result는 1
 		int result = 0;
 		result = mDao.join(params);
 		
-		System.out.println("result: " + result);
-		System.out.println("회원가입이 왜 안될까5");
 		//result가 1이 아니라면 join자체가 실행이 제대로 안된 것
 		if(result != 1) {
 			return 0;

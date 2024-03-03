@@ -59,12 +59,19 @@ public class MemberRestController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		try {
 			//mService맵 형태로 보냄
+			
+			
 			map.putAll(mService.login(params));
 			
 			//세션 생성
-			String memberId = params.get("memberId");
-			session.setAttribute("memberId", memberId);
-			System.out.println("Session ID: " + session.getAttribute("memberId"));			
+
+			session.setAttribute("memberId", map.get("member_id"));
+			session.setAttribute("memberIdx", map.get("member_idx"));
+			session.setAttribute("memberNick", map.get("member_nick"));
+			
+			System.out.println("memberId: "+map.get("member_id"));
+			System.out.println("memberIdx: "+map.get("member_idx"));
+			System.out.println("memberNick: "+map.get("member_nick"));
 			
 			map.put("nextPage", "/index.do");
 		} catch (Exception e) {

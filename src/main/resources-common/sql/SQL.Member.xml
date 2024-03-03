@@ -17,7 +17,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="getMemberById" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		SELECT member_id
+		SELECT member_id, member_idx, member_nick
 		FROM S_gyulbbe.member
 		WHERE member_id = #{memberId};
 	</select>

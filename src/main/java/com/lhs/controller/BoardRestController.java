@@ -70,7 +70,7 @@ public class BoardRestController {
 			HttpServletResponse rep) {
 		//1. 받아온 파람의 파일 pk로 파일 전체 정보 불러온다
 		
-		//2. 받아온 정보를 터대로 물리적으로 저장된 실제 파일을 읽어온다.
+		//2. 받아온 정보를 토대로 물리적으로 저장된 실제 파일을 읽어온다.
 		
 	}
 }
