@@ -47,7 +47,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	    </selectKey>
 	
 	    INSERT INTO S_gyulbbe.member
-	    (member_id, member_pw, member_name, member_nick, email, create_dtm, type_seq)
+	    (member_id, member_pw, member_nick, member_name, email, create_dtm, type_seq)
 	    VALUES(
 	        #{memberId}, 
 	        #{memberPw}, 

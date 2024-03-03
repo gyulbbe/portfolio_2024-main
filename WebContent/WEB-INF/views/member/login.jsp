@@ -1,15 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript">
-var ctx = '<%= request.getContextPath() %>';
 	$(document).ready(function(){
 		$('#msgDiv').hide();
 		$("#loading-div-background").css({ opacity: 1 });
+		
 		$('#btnLogin').click(function(){
 			if( $('#memberId').val() == '' || $('#memberPw').val() == '' ){
 				var msgTag = $('<strong>').text("모든 항목은 필수입니다.");
@@ -69,7 +68,7 @@ var ctx = '<%= request.getContextPath() %>';
 							<h2 class="fs-20">LOGIN</h2>
 						</div>
 	
-						<form class="m-0" method="post" name="loginForm"  autocomplete="off">
+						<form class="m-0" method="post" name="loginForm" autocomplete="off">
 							<div class="clearfix">
 								
 								<!-- Email -->
@@ -105,7 +104,7 @@ var ctx = '<%= request.getContextPath() %>';
 					</div>
 					
 					<div class="mt-30 text-center">
-						<a href="javascript:movePage(this, '/member/goRegisterPage.do')"><strong>Create Account</strong></a>
+						<a href="javascript:movePage('/member/goRegisterPage.do')"><strong>Create Account</strong></a>
 					</div>
 	
 				</div>

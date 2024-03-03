@@ -14,7 +14,19 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id ="write" parameterType="HashMap" useGeneratedKeys="true" keyProperty="boardSeq" >
-		
+	    INSERT INTO S_gyulbbe.board
+	    (type_seq, member_id, member_nick, title, content, has_file, hits, create_dtm, update_dtm)
+	    VALUES(
+	    	#{typeSeq},
+	        #{memberId},  
+	        #{memberNick}, 
+	        #{title},
+	        #{content}, 
+	        #{hasFile}, 
+	        0, 
+	        DATE_FORMAT(NOW(), '%Y%m%d%H%i%s'),
+	        DATE_FORMAT(NOW(), '%Y%m%d%H%i%s')
+	    )
 	</insert>
 	
 	<select id="read" parameterType="HashMap" resultType = "HashMap">

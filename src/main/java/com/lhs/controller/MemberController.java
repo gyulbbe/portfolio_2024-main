@@ -5,11 +5,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 public class MemberController {
-
+	
 	@RequestMapping("/member/goLoginPage.do")
 	public String goLogin() {
 		return "member/login";
@@ -24,8 +23,7 @@ public class MemberController {
 	public ModelAndView logout(HttpSession session){
 		session.invalidate();
 		ModelAndView mv = new ModelAndView();
-		RedirectView rv = new RedirectView("pf/index.do");
-		mv.setView(rv);		
+		mv.setViewName("redirect:/index.do");
 		return mv;
 	}
 }

@@ -20,8 +20,14 @@
 		http://www.springframework.org/schema/context
 		http://www.springframework.org/schema/context/spring-context-4.1.xsd">
 
+		<bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:config/config.properties"/>
+        <property name="fileEncoding" value="UTF-8" />
+    	</bean>
+
 	<!-- 공용 설정 파일 -->
 	<util:properties id="config" location="classpath:*config.ini" />
+	
 
 	<!-- bean IOC - 비밀번호재설정을 위한 메일 보낼 유틸 bean설정 
 	<bean id="AES256Util" class="com.lhs.util.AES256Util">
@@ -29,15 +35,26 @@
 	</bean>
 	-->
 
+	<!-- EmailUtil emailUtil = new EmailUtil(mailSender);과 유사 스프링이 xml 읽어서 자바로 바꿈(단, 싱글톤으로 만듬) -->
+	<bean id="emailUtil" class="com.lhs.util.EmailUtil">
+		<constructor-arg ref="mailSender" />
+	</bean>
+
 	<!-- 홈에서 이메일 전송하기 위한 bean설정 -->
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" />
-		<property name="username" value="yourmail" />
-		<property name="password" value="yourpassword" />
+		<property name="username" value="${mail.id}" />
+		<property name="password" value="${mail.passWd}" />
 		<property name="javaMailProperties">
 			<props>
 				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.smtp.auth">true</prop>
+			    <prop key="mail.smtp.starttls.enable">true</prop>
+			    <prop key="mail.smtps.checkserveridentity">true</prop>
+			    <prop key="mail.smtps.ssl.trust">*</prop>
+			    <prop key="mail.debug">true</prop>
+			    <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
 			</props>
 		</property>
 	</bean>
@@ -47,7 +64,6 @@
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />
 		<context:include-filter type="regex" expression="\.*\.dao\.*"/>
 	</context:component-scan>
-	
 	
 	<!-- DB와 연결/쿼리의 수행/결과의 가공 등을 담당하는 sqlSessionFactory -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -76,11 +92,32 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	
-	
 	<!-- 첨부파일 위한 빈 수동 설정.. fileUtil  -->
 	<bean id="fileUtil" class="com.lhs.util.FileUtil" />
 	
 	<!-- transaction annotation -->
 	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+
+	
+	<!-- 이메일 전송하기 위한 bean설정 
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.naver.com" />
+		<property name="port" value="587" />
+		<property name="username" value="sinbumjun123@naver.com" />
+		<property name="password" value="9QHSNKLCZF9C" />
+		 보안연결 SSL과 관련된 설정 
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+			    <prop key="mail.smtp.starttls.enable">true</prop>
+			    <prop key="mail.smtps.checkserveridentity">true</prop>
+			    <prop key="mail.smtps.ssl.trust">*</prop>
+			    <prop key="mail.debug">true</prop>
+			    <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+			</props>
+		</property>
+	</bean>
+	-->
 
 </beans>

@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.lhs.service.EmailService;
 import com.lhs.service.MemberService;
 
 //import lombok.extern.slf4j.Slf4j;
@@ -21,6 +23,8 @@ public class MemberRestController {
 
 	@Autowired
 	MemberService mService;
+	@Autowired
+	EmailService eService;
 	
 	@Value("#{config['site.context.path']}")
 	String ctx;
@@ -43,6 +47,9 @@ public class MemberRestController {
 		cnt = mService.join(params);
 		map.put("cnt", cnt);
 		map.put("msg", cnt==1 ? "회원 가입 완료!":"회원 가입 실패!");
+		if(cnt== 1) {
+			eService.sendEmail(params);
+		}
 		map.put("nextPage", cnt==1 ? "/member/goLoginPage.do" : "/member/goRegisterPage.do");
 		return map;
 	}

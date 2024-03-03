@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,6 +22,8 @@ public class BoardServiceImpl implements BoardService{
 	@Autowired BoardDao bDao;
 	@Autowired AttFileDao attFileDao;
 	@Autowired FileUtil fileUtil;
+	@Value("#{config['project.file.upload.location']}")
+	private String saveLocation;
 	
 	
 	@Override
@@ -35,9 +38,39 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public int write(HashMap<String, Object> params, List<MultipartFile> mFiles) {	
-		//1. board DB에 글 정보등록 + hasFile 
-		int write = 0;
-		return write;
+		
+		HashMap<String, Object> map = new HashMap();
+		int result = bDao.write(params);
+		
+		for(MultipartFile mFile:mFiles) {
+			//to-do: smart.pdf --> (UUID).pdf
+			//to-do: s,art
+			String fakeName = UUID.randomUUID().toString().replaceAll("-", "");
+			
+			try {
+				fileUtil.copyFile(mFile, fakeName);
+				map.put("typeSeq", params.get("typeSeq"));
+				map.put("boardSeq", params.get("boardSeq"));
+				map.put("fileName", mFile.getOriginalFilename());
+				map.put("fakeFileName", fakeName);
+				map.put("fileSize", mFile.getSize());
+				map.put("fileType", mFile.getContentType());
+				map.put("saveLoc", saveLocation);
+				int outcome = attFileDao.addAttFile(map);
+			}
+			catch(IOException e) {
+				e.printStackTrace();
+			}
+			
+			System.out.println(mFile.getContentType());
+			System.out.println(mFile.getName());
+			System.out.println(mFile.getOriginalFilename());
+			System.out.println(mFile.getSize());
+			System.out.println("-----------------");
+		}
+		
+//		System.out.println("params 결과: "+params);
+		return 0;
 	}
 
 	//글 조회 

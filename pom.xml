@@ -16,7 +16,14 @@
 	</properties>
 
 	<dependencies>
-				<!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
+	
+		<dependency>
+		    <groupId>com.sun.activation</groupId>
+		    <artifactId>javax.activation</artifactId>
+		    <version>1.2.0</version>
+		</dependency>
+	
+		<!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
 		<dependency>
 		    <groupId>org.mariadb.jdbc</groupId>
 		    <artifactId>mariadb-java-client</artifactId>
@@ -57,11 +64,10 @@
 		<!-- /file upload library -->
 
 		<!-- 자바에서 메일 보내기 위한 dependency -->
-		<!-- https://mvnrepository.com/artifact/com.sun.mail/jakarta.mail -->
 		<dependency>
-			<groupId>com.sun.mail</groupId>
-			<artifactId>jakarta.mail</artifactId>
-			<version>1.6.7</version>
+		    <groupId>com.sun.mail</groupId>
+		    <artifactId>javax.mail</artifactId>
+		    <version>1.6.2</version> <!-- 최신 버전으로 확인하세요 -->
 		</dependency>
 
 		<!-- json library -->

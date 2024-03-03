@@ -2,6 +2,7 @@ package com.lhs.controller;
 
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,8 @@ public class BoardRestController {
 		if(!params.containsKey("typeSeq")) {
 			params.put("typeSeq", this.typeSeq);
 		}
-
+		
+		bService.write(params, mReq.getFiles("attFiles"));
 		return null;
 	}
 	
@@ -61,5 +63,14 @@ public class BoardRestController {
 			params.put("typeSeq", this.typeSeq);
 		}
 		return null;
-	} 
+	}
+	
+	@RequestMapping("/board/download.do")
+	public byte[] downloadFile(@RequestParam int fileIdx,
+			HttpServletResponse rep) {
+		//1. 받아온 파람의 파일 pk로 파일 전체 정보 불러온다
+		
+		//2. 받아온 정보를 터대로 물리적으로 저장된 실제 파일을 읽어온다.
+		
+	}
 }

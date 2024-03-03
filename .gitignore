@@ -124,4 +124,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# Configuration files
+config.properties
+
 # End of https://www.toptal.com/developers/gitignore/api/java,maven,windows,macos,visualstudiocode
