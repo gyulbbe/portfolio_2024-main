@@ -88,10 +88,10 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public int update(HashMap<String, Object> params, List<MultipartFile> mFiles) {
-		if(params.get("hasFile").equals("Y")) { // 첨부파일 존재시 			
-			// 파일 처리
-		}	
-		// 글 수정 dao 
+//		if(params.get("hasFile").equals("Y")) { // 첨부파일 존재시 			
+//			// 파일 처리
+//		}	
+//		// 글 수정 dao 
 		return bDao.update(params);
 	}
 

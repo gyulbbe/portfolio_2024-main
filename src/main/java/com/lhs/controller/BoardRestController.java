@@ -43,7 +43,16 @@ public class BoardRestController {
 		if(!params.containsKey("typeSeq")) {
 			params.put("typeSeq", this.typeSeq);
 		}
-		return null;
+		
+		int result = bService.update(params, null);
+		HashMap<String, Object> map = new HashMap<>();
+		//jsp에서 result를 이용해서 페이지 이동을 하는 함수가 있길래 넣어줌
+		map.put("result", result);
+		//jsp에 보낼 params
+		map.put("map", params);
+		//jsp에서 성공 시 뜨게 할 메시지 전달
+		map.put("msg", "수정 완료");
+		return map;
 	}
 
 	@RequestMapping("/board/delete.do")

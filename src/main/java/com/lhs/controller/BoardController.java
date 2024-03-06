@@ -73,7 +73,13 @@ public class BoardController {
 
 		if(!params.containsKey("typeSeq")) {
 			params.put("typeSeq", this.typeSeq);
-		}	
+		}
+		
+		//수정페이지에서 전에 썼던 제목이나 본문 글 등을 불러오기 위한 작업
+		HashMap<String, Object> map = bService.read(params);
+		mv.addObject("boardInfo", map);
+		
+		mv.setViewName("/board/update");
 		return mv;
 	}
 }

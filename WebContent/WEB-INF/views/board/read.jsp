@@ -120,7 +120,7 @@ $(document).ready(function(){
 							<div class="col-md-12 text-right">
 								<c:if test="${ true }">
 									<a
-										href="javascript:movePage('/board/goToUpdate.do?boardSeq=PK1')">
+										href="javascript:movePage('/board/goToUpdate.do?boardSeq=${read.board_seq}')">
 										<button type="button" class="btn btn-primary">
 											<i class="fa fa-pencil"></i> 수정
 										</button>

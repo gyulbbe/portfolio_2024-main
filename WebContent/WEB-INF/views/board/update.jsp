@@ -66,7 +66,7 @@
 			if(content.length < 0 ){
 				alert("내용을 입력하세요.");
 				_summernote.focus();
-				return;		
+				return;
 			}
 			$('#content').val(content);
 			
@@ -79,14 +79,14 @@ function customAjax(url, responseUrl) {
   var frm = document.updateForm;
   var formData = new FormData(frm);
      $.ajax({
-         url : url,
+         url : "<c:url value='/board/update.do'/>",
          data : formData,
          type : 'POST',
          dataType : "text",
          processData : false,
          contentType : false,
-         success : function (result, textStatus, XMLHttpRequest) {
-             var data = $.parseJSON(result);
+         success : function (map, textStatus, XMLHttpRequest) {
+             var data = $.parseJSON(map);
              
              console.log('data' + data);
              console.log('boardSeq' + data.boardSeq);
@@ -133,6 +133,7 @@ function deleteFile(fileIdx, boardSeq){
 							<form name="updateForm" class="validate" method="post" enctype="multipart/form-data" data-success="Sent! Thank you!" data-toastr-position="top-right">
 								<input type="hidden" name="memberId" value="${ sessionScope.memberId }"/>
 								<input type="hidden" name="memberIdx" value="${ sessionScope.memberIdx }"/>
+								<input type="hidden" name="memberNick" value="${ sessionScope.memberNick }"/>
 								<input type="hidden" name="typeSeq" value="${ boardInfo.type_seq}"/>
 								<input type="hidden" name="boardSeq" value="${ boardInfo.board_seq }"/>
 								<input type="hidden" name="hasFile" value="${ boardInfo.has_file }"/>
@@ -143,12 +144,12 @@ function deleteFile(fileIdx, boardSeq){
 									<div class="row">
 										<div class="col-md-8 col-sm-8">
 											<label>제목</label>
-											<input type="text" name="title" id="title" value="타이틀" class="form-control required">
+											<input type="text" name="title" id="title" value="${ boardInfo.title }" class="form-control required">
 										</div>
 										
 										<div class="col-md-4 col-sm-4">
 											<label>작성자</label>
-											<input type="text" id="memberNick" name="memberNick" value="작성자" 
+											<input type="text" id="memberNick" name="memberNick" value="${sessionScope.memberNick}" 
 											class="form-control" readonly="readonly">
 										</div>
 										
@@ -158,7 +159,7 @@ function deleteFile(fileIdx, boardSeq){
 										<div class="col-md-12 col-sm-12">
 											<label>내용</label>
 											<textarea class="summernote form-control" data-height="200" data-lang="en-US" name="content" id="content" rows="4">
-												내용내용내용내용내용내용내용
+												${ boardInfo.content }
 											</textarea>
 									
 										</div>
