@@ -8,7 +8,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface BoardService {
 
-	public ArrayList<HashMap<String, Object>> list(HashMap<String, String> params);
+	public ArrayList<HashMap<String, Object>> boardList(HashMap<String, String> params);
+	
+	public ArrayList<HashMap<String, Object>> noticeList(HashMap<String, String> params);
 	
 	public int getTotalArticleCnt(HashMap<String, String> params);
 	

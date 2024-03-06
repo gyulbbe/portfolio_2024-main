@@ -4,9 +4,20 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
 <mapper namespace="com.lhs.dao.BoardDao">
-	<!-- resultType은 반드시 있어야 함 -->
-	<select id="list" parameterType="HashMap" resultType="HashMap">
-	
+	<!-- 게시판 리스트 -->
+	<select id="boardList" parameterType="HashMap" resultType="HashMap">
+		select *
+		from S_gyulbbe.board
+		where type_seq = 2
+		limit 20;
+	</select>
+		
+	<!-- 공지사항 리스트 -->
+	<select id="noticeList" parameterType="HashMap" resultType="HashMap">
+		select *
+		from S_gyulbbe.board
+		where type_seq = 1
+		limit 20;
 	</select>
 		
 	<select id="getTotalArticleCnt" parameterType="HashMap" resultType="int">
@@ -29,8 +40,10 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	    )
 	</insert>
 	
-	<select id="read" parameterType="HashMap" resultType = "HashMap">
-	
+	<select id="read" parameterType="HashMap" resultType="HashMap">
+		select type_seq, board_seq, member_id, member_nick, title, content, has_file, hits, create_dtm, update_dtm
+		from S_gyulbbe.board
+		where board_seq = #{boardSeq};
 	</select>
 
 	<update id="updateHits" parameterType="HashMap" >
@@ -45,7 +58,8 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	 </update>
 	
 	<delete id="delete" parameterType="HashMap">
-		
+		delete from S_gyulbbe.board
+		where board_seq = #{boardSeq};
 	</delete>
 
 

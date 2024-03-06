@@ -9,7 +9,15 @@ public interface BoardDao {
 	 * @param typeSeq
 	 * @return
 	 */
-	public ArrayList<HashMap<String, Object>> list(HashMap<String, String> params);
+	public ArrayList<HashMap<String, Object>> boardList(HashMap<String, String> params);
+	
+	/**
+	 * 총 글 수 
+	 * @param params
+	 * @return
+	 */
+	
+	public ArrayList<HashMap<String, Object>> noticeList(HashMap<String, String> params);
 	
 	/**
 	 * 총 글 수 

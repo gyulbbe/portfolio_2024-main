@@ -32,7 +32,7 @@ public class BoardRestController {
 			params.put("typeSeq", this.typeSeq);
 		}
 		
-		bService.write(params, mReq.getFiles("attFiles"));
+//		bService.write(params, mReq.getFiles("attFiles"));
 		return null;
 	}
 	
@@ -43,7 +43,6 @@ public class BoardRestController {
 		if(!params.containsKey("typeSeq")) {
 			params.put("typeSeq", this.typeSeq);
 		}
-
 		return null;
 	}
 
@@ -53,7 +52,21 @@ public class BoardRestController {
 		if(!params.containsKey("typeSeq")) {
 			params.put("typeSeq", this.typeSeq);
 		}
-		return null; // 비동기: map return 
+		Object boardSeq = params.get("boardSeq");
+		System.out.println("111111111111111111boardSeq: " + boardSeq);
+		
+		int result = bService.delete(params);
+		HashMap<String, Object> map = new HashMap<>();
+		if(result ==1) {
+			map.put("success", true);
+			map.put("message", "삭제 완료");
+		}
+		else {
+			map.put("success", false);
+			map.put("message", "삭제 실패");
+		}
+		map.put("nextPage", "/board/list");
+		return map; // 비동기: map return 
 	}
 
 	@RequestMapping("/board/deleteAttFile.do")

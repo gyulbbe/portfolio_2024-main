@@ -1,5 +1,6 @@
 package com.lhs.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -24,12 +25,14 @@ public class BoardController {
 	private String typeSeq = "2";
 
 	@RequestMapping("/board/list.do")
-	public ModelAndView goLogin(@RequestParam HashMap<String, String> params){
-		ModelAndView mv = new ModelAndView();
-
-//		mv.addObject("nextPage", "/board/list");
-		mv.setViewName("/board/list");
-		return mv;
+	public HashMap<String, Object> goList(@RequestParam HashMap<String, String> params){
+		ArrayList<HashMap<String, Object>> boardList = bService.boardList(params);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("boardList", boardList);
+		
+		map.put("nextPage", "/board/list");
+		return map;
 	}
 
 	@RequestMapping("/test.do")
@@ -50,17 +53,18 @@ public class BoardController {
 		return mv;
 	}
 
-
 	@RequestMapping("/board/read.do")
 	public ModelAndView read(@RequestParam HashMap<String, Object> params) {
 		if(!params.containsKey("typeSeq")) {
 			params.put("typeSeq", this.typeSeq);
 		}
+		HashMap<String, Object> map = bService.read(params);
+		
 		ModelAndView mv = new ModelAndView();
+		mv.addObject("read", map);
 		mv.setViewName("/board/read");
 		return mv;
 	}	
-
 
 	//수정  페이지로 	
 	@RequestMapping("/board/goToUpdate.do")
@@ -69,9 +73,7 @@ public class BoardController {
 
 		if(!params.containsKey("typeSeq")) {
 			params.put("typeSeq", this.typeSeq);
-		}
-		
+		}	
 		return mv;
 	}
-
 }

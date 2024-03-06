@@ -27,8 +27,15 @@ public class BoardServiceImpl implements BoardService{
 	
 	
 	@Override
-	public ArrayList<HashMap<String, Object>> list(HashMap<String, String> params) {
-		return bDao.list(params);
+	public ArrayList<HashMap<String, Object>> boardList(HashMap<String, String> params) {
+		ArrayList<HashMap<String, Object>> boadList = bDao.boardList(params);
+		return boadList;
+	}
+	
+	@Override
+	public ArrayList<HashMap<String, Object>> noticeList(HashMap<String, String> params) {
+		ArrayList<HashMap<String, Object>> noticeList = bDao.noticeList(params);
+		return noticeList;
 	}
 
 	@Override
@@ -39,7 +46,7 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public int write(HashMap<String, Object> params, List<MultipartFile> mFiles) {	
 		
-		HashMap<String, Object> map = new HashMap();
+		HashMap<String, Object> map = new HashMap<>();
 		int result = bDao.write(params);
 		
 		for(MultipartFile mFile:mFiles) {
@@ -90,9 +97,9 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public int delete(HashMap<String, Object> params) {
-		if(params.get("hasFile").equals("Y")) { // 첨부파일 있으면 		
-			 // 파일 처리
-		}
+//		if(params.get("hasFile").equals("Y")) { // 첨부파일 있으면 		
+//			 // 파일 처리
+//		}
 		return bDao.delete(params);
 	}
 

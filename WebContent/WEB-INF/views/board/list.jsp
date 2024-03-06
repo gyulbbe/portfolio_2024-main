@@ -19,7 +19,7 @@
 					<col width="8%" />
 					<col width="15%" />
 				</colgroup>
-				
+
 				<thead>
 					<tr>
 						<th class="fw-30" align="center">&emsp;&emsp;&emsp;#</th>
@@ -31,41 +31,44 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td align="center">글번호</td>
-						<td>
-							<span class="bold">
-								<a href="javascript:movePage('/board/read.do?boardSeq=boardSeq&currentPage=currentPage')">
-									title
-								</a>
-							</span>
-                          </td>
-                          <td>memberNick</td>
-                          <td>hits</td>
-                          <td>hasFile</td>
-                          <td>createDate</td>
-                      </tr> 
+					<c:forEach var="board" items="${boardList}">
+						<tr>
+							<td align="center">${board.board_seq}</td>
+							<td><span class="bold"> <a
+									href="javascript:movePage('/board/read.do?boardSeq=${board.board_seq}&currentPage=currentPage')">
+										${board.title} </a>
+							</span></td>
+							<td>${board.member_nick}</td>
+							<td>${board.hits}</td>
+							<td>${board.has_file}</td>
+							<td>${board.create_date}</td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 		</div>
 		<div class="row text-center">
-		    <div class="col-md-12">
-			    <ul class="pagination pagination-simple pagination-sm">
-			    	<!-- 페이징 -->
-				    <li class="page-item">
-			        	<a class="page-link" href="javascript:movePage('/board/list.do?page=1')">&laquo;</a>
-			        </li>
-			        <li class="page-item"><a class="page-link">1</a></li>
-			        <li class="page-item active"><a class="page-link" href="javascript:movePage('/board/list.do?page=2')">2</a></li>
-			        <li class="page-item"><a class="page-link" href="javascript:movePage('/board/list.do?page=3')">3</a></li>
-			        <li class="page-item"><a class="page-link" href="javascript:movePage('/board/list.do?page=4')">4</a></li>
-			        <li class="page-item"><a class="page-link" href="javascript:movePage('/board/list.do?page=5')">5</a></li>
-			        <li class="page-item"><a class="page-link" href="javascript:movePage('/board/list.do?page=6')">6</a></li>
-			        <li class="page-item">
-			        	<a class="page-link" href="javascript:movePage('/board/list.do?page=99')">&raquo;</a></li>
-			        </li>
-			    </ul>
-		    </div>
+			<div class="col-md-12">
+				<ul class="pagination pagination-simple pagination-sm">
+					<!-- 페이징 -->
+					<li class="page-item"><a class="page-link"
+						href="javascript:movePage('/board/list.do?page=1')">&laquo;</a></li>
+					<li class="page-item"><a class="page-link">1</a></li>
+					<li class="page-item active"><a class="page-link"
+						href="javascript:movePage('/board/list.do?page=2')">2</a></li>
+					<li class="page-item"><a class="page-link"
+						href="javascript:movePage('/board/list.do?page=3')">3</a></li>
+					<li class="page-item"><a class="page-link"
+						href="javascript:movePage('/board/list.do?page=4')">4</a></li>
+					<li class="page-item"><a class="page-link"
+						href="javascript:movePage('/board/list.do?page=5')">5</a></li>
+					<li class="page-item"><a class="page-link"
+						href="javascript:movePage('/board/list.do?page=6')">6</a></li>
+					<li class="page-item"><a class="page-link"
+						href="javascript:movePage('/board/list.do?page=99')">&raquo;</a></li>
+					</li>
+				</ul>
+			</div>
 		</div>
 		<div class="row">
 		    <div class="col-md-12 text-right">			   

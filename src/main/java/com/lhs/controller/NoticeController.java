@@ -30,10 +30,11 @@ public class NoticeController {
 	@RequestMapping("/notice/list.do")
 	public ModelAndView goLogin(@RequestParam HashMap<String, String> params){
 		ModelAndView mv = new ModelAndView();
-//		if(!params.containsKey("typeSeq")) {
-//			params.put("typeSeq", this.typeSeq);
-//		}
-		mv.setViewName("notice/list");
+		if(!params.containsKey("typeSeq")) {
+			params.put("typeSeq", this.typeSeq);
+		}
+		mv.addObject("noticeList", bService.noticeList(params));
+		mv.setViewName("/notice/list");
 
 		return mv;
 	}
