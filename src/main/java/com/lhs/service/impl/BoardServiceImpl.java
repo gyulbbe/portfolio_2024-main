@@ -25,9 +25,9 @@ public class BoardServiceImpl implements BoardService{
 	@Value("#{config['project.file.upload.location']}")
 	private String saveLocation;
 	
-	
+	//한 페이지에 보여줄 목록
 	@Override
-	public ArrayList<HashMap<String, Object>> boardList(HashMap<String, String> params) {
+	public ArrayList<HashMap<String, Object>> boardList(HashMap<String, Object> params) {
 		ArrayList<HashMap<String, Object>> boadList = bDao.boardList(params);
 		return boadList;
 	}
@@ -39,8 +39,8 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public int getTotalArticleCnt(HashMap<String, String> params) {
-		return bDao.getTotalArticleCnt(params);
+	public int getTotalArticleCnt() {
+		return bDao.getTotalArticleCnt();
 	}
 
 	@Override

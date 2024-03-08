@@ -12,18 +12,6 @@ public class BoardDto {
 	private String createDtm;
 	private String updateDtm;
 	
-	public BoardDto(int type_seq, String memberId, String memberNick, String title, String content, String hasFile,
-			int hits, String createDtm, String updateDtm) {
-		this.type_seq = type_seq;
-		this.memberId = memberId;
-		this.memberNick = memberNick;
-		this.title = title;
-		this.content = content;
-		this.hasFile = hasFile;
-		this.hits = hits;
-		this.createDtm = createDtm;
-		this.updateDtm = updateDtm;
-	}
 	public int getType_seq() {
 		return type_seq;
 	}

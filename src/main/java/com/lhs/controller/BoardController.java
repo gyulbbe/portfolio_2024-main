@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.lhs.service.AttFileService;
 import com.lhs.service.BoardService;
 import com.lhs.util.FileUtil;
+import com.lhs.util.PageHandler;
 
 @Controller
 public class BoardController {
@@ -24,12 +25,39 @@ public class BoardController {
 
 	private String typeSeq = "2";
 
+	//보드 리스트로
 	@RequestMapping("/board/list.do")
-	public HashMap<String, Object> goList(@RequestParam HashMap<String, String> params){
-		ArrayList<HashMap<String, Object>> boardList = bService.boardList(params);
-		HashMap<String, Object> map = new HashMap<String, Object>();
+	public HashMap<String, Object> goList(@RequestParam HashMap<String, Object> params,
+			@RequestParam(value = "page", defaultValue = "1") int currentPage){
+
+		PageHandler ph = new PageHandler();
+		//총 게시물 수
+		int total = bService.getTotalArticleCnt();
+		//현재 페이지
+		//currentPage
+
+		//페이징
+		ph.doPaging(currentPage, total);
 		
+		ArrayList<HashMap<String, Object>> boardList = new ArrayList<HashMap<String, Object>>();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		//db로 params에 offset까지 담아서 보내기 위한 작업
+		int offset = ph.getOffset();
+		params.put("offset", offset);
+		
+		//화면에 뿌려줄 데이터
+		boardList = bService.boardList(params);
+		
+		//boardList라는 이름에 boardList데이터들 담기
 		map.put("boardList", boardList);
+		
+		//현재 페이지
+		currentPage = ph.getCurrentPage();
+		map.put("currentPage", currentPage);
+		
+		//마지막(총) 페이지
+		int totalPage = ph.getTotalPage();
+		map.put("totalPage", totalPage);
 		
 		map.put("nextPage", "/board/list");
 		return map;
@@ -65,8 +93,8 @@ public class BoardController {
 		mv.setViewName("/board/read");
 		return mv;
 	}	
-
-	//수정  페이지로 	
+	
+	//수정 페이지로 	
 	@RequestMapping("/board/goToUpdate.do")
 	public ModelAndView goToUpdate(@RequestParam HashMap<String, Object> params, HttpSession session) {
 		ModelAndView mv = new ModelAndView();

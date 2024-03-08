@@ -3,20 +3,25 @@ package com.lhs.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 public interface BoardDao {
+	
+	
 	/**
 	 * 모든 리스트 select  
 	 * @param typeSeq
 	 * @return
 	 */
-	public ArrayList<HashMap<String, Object>> boardList(HashMap<String, String> params);
+	public ArrayList<HashMap<String, Object>> boardList(HashMap<String, Object> params);
 	
 	/**
-	 * 총 글 수 
-	 * @param params
+	 * 모든 공지 리스트 select  
+	 * @param typeSeq
 	 * @return
 	 */
-	
+	 
 	public ArrayList<HashMap<String, Object>> noticeList(HashMap<String, String> params);
 	
 	/**
@@ -25,7 +30,7 @@ public interface BoardDao {
 	 * @return
 	 */
 	
-	public int getTotalArticleCnt(HashMap<String, String> params);
+	public int getTotalArticleCnt();
 	
 	/**
 	 * 글 작성 insert 
@@ -66,6 +71,7 @@ public interface BoardDao {
 	 * @return
 	 */
 	public int delete(HashMap<String, Object> params);
+
 	
 	
 }

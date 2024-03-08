@@ -8,11 +8,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface BoardService {
 
-	public ArrayList<HashMap<String, Object>> boardList(HashMap<String, String> params);
+	public ArrayList<HashMap<String, Object>> boardList(HashMap<String, Object> params);
 	
 	public ArrayList<HashMap<String, Object>> noticeList(HashMap<String, String> params);
 	
-	public int getTotalArticleCnt(HashMap<String, String> params);
+	public int getTotalArticleCnt();
 	
 	public int write(HashMap<String, Object> params, List<MultipartFile> mFiles);
 
@@ -39,6 +39,5 @@ public interface BoardService {
 	 * @return
 	 */
 	public int delete(HashMap<String, Object> params);
-	
 
 }
