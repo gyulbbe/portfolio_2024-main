@@ -51,18 +51,28 @@
 		<div class="row text-center">
 			<div class="col-md-12">
 				<ul class="pagination pagination-simple pagination-sm">
-					<!-- 페이징 -->
+					<!-- 1 페이지 -->
 					<li class="page-item"><a class="page-link"
 						href="javascript:movePage('/board/list.do?page=1')">&laquo;</a></li>
-
-					<c:forEach begin="1" end="${totalPage}" var="page">
-						<li class="${page == currentPage ? 'page-item active' : ''}"><a class="page-link"
+					<!-- 이전 페이지 -->
+					<c:if test="${beginPage != 1}">
+						<li class="page-item"><a class="page-link"
+							href="javascript:movePage('/board/list.do?page=${beginPage-1}')">&lt;</a></li>
+					</c:if>
+					<!-- 페이징 -->
+					<c:forEach begin="${beginPage}" end="${endPage}" var="page">
+						<li class="${page == currentPage ? 'page-item active' : ''}"><a
+							class="page-link"
 							href="javascript:movePage('/board/list.do?page=${page}')">${page}</a></li>
 					</c:forEach>
-
+					<!-- 다음 페이지 -->
+					<c:if test="${endPage != totalPage}">
+						<li class="page-item"><a class="page-link"
+							href="javascript:movePage('/board/list.do?page=${endPage+1}')">&gt;</a></li>
+					</c:if>
+					<!-- 맨 마지막 페이지 -->
 					<li class="page-item"><a class="page-link"
 						href="javascript:movePage('/board/list.do?page=${totalPage}')">&raquo;</a></li>
-					</li>
 				</ul>
 			</div>
 		</div>

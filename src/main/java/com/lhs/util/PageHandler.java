@@ -16,8 +16,8 @@ public class PageHandler {
 		this.total = total;
 		this.totalPage = totalPage();
 		this.offset = calculateOffset(currentPage);
-		this.endPage = endPage(currentPage);
 		this.beginPage = beginPage(currentPage);
+		this.endPage = endPage(currentPage);
 	}
 	
 	//총 페이지 수 = (총 게시물/페이지 크기)올림
@@ -30,20 +30,14 @@ public class PageHandler {
         return (currentPage - 1) * pageSize;
     }
 	
-//	끝 페이지 = 현재페이지(10의자리 올림)
-//	if(끝 페이지>총 페이지){
-//		끝 페이지 = 총 페이지
-//		}
+	//끝 페이지
 	public int endPage(int currentPage) {
-		if(endPage>totalPage) {
-			return totalPage;
-		}
-		return (int) Math.ceil(currentPage)*10;
-    }
+		return Math.min(beginPage + naviSize - 1, totalPage);
+	}
 	
 	//시작 페이지 = 현재페이지(10의자리 내림) +1
 	public int beginPage(int currentPage) {
-		return (int) Math.floor(currentPage/10)*10+1;
+		return ((currentPage-1)/naviSize)*naviSize+1;
     }
 	
 	public int getPageSize() {

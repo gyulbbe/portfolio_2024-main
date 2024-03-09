@@ -19,8 +19,8 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		select *
 		from S_gyulbbe.board
 		where type_seq = 1
-		order by notice_seq desc
-		limit 10;
+		order by board_seq desc
+		limit 10
 	</select>
 		
 	<!-- 게시판 갯수 -->

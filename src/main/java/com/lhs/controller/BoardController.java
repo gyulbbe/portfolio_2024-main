@@ -33,9 +33,7 @@ public class BoardController {
 		PageHandler ph = new PageHandler();
 		//총 게시물 수
 		int total = bService.getTotalArticleCnt();
-		//현재 페이지
-		//currentPage
-
+		
 		//페이징
 		ph.doPaging(currentPage, total);
 		
@@ -58,6 +56,14 @@ public class BoardController {
 		//마지막(총) 페이지
 		int totalPage = ph.getTotalPage();
 		map.put("totalPage", totalPage);
+		
+		//현재 줄 첫 페이지
+		int beginPage = ph.getBeginPage();
+		map.put("beginPage", beginPage);
+		
+		//현재 줄 마지막 페이지
+		int endPage = ph.getEndPage();
+		map.put("endPage", endPage);
 		
 		map.put("nextPage", "/board/list");
 		return map;
