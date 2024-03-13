@@ -17,6 +17,13 @@
 
 	<dependencies>
 	
+			<!-- https://mvnrepository.com/artifact/org.apache.tomcat.maven/tomcat7-maven-plugin -->
+		<dependency>
+		    <groupId>org.apache.tomcat.maven</groupId>
+		    <artifactId>tomcat7-maven-plugin</artifactId>
+		    <version>2.2</version>
+		</dependency>
+	
 		<dependency>
 		    <groupId>com.sun.activation</groupId>
 		    <artifactId>javax.activation</artifactId>
@@ -261,7 +268,7 @@
 
 	<build>
 				<!-- WAR 파일 명 -->
-		<finalName>ROOT</finalName>
+		<finalName>hg</finalName>
 
 		<resources>
 			<resource>
@@ -276,6 +283,21 @@
 		</resources>
 
 		<plugins>
+			<!-- 배포 -->
+<plugin>
+    <groupId>org.apache.tomcat.maven</groupId>
+    <artifactId>tomcat7-maven-plugin</artifactId>
+    <version>2.2</version>
+    <configuration>
+        <url>ec2-43-201-67-166.ap-northeast-2.compute.amazonaws.com:8080/manager/text</url>
+        <server>TomcatServer</server>
+        <path>/${project.build.finalName}</path>
+        <username>admin</username>
+        <password>admin</password>
+				<charset>UTF-8</charset>
+				<uriEncoding>UTF-8</uriEncoding>
+    </configuration>
+</plugin>
 			<!-- 리소스를 시스템 환경에 맞게 구분해주는 플러그인 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

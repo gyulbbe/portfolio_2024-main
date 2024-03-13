@@ -4,69 +4,122 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
 <mapper namespace="com.lhs.dao.BoardDao">
-
-	<!-- 게시판 리스트 -->
-	<select id="boardList" parameterType="HashMap" resultType="HashMap">
+	<!-- 닉네임 검색
+	매개 변수는 @Param사용 -->
+	<select id="searchNick" resultType="java.util.HashMap">
 		select *
 		from S_gyulbbe.board
-		where type_seq = 2
+		where member_nick LIKE
+		CONCAT('%', #{memberNick}, '%')
+		and type_seq = 2
 		order by board_seq desc
 		limit 10 offset #{offset}
 	</select>
-		
+
+	<!-- 닉네임 검색 총 게시물 -->
+	<select id="getTotalArticleCntNick" parameterType="String" resultType="int">
+		select count(*)
+		from
+		S_gyulbbe.board
+		where member_nick like
+		concat('%', #{memberNick}, '%')
+		and type_seq = 2
+	</select>
+
+	<!-- 제목 검색
+	매개 변수는 @Param사용 -->
+	<select id="searchTitle" resultType="java.util.HashMap">
+		select *
+		from S_gyulbbe.board
+		where title LIKE CONCAT('%',
+		#{title}, '%')
+		and type_seq = 2
+		order by board_seq desc
+		limit 10 offset
+		#{offset}
+	</select>
+
+	<!-- 제목 검색 총 게시물 -->
+	<select id="getTotalArticleCntTitle" parameterType="String" resultType="int">
+		select count(*)
+		from
+		S_gyulbbe.board
+		where title like concat('%', #{title}, '%')
+		and type_seq = 2
+	</select>
+
+	<!-- 게시판 리스트 -->
+	<select id="boardList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select *
+		from S_gyulbbe.board
+		where type_seq = 2
+		order by
+		board_seq desc
+		limit 10 offset #{offset}
+	</select>
+
 	<!-- 공지사항 리스트 -->
-	<select id="noticeList" parameterType="HashMap" resultType="HashMap">
+	<select id="noticeList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
 		select *
 		from S_gyulbbe.board
 		where type_seq = 1
-		order by board_seq desc
+		order by
+		board_seq desc
 		limit 10
 	</select>
-		
+
 	<!-- 게시판 갯수 -->
 	<select id="getTotalArticleCnt" resultType="int">
 		select count(*)
-		from S_gyulbbe.board
+		from
+		S_gyulbbe.board
 		where type_seq = 2;
 	</select>
-	
-	<insert id ="write" parameterType="HashMap" useGeneratedKeys="true" keyProperty="boardSeq" >
-	    INSERT INTO S_gyulbbe.board
-	    (type_seq, member_id, member_nick, title, content, has_file, hits, create_dtm, update_dtm)
-	    VALUES(
-	    	#{typeSeq},
-	        #{memberId},  
-	        #{memberNick}, 
-	        #{title},
-	        #{content}, 
-	        #{hasFile}, 
-	        0, 
-	        DATE_FORMAT(NOW(), '%Y%m%d%H%i%s'),
-	        DATE_FORMAT(NOW(), '%Y%m%d%H%i%s')
-	    )
+
+	<insert id="write" parameterType="java.util.HashMap"
+		useGeneratedKeys="true" keyProperty="boardSeq">
+		INSERT INTO S_gyulbbe.board
+		(type_seq, member_id, member_nick, title, content, has_file, hits,
+		create_dtm,
+		update_dtm)
+		VALUES(
+		#{typeSeq},
+		#{memberId},
+		#{memberNick},
+		#{title},
+		#{content},
+		#{hasFile},
+		0,
+		DATE_FORMAT(NOW(), '%Y%m%d%H%i%s'),
+		DATE_FORMAT(NOW(), '%Y%m%d%H%i%s')
+		)
 	</insert>
-	
-	<select id="read" parameterType="HashMap" resultType="HashMap">
-		select type_seq, board_seq, member_id, member_nick, title, content, has_file, hits, create_dtm, update_dtm
+
+	<select id="read" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select
+		type_seq, board_seq, member_id, member_nick, title, content, has_file,
+		hits, create_dtm, update_dtm
 		from S_gyulbbe.board
-		where board_seq = #{boardSeq};
+		where board_seq =
+		#{boardSeq};
 	</select>
 
-	<update id="updateHits" parameterType="HashMap" >
+	<update id="updateHits" parameterType="java.util.HashMap">
 	</update>
 
-	<update id="update" parameterType="HashMap">
+	<update id="update" parameterType="java.util.HashMap">
 		update S_gyulbbe.board
-		set content = #{content}, title = #{title}
+		set
+		content = #{content}, title = #{title}
 		where board_seq = #{boardSeq};
 	</update>
-	
-	<update id="updateHasFileToZero" parameterType="HashMap" >
-	 	 
-	 	 
-	 </update>
-	
-	<delete id="delete" parameterType="HashMap">
+
+	<update id="updateHasFileToZero" parameterType="java.util.HashMap">
+
+
+	</update>
+
+	<delete id="delete" parameterType="java.util.HashMap">
 		delete from S_gyulbbe.board
 		where board_seq = #{boardSeq};
 	</delete>

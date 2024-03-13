@@ -22,7 +22,7 @@
 
 				<thead>
 					<tr>
-						<th class="fw-30" align="center">&emsp;&emsp;&emsp;#</th>
+						<th class="fw-30" align="center">&emsp;&emsp;&emsp;글 번호</th>
 						<th align="center">제목</th>
 						<th align="center">글쓴이</th>
 						<th align="center">조회수</th>

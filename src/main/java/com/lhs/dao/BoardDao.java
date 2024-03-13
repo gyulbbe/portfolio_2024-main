@@ -3,17 +3,27 @@ package com.lhs.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BoardDao {
 	
+	//닉네임 검색
+	public ArrayList<HashMap<String, Object>> searchNick(@Param("memberNick") String memberNick,@Param("offset") int offset);
+	//닉네임 검색 총 게시물
+	public int getTotalArticleCntNick(String memberNick);
+	//제목 검색
+	public ArrayList<HashMap<String, Object>> searchTitle(@Param("title") String title, @Param("offset") int offset);
+	//제목 검색 총 게시물
+	public int getTotalArticleCntTitle(String title);
 	
 	/**
 	 * 모든 리스트 select  
 	 * @param typeSeq
 	 * @return
 	 */
+	
 	public ArrayList<HashMap<String, Object>> boardList(HashMap<String, Object> params);
 	
 	/**

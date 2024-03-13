@@ -25,6 +25,31 @@ public class BoardServiceImpl implements BoardService{
 	@Value("#{config['project.file.upload.location']}")
 	private String saveLocation;
 	
+	//닉네임 검색
+	@Override
+	public ArrayList<HashMap<String, Object>> searchNick(String memberNick, int offset){
+		return bDao.searchNick(memberNick, offset);
+	}
+	
+	//닉네임 검색 총 게시물 수
+	@Override
+	public int getTotalArticleCntNick(String memberNick){
+		return bDao.getTotalArticleCntNick(memberNick);
+	}
+	
+	//제목 검색
+	@Override
+	public ArrayList<HashMap<String, Object>> searchTitle(String title, int offset){
+
+		return bDao.searchTitle(title, offset);
+	}
+	
+	//제목 검색 총 게시물 수
+	@Override
+	public int getTotalArticleCntTitle(String title){
+		return bDao.getTotalArticleCntTitle(title);
+	}
+	
 	//한 페이지에 보여줄 목록
 	@Override
 	public ArrayList<HashMap<String, Object>> boardList(HashMap<String, Object> params) {

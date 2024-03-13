@@ -32,15 +32,12 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int join(HashMap<String, String> params) {
 		
-
 		//비밀번호 길이가 6보다 작으면 안됨
 		int pwLength = params.get("memberPw").length();
 		if(pwLength<6) {
 			return 0;
 		}
 
-		
-		System.out.println("회원가입이 왜 안될까2");
 		//비밀번호와 비밀번호 확인이 같아야 함
 		String firstPw = params.get("memberPw");
 		String againPw = params.get("pwAgain");

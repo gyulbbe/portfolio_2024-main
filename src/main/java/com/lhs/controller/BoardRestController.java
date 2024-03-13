@@ -1,11 +1,11 @@
 package com.lhs.controller;
 
-import java.util.HashMap;
 
-import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,15 +15,18 @@ import com.lhs.service.AttFileService;
 import com.lhs.service.BoardService;
 import com.lhs.util.FileUtil;
 
+
 @RestController
 public class BoardRestController {
-	
+
 	@Autowired BoardService bService;
 	@Autowired AttFileService attFileService;
 	@Autowired FileUtil fileUtil;
 
 	private String typeSeq = "2";
+
 	
+
 	@RequestMapping("/board/write.do")
 	public HashMap<String, Object> write(
 			@RequestParam HashMap<String, Object> params, 
@@ -31,11 +34,11 @@ public class BoardRestController {
 		if(!params.containsKey("typeSeq")) {
 			params.put("typeSeq", this.typeSeq);
 		}
-		
-//		bService.write(params, mReq.getFiles("attFiles"));
+
+		//		bService.write(params, mReq.getFiles("attFiles"));
 		return null;
 	}
-	
+
 	@RequestMapping("/board/update.do")// !!!!!!!!!!!! 비동기 응답 
 	public HashMap<String, Object> update(@RequestParam HashMap<String,Object> params, 
 			MultipartHttpServletRequest mReq) {
@@ -43,7 +46,7 @@ public class BoardRestController {
 		if(!params.containsKey("typeSeq")) {
 			params.put("typeSeq", this.typeSeq);
 		}
-		
+
 		int result = bService.update(params, null);
 		HashMap<String, Object> map = new HashMap<>();
 		//jsp에서 result를 이용해서 페이지 이동을 하는 함수가 있길래 넣어줌
@@ -61,9 +64,7 @@ public class BoardRestController {
 		if(!params.containsKey("typeSeq")) {
 			params.put("typeSeq", this.typeSeq);
 		}
-		Object boardSeq = params.get("boardSeq");
-		System.out.println("111111111111111111boardSeq: " + boardSeq);
-		
+
 		int result = bService.delete(params);
 		HashMap<String, Object> map = new HashMap<>();
 		if(result ==1) {
@@ -78,6 +79,8 @@ public class BoardRestController {
 		return map; // 비동기: map return 
 	}
 
+
+
 	@RequestMapping("/board/deleteAttFile.do")
 	public HashMap<String, Object> deleteAttFile(@RequestParam HashMap<String, Object> params) {
 
@@ -86,13 +89,13 @@ public class BoardRestController {
 		}
 		return null;
 	}
-	
-	@RequestMapping("/board/download.do")
-	public byte[] downloadFile(@RequestParam int fileIdx,
-			HttpServletResponse rep) {
-		//1. 받아온 파람의 파일 pk로 파일 전체 정보 불러온다
-		
-		//2. 받아온 정보를 토대로 물리적으로 저장된 실제 파일을 읽어온다.
-		
-	}
+
+	//	@RequestMapping("/board/download.do")
+	//	public byte[] downloadFile(@RequestParam int fileIdx,
+	//			HttpServletResponse rep) {
+	//		//1. 받아온 파람의 파일 pk로 파일 전체 정보 불러온다
+	//		
+	//		//2. 받아온 정보를 토대로 물리적으로 저장된 실제 파일을 읽어온다.
+	//		
+	//	}
 }

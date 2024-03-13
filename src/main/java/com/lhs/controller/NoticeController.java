@@ -101,8 +101,7 @@ public class NoticeController {
 			//해당 글 정보 받기 위해 read 
 			HashMap<String, Object> boardInfo = bService.read(params);
 			mv.addObject("boardInfo" , boardInfo);
-			System.out.println("fuuuuuuuuuck");
-			System.out.println(boardInfo);
+			
 			if(boardInfo.get("has_file").equals("Y")) {//첨부파일 존재하면 
 				List<HashMap<String, Object>> fileInfos = attFileService.readAttFiles(params); 
 				mv.addObject("attFiles", fileInfos);
