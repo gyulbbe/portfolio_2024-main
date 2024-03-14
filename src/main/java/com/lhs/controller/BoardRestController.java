@@ -88,7 +88,6 @@ public class BoardRestController {
 			map.put("nextPage", "/member/login");
 			return map;
 		}
-
 		//게시판 아이디
 		String articleMemberId = (String) params.get("memberId");
 		//세션 아이디와 로그인 아이디가 일치한다면
