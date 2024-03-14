@@ -124,6 +124,7 @@ public class BoardRestController {
 		}
 		return null;
 	}
+	
 	//	@RequestMapping("/board/download.do")
 	//	public byte[] downloadFile(@RequestParam int fileIdx,
 	//			HttpServletResponse rep) {
