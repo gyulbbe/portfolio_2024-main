@@ -95,12 +95,13 @@ public class BoardRestController {
 			if(!params.containsKey("typeSeq")) {
 				params.put("typeSeq", this.typeSeq);
 			}
+			
 			int result = bService.delete(params);
+			
 			if(result ==1) {
 				map.put("success", true);
 				map.put("message", "삭제 완료");
-			}
-			else {
+			} else {
 				map.put("success", false);
 				map.put("message", "삭제 실패");
 			}
