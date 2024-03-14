@@ -22,7 +22,9 @@ public interface BoardService {
 	
 	public int getTotalArticleCnt();
 	
-	public int write(HashMap<String, Object> params, List<MultipartFile> mFiles);
+	public int writeWithFile(HashMap<String, Object> params, List<MultipartFile> mFiles);
+	
+	public int write(HashMap<String, Object> params);
 
 	/**
 	 * 글 조회  
@@ -47,8 +49,5 @@ public interface BoardService {
 	 * @return
 	 */
 	public int delete(HashMap<String, Object> params);
-
-
-	
 
 }

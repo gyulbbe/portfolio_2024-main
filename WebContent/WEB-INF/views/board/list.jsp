@@ -5,19 +5,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- chatgpt를 통해 가져온 코드 -->
 <script type="text/javascript">
 	function search() {
 		// 폼에서 검색 유형과 키워드를 가져옵니다.
 		var searchType = document.getElementById('searchType').value;
 		var keyword = document.querySelector('input[name="keyword"]').value;
 
-		// movePage 함수를 사용하여 서버에 검색 조건과 함께 AJAX 요청을 합니다.
+		// movePage 함수를 사용하여 서버에 검색 조건과 함께 AJAX 요청
 		movePage('/board/list.do', {
 			searchType : searchType,
 			keyword : keyword
 		});
 
-		// 폼의 기본 제출 동작을 방지합니다.
+		// 자동 제출 방지
 		return false;
 	}
 </script>
@@ -97,18 +98,16 @@
 				<form action="<c:url value='/board/list.do'/>" method="get" onsubmit="return search();">
 					<div class="input-group input-group-sm mb-3">
 						<!-- 드롭다운 메뉴 -->
-						<select class="custom-select custom-select-sm" id="searchType"
-							name="searchType">
+						<select class="custom-select custom-select-sm" id="searchType" name="searchType">
 							<option value="memberNick">닉네임</option>
 							<option value="title">제목</option>
 						</select>
 						<!-- 검색창 -->
 						<input type="text" class="form-control form-control-sm"
-							placeholder="검색어를 입력하세요" name="keyword" style="flex: 1;" required>
+							placeholder="검색어를 입력하세요" name="keyword" style="flex: auto;" required>
 						<!-- 검색 버튼 -->
 						<div class="input-group-append">
-							<button class="btn btn-outline-secondary btn-sm" type="submit"
-								onclick="search()">검색</button>
+							<button class="btn btn-primary" type="submit" onclick="search()">검색</button>
 						</div>
 					</div>
 				</form>

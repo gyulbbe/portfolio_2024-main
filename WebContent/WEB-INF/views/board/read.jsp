@@ -10,46 +10,45 @@
 <script src="<c:url value='/resources/js/scripts.js'/>"></script>
 
 <script type="text/javascript">
-$(document).ready(function(){    
-    
-    $('#btnUpdate').on('click', function(){
-        var frm = document.readForm;
-        var formData = new FormData(frm);
-        // code here
-    });
-    
-    $('#btnDelete').on('click', function(){    
-    	var formData = new FormData(document.readForm);
-        if(confirm("삭제하시겠습니까?")){
-        	
-            $.ajax({
-                url: "<c:url value='/board/delete.do'/>", // 요청을 보낼 서버의 URL
-                
-                type: 'POST', // HTTP 요청 방식
+	$(document).ready(function() {
 
-                data: formData, // 서버로 보낼 데이터
-                
-                processData: false, 
-                contentType: false, 
+		$('#btnUpdate').on('click', function() {
 
-                success: function(map) {
-                	if(map.success) {
-                        alert(map.message);
-                        window.location.reload();
-                    } else {
-                        alert(map.message);
-                    }
-                },
-                error: function(xhr, status, error) {
-                    // 실패 시
-                    alert('삭제 실패 중 오류');
-                    // 새로고침
-                    window.location.reload();
-                }
-            });
-        }
-    });
-});
+			var frm = document.readForm;
+			var formData = new FormData(frm);
+
+		$('#btnDelete').on('click', function() {
+			var formData = new FormData(document.readForm);
+			if (confirm("삭제하시겠습니까?")) {
+
+				$.ajax({
+					url : "<c:url value='/board/delete.do'/>", // 요청을 보낼 서버의 URL
+
+					type : 'POST', // HTTP 요청 방식
+
+					data : formData, // 서버로 보낼 데이터
+
+					processData : false,
+					contentType : false,
+
+					success : function(map) {
+						if (map.success) {
+							alert(map.message);
+							window.location.reload();
+						} else {
+							alert(map.message);
+						}
+					},
+					error : function(xhr, status, error) {
+						// 실패 시
+						alert('삭제 실패 중 오류');
+						// 새로고침
+						window.location.reload();
+					}
+				});
+			}
+		});
+	});
 </script>
 
 </head>
@@ -63,7 +62,9 @@ $(document).ready(function(){
 					enctype="multipart/form-data" data-success="Sent! Thank you!"
 					data-toastr-position="top-right">
 					<input type="hidden" name="boardSeq" value="${read.board_seq}" />
-					<input type="hidden" name="typeSeq" value="${read.type_seq}" />
+					<input type="hidden" name="typeSeq" value="${read.type_seq}" /> <input
+						type="hidden" name="memberId" value="${read.member_id}" /> <input
+						type="hidden" name="memberNick" value="${read.member_nick}" />
 				</form>
 				<!-- post -->
 				<div class="clearfix mb-80">
@@ -125,8 +126,7 @@ $(document).ready(function(){
 											<i class="fa fa-pencil"></i> 수정
 										</button>
 									</a>
-									<button type="button" class="btn btn-primary" id="btnDelete">
-										삭제</button>
+									<button type="button" class="btn btn-primary" id="btnDelete">삭제</button>
 								</c:if>
 
 								<c:choose>

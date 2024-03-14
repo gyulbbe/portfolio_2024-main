@@ -68,11 +68,18 @@ public class BoardServiceImpl implements BoardService{
 		return bDao.getTotalArticleCnt();
 	}
 
+	//글만 작성
 	@Override
-	public int write(HashMap<String, Object> params, List<MultipartFile> mFiles) {	
+	public int write(HashMap<String, Object> params) {
+		return bDao.write(params);
+	}
+	
+	//파일있는 글 작성
+	@Override
+	public int writeWithFile(HashMap<String, Object> params, List<MultipartFile> mFiles) {	
 		
 		HashMap<String, Object> map = new HashMap<>();
-		int result = bDao.write(params);
+		int result = bDao.writeWithFile(params);
 		
 		for(MultipartFile mFile:mFiles) {
 			//to-do: smart.pdf --> (UUID).pdf
@@ -102,7 +109,7 @@ public class BoardServiceImpl implements BoardService{
 		}
 		
 //		System.out.println("params 결과: "+params);
-		return 0;
+		return result;
 	}
 
 	//글 조회 

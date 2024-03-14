@@ -49,6 +49,8 @@ public interface BoardDao {
 	 */
 	public int write(HashMap<String, Object> params);
 	
+	public int writeWithFile(HashMap<String, Object> params);
+	
 	/**
 	 * 글 조회  
 	 */
