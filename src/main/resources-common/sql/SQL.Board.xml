@@ -128,7 +128,6 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		content = #{content}, title = #{title}
 		where board_seq = #{boardSeq}
 		and member_id = #{memberId}
-		and member_nick = #{memberNick}
 	</update>
 
 	<update id="updateHasFileToZero" parameterType="java.util.HashMap">

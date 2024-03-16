@@ -45,19 +45,8 @@ public class BoardRestController {
 
 
 	@RequestMapping("/board/update.do")// !!!!!!!!!!!! 비동기 응답 
-	public HashMap<String, Object> update(@RequestParam HashMap<String,Object> params, HttpSession session, MultipartHttpServletRequest mReq) {
+	public HashMap<String, Object> update(@RequestParam HashMap<String,Object> params, MultipartHttpServletRequest mReq) {
 		HashMap<String, Object> map = new HashMap<>();
-		//세션아이디가 없으면 로그인 화면으로
-		String memberId = (String) session.getAttribute("memberId");
-		if(Objects.isNull(memberId)||memberId.isEmpty()) {
-			map.put("nextPage", "/member/login");
-			return map;
-		}
-
-		//게시판 아이디
-		String articleMemberId = (String) params.get("memberId");
-		//세션 아이디와 로그인 아이디가 일치한다면
-		if(memberId.equals(articleMemberId)) {
 
 			if(!params.containsKey("typeSeq")) {
 				params.put("typeSeq", this.typeSeq);
@@ -72,12 +61,9 @@ public class BoardRestController {
 				//jsp에서 성공 시 뜨게 할 메시지 전달
 				map.put("msg", "수정 완료");
 			}
-		} else {
-
-		}
 		return map;
 	}
-
+	
 	@RequestMapping("/board/delete.do")
 	public HashMap<String, Object> delete(@RequestParam HashMap<String, Object> params, HttpSession session) {
 
@@ -110,7 +96,7 @@ public class BoardRestController {
 		//세션 아이디와 로그인 아이디가 일치하지 않는다면
 		else {
 			map.put("success", false);
-			map.put("message", "본인 계정의 게시물이 아닙니다.");
+			map.put("message", "본인의 게시물이 아닙니다.");
 			map.put("nextPage", "/board/list");
 		}
 		return map; // 비동기: map return 

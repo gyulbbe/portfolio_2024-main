@@ -127,7 +127,7 @@ function deleteFile(fileIdx, boardSeq){
 					<!-- Useful Elements -->
 					<div class="card card-default">
 						<div class="card-heading card-heading-transparent">
-							<h2 class="card-title">공지 글 수정</h2>
+							<h2 class="card-title">자유게시판 글 수정</h2>
 						</div>
 						<div class="card-block">
 							<form name="updateForm" class="validate" method="post" enctype="multipart/form-data" data-success="Sent! Thank you!" data-toastr-position="top-right">

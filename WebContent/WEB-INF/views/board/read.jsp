@@ -11,12 +11,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-
-		$('#btnUpdate').on('click', function() {
-
-			var frm = document.readForm;
-			var formData = new FormData(frm);
-
+				
 		$('#btnDelete').on('click', function() {
 			var formData = new FormData(document.readForm);
 			if (confirm("삭제하시겠습니까?")) {
@@ -41,7 +36,7 @@
 					},
 					error : function(xhr, status, error) {
 						// 실패 시
-						alert('삭제 실패 중 오류');
+						alert('삭제 중 실패 오류');
 						// 새로고침
 						window.location.reload();
 					}
@@ -121,8 +116,8 @@
 							<div class="col-md-12 text-right">
 								<c:if test="${ true }">
 									<a
-										href="javascript:movePage('/board/goToUpdate.do?boardSeq=${read.board_seq}')">
-										<button type="button" class="btn btn-primary">
+										href="javascript:movePage('/board/goToUpdate.do?boardSeq=${read.board_seq}&memberId=${read.member_id}')">
+										<button type="button" class="btn btn-primary" id="btnUpdate">
 											<i class="fa fa-pencil"></i> 수정
 										</button>
 									</a>

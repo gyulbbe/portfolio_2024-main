@@ -220,15 +220,15 @@ public class BoardController {
 
 	//수정 페이지로 	
 	@RequestMapping("/board/goToUpdate.do")
-	public ModelAndView goToUpdate(@RequestParam HashMap<String, Object> params, HttpSession session) {
-		ModelAndView mv = new ModelAndView();
+	public HashMap<String, Object> goToUpdate(@RequestParam HashMap<String, Object> params, HttpSession session) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		//세션아이디가 없으면 로그인 화면으로
 		String memberId = (String) session.getAttribute("memberId");
 		if(Objects.isNull(memberId)||memberId.isEmpty()) {
-			mv.setViewName("/member/login");
-			return mv;
+			map.put("nextPage", "/member/login");
+			return map;
 		}
-		
+
 		//게시판 아이디
 		String articleMemberId = (String) params.get("memberId");
 		//세션 아이디와 로그인 아이디가 일치한다면
@@ -237,13 +237,16 @@ public class BoardController {
 				params.put("typeSeq", this.typeSeq);
 			}
 			//수정페이지에서 전에 썼던 제목이나 본문 글 등을 불러오기 위한 작업
-			HashMap<String, Object> map = bService.read(params);
-			mv.addObject("boardInfo", map);
-
-			mv.setViewName("/board/update");
-		} else {
-			
+			map = bService.read(params);
+			map.put("boardInfo", map);
+			map.put("nextPage", "/board/update");
+		} 
+		//일치하지 않다면 다시 읽기 페이지로
+		else {
+			map = bService.read(params);
+			map.put("read", map);
+			map.put("nextPage", "/board/read");
 		}
-		return mv;
+		return map;
 	}
 }
