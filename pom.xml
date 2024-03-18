@@ -275,6 +275,9 @@
 				<directory>src/main/resources-common</directory>
 			</resource>
 			<resource>
+				<directory>src/main/resources-${env}</directory>
+			</resource>
+			<resource>
 				<directory>${project.build.sourceDirectory}</directory>
 				<includes>
 					<include>**/*.java</include>
@@ -289,7 +292,7 @@
     <artifactId>tomcat7-maven-plugin</artifactId>
     <version>2.2</version>
     <configuration>
-        <url>ec2-43-201-67-166.ap-northeast-2.compute.amazonaws.com:8080/manager/text</url>
+        <url>http://ec2-54-180-106-226.ap-northeast-2.compute.amazonaws.com:8080/manager/text</url>
         <server>TomcatServer</server>
         <path>/${project.build.finalName}</path>
         <username>admin</username>

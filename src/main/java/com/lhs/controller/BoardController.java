@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -35,7 +36,6 @@ public class BoardController {
 
 		PageHandler ph = new PageHandler();
 		ArrayList<HashMap<String, Object>> boardList = new ArrayList<HashMap<String, Object>>();
-		//			HashMap<String, Object> map = new HashMap<String, Object>();
 		ModelAndView mv = new ModelAndView();
 
 		//닉네임 검색이면
@@ -104,81 +104,6 @@ public class BoardController {
 	}
 
 
-
-	//	//검색
-	//	@GetMapping("/board/search.do")
-	//	public HashMap<String, Object> search(@RequestParam String searchType, 
-	//			@RequestParam String keyword,
-	//			@RequestParam(value = "page", defaultValue = "1") int currentPage){
-	//		ArrayList<HashMap<String, Object>> boardList = new ArrayList<HashMap<String, Object>>();
-	//		HashMap<String, Object> map = new HashMap<String, Object>();
-	//		PageHandler ph = new PageHandler();
-	//
-	//		//닉네임 검색이면
-	//		if("memberNick".equals(searchType)){
-	//			//총 게시물 수
-	//			int totalArticleCntNick = bService.getTotalArticleCntNick(keyword);
-	//			//페이징
-	//			ph.doPaging(currentPage, totalArticleCntNick);
-	//			//db에 보낼 offset저장
-	//			int offset = ph.getOffset();
-	//
-	//			boardList = bService.searchNick(keyword, offset);
-	//			//boardList라는 이름에 닉네임으로 분류된 데이터들 담기
-	//			map.put("boardList", boardList);
-	//
-	//			//현재 페이지
-	//			currentPage = ph.getCurrentPage();
-	//			map.put("currentPage", currentPage);
-	//
-	//			//마지막(총) 페이지
-	//			int totalPage = ph.getTotalPage();
-	//			map.put("totalPage", totalPage);
-	//
-	//			//현재 줄 첫 페이지
-	//			int beginPage = ph.getBeginPage();
-	//			map.put("beginPage", beginPage);
-	//
-	//			//현재 줄 마지막 페이지
-	//			int endPage = ph.getEndPage();
-	//			map.put("endPage", endPage);
-	//
-	//		}
-	//
-	//		//제목 검색이면
-	//		else if("title".equals(searchType)){
-	//			//총 게시물 수
-	//			int totalArticleCntTitle = bService.getTotalArticleCntTitle(keyword);
-	//			//페이징
-	//			ph.doPaging(currentPage, totalArticleCntTitle);
-	//			//db에 보낼 offset저장
-	//			int offset = ph.getOffset();
-	//
-	//			boardList = bService.searchTitle(keyword, offset);
-	//			//boardList라는 이름에 닉네임으로 분류된 데이터들 담기
-	//			map.put("boardList", boardList);
-	//
-	//			//현재 페이지
-	//			currentPage = ph.getCurrentPage();
-	//			map.put("currentPage", currentPage);
-	//
-	//			//마지막(총) 페이지
-	//			int totalPage = ph.getTotalPage();
-	//			map.put("totalPage", totalPage);
-	//
-	//			//현재 줄 첫 페이지
-	//			int beginPage = ph.getBeginPage();
-	//			map.put("beginPage", beginPage);
-	//
-	//			//현재 줄 마지막 페이지
-	//			int endPage = ph.getEndPage();
-	//			map.put("endPage", endPage);
-	//
-	//		}
-	//		map.put("nextPage", "/board/list");
-	//		return map;
-	//	}
-
 	@RequestMapping("/test.do")
 	public ModelAndView test() {
 		ModelAndView mv = new ModelAndView();
@@ -205,7 +130,7 @@ public class BoardController {
 		return mv;
 	}
 
-	@RequestMapping("/board/read.do")
+	@GetMapping("/board/read.do")
 	public ModelAndView read(@RequestParam HashMap<String, Object> params) {
 		if(!params.containsKey("typeSeq")) {
 			params.put("typeSeq", this.typeSeq);

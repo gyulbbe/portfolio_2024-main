@@ -1,4 +1,4 @@
-package com.lhs.controller;
+package com.lhs.rest.controller;
 
 
 import java.util.HashMap;
@@ -7,8 +7,9 @@ import java.util.Objects;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -27,7 +28,7 @@ public class BoardRestController {
 
 	private String typeSeq = "2";
 
-	@RequestMapping("/board/write.do")
+	@PostMapping("/board/write.do")
 	public HashMap<String, Object> write(@RequestParam HashMap<String, Object> params) {
 
 		if(!params.containsKey("typeSeq")) {
@@ -44,7 +45,7 @@ public class BoardRestController {
 
 
 
-	@RequestMapping("/board/update.do")// !!!!!!!!!!!! 비동기 응답 
+	@PutMapping("/board/update.do")// !!!!!!!!!!!! 비동기 응답 
 	public HashMap<String, Object> update(@RequestParam HashMap<String,Object> params, MultipartHttpServletRequest mReq) {
 		HashMap<String, Object> map = new HashMap<>();
 
@@ -64,7 +65,7 @@ public class BoardRestController {
 		return map;
 	}
 	
-	@RequestMapping("/board/delete.do")
+	@DeleteMapping("/board/delete.do")
 	public HashMap<String, Object> delete(@RequestParam HashMap<String, Object> params, HttpSession session) {
 
 		HashMap<String, Object> map = new HashMap<>();
@@ -102,7 +103,7 @@ public class BoardRestController {
 		return map; // 비동기: map return 
 	}
 
-	@RequestMapping("/board/deleteAttFile.do")
+	@DeleteMapping("/board/deleteAttFile.do")
 	public HashMap<String, Object> deleteAttFile(@RequestParam HashMap<String, Object> params) {
 
 		if(!params.containsKey("typeSeq")) {

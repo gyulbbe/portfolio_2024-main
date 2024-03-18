@@ -1,4 +1,4 @@
-package com.lhs.controller;
+package com.lhs.rest.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
