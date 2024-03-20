@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.hg.dao.CommentDao">
+	<!-- 댓글 리스트 -->
+	<select id="commentList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT b.member_id, b.member_nick, c.comment_content, c.create_dtm
+		FROM S_gyulbbe.comment c
+		JOIN S_gyulbbe.board b ON b.board_seq = c.board_seq
+		WHERE c.board_seq = #{boardSeq}
+		ORDER BY c.comment_seq DESC
+	</select>
+	
+	<!-- 댓글 작성 -->
+	<insert id="writeComment" parameterType="java.util.HashMap">
+		INSERT INTO S_gyulbbe.comment
+		(board_type_seq, board_seq, comment_content, create_dtm)
+		VALUES(2, #{boardSeq}, #{commentContent}, DATE_FORMAT(NOW(), '%Y%m%d%H%i%s'))
+	</insert>
+	
+	<!-- 댓글 수정 -->
+	<update id="updateComment" parameterType="java.util.HashMap">
+		
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="deleteComment" parameterType="java.util.HashMap">
+		
+	
+	</delete>
+</mapper>

@@ -3,7 +3,7 @@
 PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
-<mapper namespace="com.feb.join.dao.EmailAuthDao">
+<mapper namespace="com.hgEmailDao">
 	
 	<insert id="sendEmail" parameterType="java.util.HashMap">
 		INSERT INTO lecture.email_auth

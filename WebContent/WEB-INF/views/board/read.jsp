@@ -111,6 +111,41 @@
 										</c:choose></td>
 								</tr>
 							</c:forEach>
+							<section id="comments">
+							<div class="container">
+								<div class="row">
+									<div class="col-md-12">
+										<h3>댓글</h3>
+										<!-- 댓글 목록 -->
+										<div id="comment-list">
+											<c:forEach items="${commentList}" var="comment">
+												<div class="comment-item">
+													<p>
+														<strong>${comment.member_id}</strong> (${comment.create_dtm}):${comment.comment_content}
+													</p>
+												</div>
+											</c:forEach>
+										</div>
+
+										<!-- 댓글 작성 -->
+										<div id="comment-form">
+											<h4>댓글 작성</h4>
+											<form action="<c:url value='/comment/write.do'/>" method="post">
+												<input type="hidden" name="boardSeq" value="${read.board_seq}" />
+												<input type="hidden" name="memberId" value="${session.Scope.memberId}" />
+												<input type="hidden" name="memberNick" value="${session.Scope.memberNick}" />
+												<input type="hidden" name="boardSeq" value="${read.board_seq}" />
+												<div class="form-group">
+													<label for="commentContent">댓글:</label>
+													<textarea class="form-control" id="commentContent" name="commentContent" rows="3" required></textarea>
+												</div>
+												<button type="submit" class="btn btn-primary">댓글 달기</button>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+							</section>
 						</div>
 						<div class="row">
 							<div class="col-md-12 text-right">

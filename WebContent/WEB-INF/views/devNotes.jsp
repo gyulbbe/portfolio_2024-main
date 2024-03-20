@@ -22,9 +22,8 @@
 	height:350px;">
 								<div class="box-icon-title">
 									<i class="b-0 fa fa-tablet"></i>
-									<h2>Fully Reposnive</h2>
+									<h2>테이블</h2>
 								</div>
-								<p>Nullam id dolor id nibh ultricies vehicula ut id elit. Integer posuere erat a ante venenatis dapibus posuere</p>
 							
 								<button type="button" class="btn btn-default btn-lg lightbox" data-toggle="modal" data-target="#myModal">
 								DB &nbsp; Modeling &nbsp; &nbsp;(IMG)
@@ -45,9 +44,10 @@
 							<div class="box-icon box-icon-center box-icon-round box-icon-transparent box-icon-large box-icon-content">
 								<div class="box-icon-title">
 									<i class="b-0 fa fa-random"></i>
-									<h2>Clean Design</h2>
+									<h2>에러 모음</h2>
 								</div>
-								<p>nteger posuere erat a ante venenatis dapibus posuere</p>
+								<p><a href="https://shore-houseboat-141.notion.site/81eca21e7f9b4e5da81894190ad75e1d?pvs=4" target="_blank">자세히 보기</a></p>
+
 							</div>
 
 						</div>
@@ -55,11 +55,12 @@
 						<div class="col-md-3">
 
 							<div class="box-icon box-icon-center box-icon-round box-icon-transparent box-icon-large box-icon-content">
-								<div class="box-icon-title">
-									<i class="b-0 fa fa-tint"></i>
-									<h2>Reusable Elements</h2>
-								</div>
-								<p>Nullam id dolor id nibh ultricies vehicula ut id elit. Integer posuere erat a ante venenatis dapibus posuere</p>
+							    <div class="box-icon-title">
+							        <i class="b-0 fa fa-tint"></i>
+							        <h2>자바 공부</h2>
+							    </div>
+							    <!-- URL을 a 태그로 감싸서 링크로 만듦 -->
+							    <p><a href="https://shore-houseboat-141.notion.site/5358801e68524216a931e0d8fd4cb6c4?pvs=4" target="_blank">자세히 보기</a></p>
 							</div>
 
 						</div>
@@ -69,9 +70,9 @@
 							<div class="box-icon box-icon-center box-icon-round box-icon-transparent box-icon-large box-icon-content">
 								<div class="box-icon-title">
 									<i class="b-0 fa fa-cogs"></i>
-									<h2>Multipurpose</h2>
+									<h2>스터디 기록</h2>
 								</div>
-								<p>Nullam id dolor id nibh ultricies vehicula ut id elit. Integer posuere erat a ante venenatis dapibus posuere</p>
+								<p><a href="https://shore-houseboat-141.notion.site/3bfac5abb4184380a9fec0ba83ac8ff5" target="_blank">자세히 보기</a></p>
 							</div>
 
 						</div>

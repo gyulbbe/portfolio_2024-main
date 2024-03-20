@@ -78,13 +78,13 @@
 								<br/>
 								<span style="font-size:20px;font-weight:400;line-height: 30px">
 								<ul>
-									<li>Spring Framework 4.3.14.RELEASE / myBatis 3.4.1 / jUnit 4.12</li>
-									<li>jQuery 3.2.1/ jQuery UI 1.12.1/ jqGrid 4.4.3 / Maven / log 4.12 </li>
+									<li>Spring Framework / myBatis</li>
+									<li>Maven / logback </li>
 									<br/>
 									<li>Languages : JAVA, JSP, JavaScript</li>
 									<li>Server : AWS t2.micro free tier</li>
-									<li>DBMS : MySql 5.7</li>
-									<li>WAS : Tomcat 8.5</li>
+									<li>DBMS : MySql</li>
+									<li>WAS : Tomcat 8.0</li>
 									
 								</ul>
 								</span>

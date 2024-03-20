@@ -167,23 +167,6 @@
 	
 								<img data-lazyload="resources/demo_files/images/index/index-min.jpg" alt="" data-bgfit="cover" data-bgposition="center bottom" data-bgrepeat="no-repeat" />
 	
-								<div class="tp-caption customin ltl tp-resizeme text_white"
-									data-x="center"
-									data-y="155"
-									data-customin="x:0;y:150;z:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:0;transformPerspective:200;transformOrigin:50% 0%;"
-									data-speed="800"
-									data-start="1000"
-									data-easing="easeOutQuad"
-									data-splitin="none"
-									data-splitout="none"
-									data-elementdelay="0.01"
-									data-endelementdelay="0.1"
-									data-endspeed="1000"
-									data-endeasing="Power4.easeIn" style="z-index: 10; font-size:20px;">
-									<span class="fw-300"> 잘 오셨습니다.
-									<b style="font-size:20px">아무개</b>의 포트폴리오 사이트 입니다. :) </span>
-								</div>
-	
 								<div class="tp-caption customin ltl tp-resizeme large_bold_white"
 									data-x="center"
 									data-y="205"
@@ -197,7 +180,7 @@
 									data-endelementdelay="0.1"
 									data-endspeed="1000"
 									data-endeasing="Power4.easeIn" style="z-index: 10;">
-									WELCOME TO MY WORLD
+									한결 포트폴리오입니다.
 								</div>
 	
 								<div class="tp-caption customin ltl tp-resizeme small_light_white font-lato"
@@ -213,17 +196,16 @@
 									data-endelementdelay="0.1"
 									data-endspeed="1000"
 									data-endeasing="Power4.easeIn" style="z-index: 20; width: 100%; max-width: 750px; white-space: normal; text-align:center; font-size:20px; line-height: 55px">
-									이 사이트는 아래 기술을 이용하여 구현하였습니다.
 									<br/>
 									<span style="font-size:20px;font-weight:400;line-height: 30px">
 									<ul>
-										<li>Spring Framework 5.3.32 / myBatis 3.4.1 / jUnit 4.12</li>
-										<li>jQuery 3.2.1/ jQuery UI 1.12.1/ jqGrid 4.4.3 / Maven / log 4.12 </li>
+										<li>Spring Framework / myBatis</li>
+										<li>Maven / logback </li>
 										<br/>
 										<li>Languages : JAVA, JSP, JavaScript</li>
 										<li>Server : AWS t2.micro free tier</li>
-										<li>DBMS : MySql 5.7</li>
-										<li>WAS : Tomcat 8.5</li>
+										<li>DBMS : MySql</li>
+										<li>WAS : Tomcat 8.0</li>
 									</ul>
 									</span>								
 								</div>
@@ -246,7 +228,7 @@
 									data-endelementdelay="0.1"
 									data-endspeed="500"
 									data-endeasing="Power4.easeIn">
-									BEING AWAKE.
+									구현 기능
 								</div>
 	
 								<div class="tp-caption medium_light_white lfb ltt tp-resizeme"
@@ -261,9 +243,9 @@
 									data-endelementdelay="0.1"
 									data-endspeed="500"
 									data-endeasing="Power4.easeIn">
-									Happiness is an accident of nature,<br/>
-									a beautiful and flawless aberration.<br/>
-									<span style="font-size:24px;font-weight:400;">&ndash; Hyesue Lee</span>
+									로그인, 회원가입<br/>
+									게시판 글 작성, 읽기, 삭제, 수정<br/>
+									페이지, 검색<br/>
 								</div>
 							</li>
 						</ul>
@@ -281,15 +263,11 @@
 						<!-- Contact Address -->
 						<address>
 							<ul class="list-unstyled">
-								<li class="footer-sprite address">
-									주소<br>
-									zip code ~~~<br>
-								</li>
 								<li class="footer-sprite phone">
-									010-cccc-3333
+									010-9158-7963
 								</li>
 								<li class="footer-sprite email">
-									<a href="mailto:#">your_email</a>
+									<a href="mailto:#">gyulbbe@gmail.com</a>
 								</li>
 							</ul>
 						</address>
@@ -309,10 +287,8 @@
 
 					<div class="col-md-7">
 					
-					<h4 class="letter-spacing-1">THANKS FOR VISITING</h4>
-					<p>제가 구현한 스프링 게시판의 주요기능 확인을 위해 회원가입을 해주세요. :) <br/>
-					이 게시판은 관리자 / 일반 모드를 구분하여 구현하였으며 회원가입시 일반회원 모드로 가입됩니다.<br/>
-					* 임의의 관리자 계정으로 로그인:  <h3> ID: admin123 / PW: admin12# </h3>
+					<h4 class="letter-spacing-1">관리자 계정</h4>
+					<p> ID: admin / PW: admin123
 					</div>
 						
 					<div id="sidepanel" class="sidepanel-light">

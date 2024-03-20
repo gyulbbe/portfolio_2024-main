@@ -30,13 +30,13 @@
 	
 
 	<!-- bean IOC - 비밀번호재설정을 위한 메일 보낼 유틸 bean설정 
-	<bean id="AES256Util" class="com.lhs.util.AES256Util">
+	<bean id="AES256Util" class="com.hg.util.AES256Util">
 		<constructor-arg value="aes256-test-key!!"></constructor-arg>
 	</bean>
 	-->
 
 	<!-- EmailUtil emailUtil = new EmailUtil(mailSender);과 유사 스프링이 xml 읽어서 자바로 바꿈(단, 싱글톤으로 만듬) -->
-	<bean id="emailUtil" class="com.lhs.util.EmailUtil">
+	<bean id="emailUtil" class="com.hg.util.EmailUtil">
 		<constructor-arg ref="mailSender" />
 	</bean>
 
@@ -60,7 +60,7 @@
 	</bean>
 
 	<!-- Annotation 기반의 Component Scan 필터(service package 만 검색) -->
-	<context:component-scan base-package="com.lhs">
+	<context:component-scan base-package="com.hg">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />
 		<context:include-filter type="regex" expression="\.*\.dao\.*"/>
 	</context:component-scan>
@@ -84,7 +84,7 @@
 	
 	<!-- DAO interface를 mapper(xml)과 연결시키기 위해 탐색(scan) -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.lhs.dao"></property>
+		<property name="basePackage" value="com.hg.dao"></property>
 	</bean>
 
 	<!-- 트랜잭션 관리를 위한 bean -->
@@ -93,7 +93,7 @@
 	</bean>
 	
 	<!-- 첨부파일 위한 빈 수동 설정.. fileUtil  -->
-	<bean id="fileUtil" class="com.lhs.util.FileUtil" />
+	<bean id="fileUtil" class="com.hg.util.FileUtil" />
 	
 	<!-- transaction annotation -->
 	<tx:annotation-driven transaction-manager="transactionManager"/>
