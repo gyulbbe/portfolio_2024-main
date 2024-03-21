@@ -2,6 +2,8 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<settings>
+		<!-- 로깅 구현체를 STDOUT으로 설정 -->
+		<setting name="logImpl" value="STDOUT_LOGGING" />
 		<setting name="mapUnderscoreToCamelCase" value="true" />
 	</settings>
 
@@ -10,8 +12,7 @@
 		<package name="com.hg.dto" />
 	</typeAliases>
 
-	<!--  개별로 setting 하는 방법
-	<typeAlias alias="Employees" type="com.edu.dto.Employees" />
-	-->
+	<!-- 개별로 setting 하는 방법 <typeAlias alias="Employees" type="com.edu.dto.Employees" 
+		/> -->
 
 </configuration>

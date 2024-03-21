@@ -5,6 +5,8 @@ import java.util.HashMap;
 
 import org.springframework.stereotype.Repository;
 
+import com.hg.dto.CommentDto;
+
 @Repository
 public interface CommentDao {
 
@@ -12,7 +14,7 @@ public interface CommentDao {
 	public ArrayList<HashMap<String, Object>> commentList(HashMap<String, Object> params);
 	
 //	댓글 작성
-	public int writeComment(HashMap<String, Object> params);
+	public int writeComment(CommentDto dto);
 	
 //	댓글 수정
 	public int updateComment(HashMap<String, Object> params);
@@ -21,6 +23,6 @@ public interface CommentDao {
 	public int deleteComment(HashMap<String, Object> params);
 	
 //	댓글 내용
-	public String readComment(HashMap<String, Object> params);
+	public CommentDto readComment(CommentDto dto);
 	
 }

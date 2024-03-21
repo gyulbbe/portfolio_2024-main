@@ -14,7 +14,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 댓글 작성 -->
-	<insert id="writeComment" parameterType="java.util.HashMap">
+	<insert id="writeComment" parameterType="CommentDto" useGeneratedKeys="true" keyProperty="commentSeq">
 		INSERT INTO S_gyulbbe.comment
 		(board_type_seq, board_seq, comment_content, create_dtm, member_id, member_nick)
 		VALUES(2, #{boardSeq}, #{commentContent}, DATE_FORMAT(NOW(), '%Y%m%d%H%i%s'), #{memberId}, #{memberNick})
@@ -35,11 +35,10 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		AND member_id = #{memberId}
 	</delete>
 	
-	<!-- 댓글 내용(수정할 때 불러오는 용도) -->
-	<select id="readComment" parameterType="java.util.HashMap" resultType="String">
-		SELECT comment_content
+	<!-- 댓글 내용과 날짜(수정할 때 불러오는 용도) -->
+	<select id="readComment" parameterType="CommentDto" resultType="CommentDto">
+		SELECT comment_content, create_dtm
 		FROM S_gyulbbe.comment
 		WHERE comment_seq = #{commentSeq}
-		AND member_id = #{memberId}
 	</select>
 </mapper>

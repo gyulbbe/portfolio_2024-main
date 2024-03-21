@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hg.dao.CommentDao;
+import com.hg.dto.CommentDto;
 import com.hg.service.CommentService;
 
 @Service
@@ -23,8 +24,8 @@ public class CommentServiceImpl implements CommentService{
 
 	//	댓글 작성
 	@Override
-	public int writeComment(HashMap<String, Object> params){
-		return cDao.writeComment(params);
+	public int writeComment(CommentDto dto){
+		return cDao.writeComment(dto);
 	}
 
 	//	댓글 수정
@@ -41,7 +42,7 @@ public class CommentServiceImpl implements CommentService{
 
 	//	댓글 내용
 	@Override
-	public String readComment(HashMap<String, Object> params){
-		return cDao.readComment(params);
+	public CommentDto readComment(CommentDto dto){
+		return cDao.readComment(dto);
 	}
 }
