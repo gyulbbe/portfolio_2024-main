@@ -16,4 +16,7 @@ public interface CommentService {
 //	댓글 삭제
 	public int deleteComment(HashMap<String, Object> params);
 
+//	댓글 내용
+	public String readComment(HashMap<String, Object> params);
+
 }

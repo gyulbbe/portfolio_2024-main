@@ -13,29 +13,35 @@ import com.hg.service.CommentService;
 public class CommentServiceImpl implements CommentService{
 
 	@Autowired CommentDao cDao;
-	
 
-//	댓글 읽기
+
+	//	댓글 리스트
 	@Override
 	public ArrayList<HashMap<String, Object>> commentList(HashMap<String, Object> params){
 		return cDao.commentList(params);
 	}
-	
-//	댓글 작성
+
+	//	댓글 작성
 	@Override
 	public int writeComment(HashMap<String, Object> params){
 		return cDao.writeComment(params);
 	}
-	
-//	댓글 수정
+
+	//	댓글 수정
 	@Override
 	public int updateComment(HashMap<String, Object> params){
 		return cDao.updateComment(params);
 	}
-	
-//	댓글 삭제
+
+	//	댓글 삭제
 	@Override
 	public int deleteComment(HashMap<String, Object> params){
 		return cDao.deleteComment(params);
+	}
+
+	//	댓글 내용
+	@Override
+	public String readComment(HashMap<String, Object> params){
+		return cDao.readComment(params);
 	}
 }

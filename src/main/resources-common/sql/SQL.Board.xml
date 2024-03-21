@@ -122,8 +122,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 
 	<update id="update" parameterType="java.util.HashMap">
 		update S_gyulbbe.board
-		set
-		content = #{content}, title = #{title}
+		set content = #{content}, title = #{title}, update_dtm = DATE_FORMAT(NOW(), '%Y%m%d%H%i%s')
 		where board_seq = #{boardSeq}
 		and member_id = #{memberId}
 	</update>

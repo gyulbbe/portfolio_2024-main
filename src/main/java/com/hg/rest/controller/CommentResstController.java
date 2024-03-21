@@ -1,14 +1,13 @@
 package com.hg.rest.controller;
 
 import java.util.HashMap;
-import java.util.Objects;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,7 +21,7 @@ public class CommentResstController {
 
 	//댓글 작성
 	@PostMapping("/comment/write.do")
-	public HashMap<String, Object> writeComment(@RequestParam HashMap<String, Object> params) {
+	public HashMap<String, Object> writeComment(@RequestBody HashMap<String, Object> params) {
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
@@ -44,11 +43,12 @@ public class CommentResstController {
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
+		String comment = cService.readComment(params);
 		int result = cService.updateComment(params);
 
 		if(result==1) {
 			map.put("result", result);
-			map.put("map", params);
+			map.put("map", comment);
 			map.put("msg", "수정 완료");
 		} else {
 			map.put("result", result);

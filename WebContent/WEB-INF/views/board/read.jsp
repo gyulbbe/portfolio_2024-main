@@ -10,40 +10,62 @@
 <script src="<c:url value='/resources/js/scripts.js'/>"></script>
 
 <script type="text/javascript">
-	$(document).ready(function() {
-				
-		$('#btnDelete').on('click', function() {
-			var formData = new FormData(document.readForm);
-			if (confirm("삭제하시겠습니까?")) {
+$(document).ready(function() {
+    $('#btnComment').on('click', function(e) {
+        e.preventDefault(); // 폼 제출 방지
+        var data = {
+            boardSeq: $("input[name='boardSeq']").val(),
+            memberId: $("input[name='memberId']").val(),
+            memberNick: $("input[name='memberNick']").val(),
+            commentContent: $("#commentContent").val()
+        };
 
-				$.ajax({
-					url : "<c:url value='/board/delete.do'/>", // 요청을 보낼 서버의 URL
+        $.ajax({
+            url: "<c:url value='/comment/write.do'/>",
+            type: 'POST',
+            contentType: 'application/json', // JSON 데이터를 보내기 위한 Content-Type 설정
+            data: JSON.stringify(data), // JavaScript 객체를 JSON 문자열로 변환
+            dataType: 'json', // 서버로부터 JSON 응답을 기대함
+            success: function(response) {
+            	// 새로운 댓글을 댓글 목록에 추가
+                var newComment = $('<div>').addClass('comment-item').text(data.commentContent);
+                $('#comment-list').append(newComment);
+                
+                // 댓글 입력 필드 초기화
+                $("#commentContent").val('');
+                alert(response.msg);
+            },
+            error: function(xhr, status, error) {
+                alert('작성 중 오류 발생');
+            }
+        });
+    });
 
-					type : 'POST', // HTTP 요청 방식
-
-					data : formData, // 서버로 보낼 데이터
-
-					processData : false,
-					contentType : false,
-
-					success : function(map) {
-						if (map.success) {
-							alert(map.message);
-							window.location.reload();
-						} else {
-							alert(map.message);
-						}
-					},
-					error : function(xhr, status, error) {
-						// 실패 시
-						alert('삭제 중 실패 오류');
-						// 새로고침
-						window.location.reload();
-					}
-				});
-			}
-		});
-	});
+    $('#btnDelete').on('click', function() {
+        var formData = new FormData(document.readForm);
+        if (confirm("삭제하시겠습니까?")) {
+            $.ajax({
+                url: "<c:url value='/board/delete.do'/>", // 요청을 보낼 서버의 URL
+                type: 'POST', // HTTP 요청 방식
+                data: formData, // 서버로 보낼 데이터
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.success) {
+                        alert(response.message); // 여기를 수정했습니다.
+                        window.location.reload();
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert('삭제 중 실패 오류');
+                    window.location.reload();
+                }
+            });
+        }
+    });
+});
 </script>
 
 </head>
@@ -53,9 +75,7 @@
 		<div class="row">
 			<!-- LEFT -->
 			<div class="col-md-12 order-md-1">
-				<form name="readForm" class="validate" method="post"
-					enctype="multipart/form-data" data-success="Sent! Thank you!"
-					data-toastr-position="top-right">
+				<form name="readForm" class="validate" method="post" enctype="multipart/form-data" data-success="Sent! Thank you!" data-toastr-position="top-right">
 					<input type="hidden" name="boardSeq" value="${read.board_seq}" />
 					<input type="hidden" name="typeSeq" value="${read.type_seq}" /> <input
 						type="hidden" name="memberId" value="${read.member_id}" /> <input
@@ -121,8 +141,13 @@
 											<c:forEach items="${commentList}" var="comment">
 												<div class="comment-item">
 													<p>
-														<strong>${comment.member_id}</strong> (${comment.create_dtm}):${comment.comment_content}
+														<strong>${comment.member_nick}</strong> (${comment.create_dtm}):${comment.comment_content}
 													</p>
+													<!-- 현재 로그인한 사용자의 ID나 닉네임이 댓글 작성자의 ID나 닉네임과 같은 경우에만 수정 및 삭제 버튼을 보여줍니다. -->
+											        <c:if test="${sessionScope.memberId == comment.member_id}">
+											            <button type="button" class="btn btn-secondary" onclick="editComment('${comment.commentSeq}')">수정</button>
+											            <button type="button" class="btn btn-danger" onclick="deleteComment('${comment.commentSeq}')">삭제</button>
+											        </c:if>
 												</div>
 											</c:forEach>
 										</div>
@@ -130,16 +155,15 @@
 										<!-- 댓글 작성 -->
 										<div id="comment-form">
 											<h4>댓글 작성</h4>
-											<form action="<c:url value='/comment/write.do'/>" method="post">
+											<form name="commentForm" action="<c:url value='/comment/write.do'/>" method="post">
 												<input type="hidden" name="boardSeq" value="${read.board_seq}" />
-												<input type="hidden" name="memberId" value="${session.Scope.memberId}" />
-												<input type="hidden" name="memberNick" value="${session.Scope.memberNick}" />
-												<input type="hidden" name="boardSeq" value="${read.board_seq}" />
+												<input type="hidden" name="memberId" value="${sessionScope.memberId}" />
+												<input type="hidden" name="memberNick" value="${sessionScope.memberNick}" />
 												<div class="form-group">
 													<label for="commentContent">댓글:</label>
 													<textarea class="form-control" id="commentContent" name="commentContent" rows="3" required></textarea>
 												</div>
-												<button type="submit" class="btn btn-primary">댓글 달기</button>
+												<button type="submit" class="btn btn-primary" id="btnComment">댓글 작성</button>
 											</form>
 										</div>
 									</div>
