@@ -9,8 +9,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hg.service.AttFileService;
@@ -30,7 +30,7 @@ public class BoardController {
 	private String typeSeq = "2";
 
 	//보드 리스트로 + 검색
-	@RequestMapping("/board/list.do")
+	@GetMapping("/board/list.do")
 	public ModelAndView goList(@RequestParam HashMap<String, Object> params, //그냥 리스트
 			@RequestParam(value = "searchType", required = false) String searchType, //닉네임 검색인지 제목 검색인지
 			@RequestParam(value = "keyword", required = false) String keyword, //검색창에 입력한 값
@@ -106,7 +106,7 @@ public class BoardController {
 	}
 
 
-	@RequestMapping("/test.do")
+	@GetMapping("/test.do")
 	public ModelAndView test() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("test");
@@ -114,7 +114,7 @@ public class BoardController {
 	}
 
 	//글쓰기 페이지로 	
-	@RequestMapping("/board/goToWrite.do")
+	@GetMapping("/board/goToWrite.do")
 	public ModelAndView goToWrite(@RequestParam HashMap<String, Object> params, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		//세션아이디가 없으면 로그인 화면으로
@@ -132,6 +132,7 @@ public class BoardController {
 		return mv;
 	}
 
+	//게시글 읽기
 	@GetMapping("/board/read.do")
 	public ModelAndView read(@RequestParam HashMap<String, Object> params, HttpSession session) {
 		if(!params.containsKey("typeSeq")) {
@@ -150,35 +151,22 @@ public class BoardController {
 		return mv;
 	}	
 
-	//수정 페이지로 	
-	@RequestMapping("/board/goToUpdate.do")
-	public HashMap<String, Object> goToUpdate(@RequestParam HashMap<String, Object> params, HttpSession session) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		//세션아이디가 없으면 로그인 화면으로
-		String memberId = (String) session.getAttribute("memberId");
-		if(Objects.isNull(memberId)||memberId.isEmpty()) {
-			map.put("nextPage", "/member/login");
-			return map;
+	//수정 페이지로 
+	@GetMapping("/board/goToUpdate.do")
+	public ModelAndView goToUpdate(@RequestParam HashMap<String, Object> params) {
+		if(!params.containsKey("typeSeq")) {
+			params.put("typeSeq", this.typeSeq);
+		}
+		
+		ModelAndView mv = new ModelAndView();
+		
+		//수정페이지에서 전에 썼던 제목이나 본문 글 등을 불러오기 위한 작업
+		HashMap<String, Object> read = bService.read(params);
+		if(!Objects.isNull(read)) {
+			mv.addObject("boardInfo", read);
+			mv.setViewName("/board/update");
 		}
 
-		//게시판 아이디
-		String articleMemberId = (String) params.get("memberId");
-		//세션 아이디와 로그인 아이디가 일치한다면
-		if(memberId.equals(articleMemberId)) {
-			if(!params.containsKey("typeSeq")) {
-				params.put("typeSeq", this.typeSeq);
-			}
-			//수정페이지에서 전에 썼던 제목이나 본문 글 등을 불러오기 위한 작업
-			map = bService.read(params);
-			map.put("boardInfo", map);
-			map.put("nextPage", "/board/update");
-		} 
-		//일치하지 않다면 다시 읽기 페이지로
-		else {
-			map = bService.read(params);
-			map.put("read", map);
-			map.put("nextPage", "/board/read");
-		}
-		return map;
+		return mv;
 	}
 }

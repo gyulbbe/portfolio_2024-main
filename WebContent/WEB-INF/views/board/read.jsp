@@ -33,19 +33,26 @@ var memberNick = "${sessionScope.memberNick}";
 								data : JSON.stringify(data), // JavaScript 객체를 JSON 문자열로 변환
 								dataType : 'json', // 서버로부터 JSON 응답을 기대함
 								success : function(response) {
+									
+									//success와 아닌 경우 나눈 이유: 세션id끊긴 채로 댓글 입력 방지하려고
+									if(response.success){
+										
 									// 새로운 댓글을 댓글 목록에 추가
 									var newCommentHtml = '<div class="comment-item">' +
     '<p><strong>' + response.memberNick + '</strong> (' + response.createDtm + '): ' + response.commentContent + '</p>' +
     '<button type="button" class="delete-btn btn btn-danger" data-comment-seq="' + response.commentSeq + '">삭제</button>' +
     '</div>';
-
-            
-         // 댓글 목록에 새 댓글 추가
-            $('#comment-list').prepend(newCommentHtml);
+							       // 댓글 목록에 새 댓글 추가
+							          $('#comment-list').prepend(newCommentHtml);
 
 									// 댓글 입력 필드 초기화
 									$("#commentContent").val('');
 									alert(response.msg);
+									}
+								
+								else{
+									alert(response.msg);
+								}
 								},
 								error : function(xhr, status, error) {
 									alert('작성 중 오류 발생');
@@ -189,23 +196,27 @@ var memberNick = "${sessionScope.memberNick}";
 													</p>
 													<!-- 현재 로그인한 사용자의 ID나 닉네임이 댓글 작성자의 ID나 닉네임과 같은 경우에만 수정 및 삭제 버튼을 보여줍니다. -->
 													<c:if test="${sessionScope.memberId == comment.member_id}">
-														<button type="button" class="delete-btn btn btn-danger" data-comment-seq="${comment.comment_seq}">삭제</button>
+														<button type="button" class="delete-btn btn btn-danger"
+															data-comment-seq="${comment.comment_seq}">삭제</button>
+
 													</c:if>
 												</div>
 											</c:forEach>
 										</div>
-
-										<!-- 댓글 작성 -->
-										<div id="comment-form">
-											<h4>댓글 작성</h4>
-											<div class="form-group">
-												<label for="commentContent">댓글:</label>
-												<textarea class="form-control" id="commentContent"
-													name="commentContent" rows="3" required></textarea>
+										<c:if test="${not empty sessionScope.memberId}">
+											<!-- 댓글 작성 -->
+											<div id="comment-form">
+												<h4>댓글 작성</h4>
+												<div class="form-group">
+													<label for="commentContent">댓글:</label>
+													<textarea class="form-control" id="commentContent"
+														name="commentContent" rows="3" required></textarea>
+												</div>
+												<button type="submit" class="btn btn-primary"
+													id="btnComment">댓글 작성</button>
 											</div>
-											<button type="submit" class="btn btn-primary" id="btnComment">댓글
-												작성</button>
-										</div>
+										</c:if>
+
 									</div>
 								</div>
 							</div>
@@ -213,15 +224,16 @@ var memberNick = "${sessionScope.memberNick}";
 						</div>
 						<div class="row">
 							<div class="col-md-12 text-right">
-								<c:if test="${ true }">
-									<a
-										href="javascript:movePage('/board/goToUpdate.do?boardSeq=${read.board_seq}&memberId=${read.member_id}')">
-										<button type="button" class="btn btn-primary" id="btnUpdate">
+								<c:if test="${sessionScope.memberId == read.member_id}">
+									<a href="javascript:movePage('/board/goToUpdate.do?boardSeq=${read.board_seq}&memberId=${read.member_id}')">
+										<button type="button" class="btn btn-primary">
 											<i class="fa fa-pencil"></i> 수정
 										</button>
 									</a>
-									<button type="button" class="btn btn-primary" id="btnDelete">삭제</button>
 								</c:if>
+
+								<button type="button" class="btn btn-danger" id="btnDelete">삭제</button>
+
 
 								<c:choose>
 									<c:when test="${empty currentPage}">

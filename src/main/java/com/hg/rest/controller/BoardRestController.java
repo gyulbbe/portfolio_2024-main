@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -29,26 +28,39 @@ public class BoardRestController {
 	private String typeSeq = "2";
 
 	@PostMapping("/board/write.do")
-	public HashMap<String, Object> write(@RequestParam HashMap<String, Object> params) {
-
-		if(!params.containsKey("typeSeq")) {
-			params.put("typeSeq", this.typeSeq);
-		}
+	public HashMap<String, Object> write(@RequestParam HashMap<String, Object> params, HttpSession session) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		//세션 끊긴 상태로 글 작성 막기
+		String sessionId = (String) session.getAttribute("memberId");
+		if(Objects.isNull(sessionId)) {
+			map.put("result", 0);
+			map.put("msg", "로그아웃된 상태입니다.");
+		} else {
 
-		int result = bService.write(params);
-		//jsp창에서 result값이 1인 경우 정상 작동 아니면 index로 가게하는 코드 있음
-		map.put("result", result);
-		map.put("msg", "작성 완료");
+			if(!params.containsKey("typeSeq")) {
+				params.put("typeSeq", this.typeSeq);
+			}
+
+
+			int result = bService.write(params);
+			//jsp창에서 result값이 1인 경우 정상 작동 아니면 index로 가게하는 코드 있음
+			map.put("result", result);
+			map.put("msg", "작성 완료");
+		}
 		return map;
 	}
 
 
 
-	@PutMapping("/board/update.do")// !!!!!!!!!!!! 비동기 응답 
-	public HashMap<String, Object> update(@RequestParam HashMap<String,Object> params, MultipartHttpServletRequest mReq) {
+	@PostMapping("/board/update.do")// !!!!!!!!!!!! 비동기 응답 
+	public HashMap<String, Object> update(@RequestParam HashMap<String,Object> params, MultipartHttpServletRequest mReq, HttpSession session) {
 		HashMap<String, Object> map = new HashMap<>();
-
+		//세션 끊긴 상태로 글 작성 막기
+		String sessionId = (String) session.getAttribute("memberId");
+		if(Objects.isNull(sessionId)) {
+			map.put("result", 0);
+			map.put("msg", "로그아웃된 상태입니다.");
+		} else {
 			if(!params.containsKey("typeSeq")) {
 				params.put("typeSeq", this.typeSeq);
 			}
@@ -66,6 +78,7 @@ public class BoardRestController {
 				//jsp에서 성공 시 뜨게 할 메시지 전달
 				map.put("msg", "수정 실패");
 			}
+		}
 		return map;
 	}
 	
