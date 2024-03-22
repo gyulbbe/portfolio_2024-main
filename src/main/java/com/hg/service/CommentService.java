@@ -12,11 +12,8 @@ public interface CommentService {
 //	댓글 작성
 	public int writeComment(CommentDto dto);
 
-//	댓글 수정
-	public int updateComment(HashMap<String, Object> params);
-
 //	댓글 삭제
-	public int deleteComment(HashMap<String, Object> params);
+	public int deleteComment(CommentDto dto);
 
 //	댓글 내용+날짜
 	public CommentDto readComment(CommentDto dto);

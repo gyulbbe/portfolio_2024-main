@@ -10,16 +10,14 @@
 <script src="<c:url value='/resources/js/scripts.js'/>"></script>
 
 <script type="text/javascript">
-	//서버 사이드에서 생성된 값을 JavaScript 변수에 할당
-	var boardSeq = "${read.board_seq}";
-	var memberId = "${sessionScope.memberId}";
-	var memberNick = "${sessionScope.memberNick}";
+//서버 사이드에서 생성된 값을 JavaScript 변수에 할당
+var boardSeq = "${read.board_seq}";
+var memberId = "${sessionScope.memberId}";
+var memberNick = "${sessionScope.memberNick}";
 
-	$(document).ready(
-			function() {
-				$('#btnComment').on(
-						'click',
-						function(e) {
+	$(document).ready(function() {
+		//댓글 작성
+				$('#btnComment').on('click',function(e) {
 							e.preventDefault(); // 폼 제출 방지
 							var data = {
 								boardSeq : boardSeq,
@@ -37,10 +35,10 @@
 								success : function(response) {
 									// 새로운 댓글을 댓글 목록에 추가
 									var newCommentHtml = '<div class="comment-item">' +
-            '<p><strong>' + response.memberNick + '</strong> (' + response.createDtm + '): ' + response.commentContent + '</p>' +
-            '<button type="button" class="btn btn-secondary" onclick="editComment(\'' + response.commentId + '\')">수정</button>' +
-            '<button type="button" class="btn btn-danger" onclick="deleteComment(\'' + response.commentId + '\')">삭제</button>' +
-            '</div>';
+    '<p><strong>' + response.memberNick + '</strong> (' + response.createDtm + '): ' + response.commentContent + '</p>' +
+    '<button type="button" class="delete-btn btn btn-danger" data-comment-seq="' + response.commentSeq + '">삭제</button>' +
+    '</div>';
+
             
          // 댓글 목록에 새 댓글 추가
             $('#comment-list').prepend(newCommentHtml);
@@ -54,7 +52,39 @@
 								}
 							});
 						});
-
+				
+				// 댓글 목록 내의 삭제 버튼에 대한 이벤트 위임
+			    $('#comment-list').on('click', '.delete-btn', function() {
+        // 클릭된 버튼의 부모 요소인 댓글 항목을 찾음
+        var commentItem = $(this).closest('.comment-item');
+        var commentSeq = $(this).data('comment-seq'); // data-comment-seq 속성에서 commentSeq 값을 가져옴
+        var data = {
+				memberId : memberId,
+				commentSeq : commentSeq
+			};
+        // 사용자에게 삭제 확인 받음
+        if (confirm("댓글을 삭제하시겠습니까?")) {
+            $.ajax({
+                url: "<c:url value='/comment/delete.do'/>", // 서버의 댓글 삭제 처리 URL
+                type: 'DELETE',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                dataType: 'json',
+                success: function(response) {
+                    if(response.result == 1) {
+                        // 댓글 삭제 성공 시 DOM에서 해당 댓글 항목 제거
+                        commentItem.remove();
+                        alert(response.msg);
+                    } else {
+                        alert(response.msg);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert('댓글 삭제 중 오류 발생');
+                }
+            });
+        }
+    });
 				$('#btnDelete').on('click', function() {
 					var formData = new FormData(document.readForm);
 					if (confirm("삭제하시겠습니까?")) {
@@ -155,13 +185,11 @@
 											<c:forEach items="${commentList}" var="comment">
 												<div class="comment-item">
 													<p>
-														<strong>${comment.member_nick}</strong>
-														(${comment.create_dtm}):${comment.comment_content}
+														<strong>${comment.member_nick}</strong>(${comment.create_dtm}):${comment.comment_content}
 													</p>
 													<!-- 현재 로그인한 사용자의 ID나 닉네임이 댓글 작성자의 ID나 닉네임과 같은 경우에만 수정 및 삭제 버튼을 보여줍니다. -->
 													<c:if test="${sessionScope.memberId == comment.member_id}">
-														<button type="button" class="btn btn-secondary" onclick="editComment('${comment.comment_seq}')">수정</button>
-														<button type="button" class="btn btn-danger" onclick="deleteComment('${comment.comment_seq}')">삭제</button>
+														<button type="button" class="delete-btn btn btn-danger" data-comment-seq="${comment.comment_seq}">삭제</button>
 													</c:if>
 												</div>
 											</c:forEach>

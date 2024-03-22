@@ -28,16 +28,11 @@ public class CommentServiceImpl implements CommentService{
 		return cDao.writeComment(dto);
 	}
 
-	//	댓글 수정
-	@Override
-	public int updateComment(HashMap<String, Object> params){
-		return cDao.updateComment(params);
-	}
 
 	//	댓글 삭제
 	@Override
-	public int deleteComment(HashMap<String, Object> params){
-		return cDao.deleteComment(params);
+	public int deleteComment(CommentDto dto){
+		return cDao.deleteComment(dto);
 	}
 
 	//	댓글 내용

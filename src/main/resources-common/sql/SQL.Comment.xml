@@ -6,7 +6,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.hg.dao.CommentDao">
 	<!-- 댓글 리스트 -->
 	<select id="commentList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		SELECT c.member_id, c.member_nick, c.comment_content, c.create_dtm
+		SELECT c.member_id, c.member_nick, c.comment_content, c.create_dtm, c.comment_seq
 		FROM S_gyulbbe.comment c
 		JOIN S_gyulbbe.board b ON b.board_seq = c.board_seq
 		WHERE c.board_seq = #{boardSeq}
@@ -20,19 +20,10 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		VALUES(2, #{boardSeq}, #{commentContent}, DATE_FORMAT(NOW(), '%Y%m%d%H%i%s'), #{memberId}, #{memberNick})
 	</insert>
 	
-	<!-- 댓글 수정 -->
-	<update id="updateComment" parameterType="java.util.HashMap">
-		UPDATE S_gyulbbe.comment
-		SET comment_content = #{commentContent}, create_dtm = DATE_FORMAT(NOW(), '%Y%m%d%H%i%s')
-		WHERE comment_seq = #{commentSeq}
-		AND member_id = #{memberId}
-	</update>
-	
 	<!-- 댓글 삭제 -->
-	<delete id="deleteComment" parameterType="java.util.HashMap">
+	<delete id="deleteComment" parameterType="CommentDto">
 		DELETE FROM S_gyulbbe.comment
 		WHERE comment_seq = #{commentSeq}
-		AND member_id = #{memberId}
 	</delete>
 	
 	<!-- 댓글 내용과 날짜(수정할 때 불러오는 용도) -->
