@@ -110,8 +110,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	</insert>
 
 	<select id="read" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		select
-		type_seq, board_seq, member_id, member_nick, title, content, has_file, hits, create_dtm, update_dtm
+		select type_seq, board_seq, member_id, member_nick, title, content, has_file, hits, create_dtm, update_dtm
 		from S_gyulbbe.board
 		where board_seq = #{boardSeq};
 	</select>

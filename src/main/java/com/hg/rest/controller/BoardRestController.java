@@ -69,7 +69,7 @@ public class BoardRestController {
 		return map;
 	}
 	
-	@DeleteMapping("/board/delete.do")
+	@PostMapping("/board/delete.do")
 	public HashMap<String, Object> delete(@RequestParam HashMap<String, Object> params, HttpSession session) {
 
 		HashMap<String, Object> map = new HashMap<>();
@@ -81,7 +81,7 @@ public class BoardRestController {
 		}
 		//게시판 아이디
 		String articleMemberId = (String) params.get("memberId");
-		//세션 아이디와 로그인 아이디가 일치한다면
+		//세션 아이디와 게시물 아이디가 일치한다면
 		if(memberId.equals(articleMemberId)) {
 			if(!params.containsKey("typeSeq")) {
 				params.put("typeSeq", this.typeSeq);
@@ -98,7 +98,7 @@ public class BoardRestController {
 			}
 			map.put("nextPage", "/board/list");
 		}
-		//세션 아이디와 로그인 아이디가 일치하지 않는다면
+		//세션 아이디와 게시물 아이디가 일치하지 않는다면
 		else {
 			map.put("success", false);
 			map.put("message", "본인의 게시물이 아닙니다.");

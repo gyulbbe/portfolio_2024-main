@@ -96,8 +96,8 @@ var memberNick = "${sessionScope.memberNick}";
 							contentType : false,
 							success : function(response) {
 								if (response.success) {
-									alert(response.message); // 여기를 수정했습니다.
-									window.location.reload();
+									alert(response.message);
+									movePage('/board/list.do');
 								} else {
 									alert(response.message);
 								}
@@ -119,11 +119,11 @@ var memberNick = "${sessionScope.memberNick}";
 		<div class="row">
 			<!-- LEFT -->
 			<div class="col-md-12 order-md-1">
-				<form name="readForm" class="validate" method="post" enctype="multipart/form-data" data-success="Sent! Thank you!" data-toastr-position="top-right">
+				<form name="readForm" class="validate" enctype="multipart/form-data" data-success="Sent! Thank you!" data-toastr-position="top-right">
 					<input type="hidden" name="boardSeq" value="${read.board_seq}" />
-					<input type="hidden" name="typeSeq" value="${read.type_seq}" /> <input
-						type="hidden" name="memberId" value="${read.member_id}" /> <input
-						type="hidden" name="memberNick" value="${read.member_nick}" />
+					<input type="hidden" name="typeSeq" value="${read.type_seq}" />
+					<input type="hidden" name="memberId" value="${read.member_id}" />
+					<input type="hidden" name="memberNick" value="${read.member_nick}" />
 				</form>
 				<!-- post -->
 				<div class="clearfix mb-80">
