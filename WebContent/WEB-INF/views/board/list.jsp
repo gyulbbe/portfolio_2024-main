@@ -59,7 +59,7 @@
 							<td>${board.member_nick}</td>
 							<td>${board.hits}</td>
 							<td>${board.has_file}</td>
-							<td>${board.create_date}</td>
+							<td>${board.create_dtm}</td>
 						</tr>
 					</c:forEach>
 				</tbody>

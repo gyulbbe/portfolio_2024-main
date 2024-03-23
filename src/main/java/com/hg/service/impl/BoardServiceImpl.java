@@ -115,6 +115,8 @@ public class BoardServiceImpl implements BoardService{
 	//글 조회 
 	@Override
 	public HashMap<String, Object> read(HashMap<String, Object> params) {
+		//조회수 증가
+		bDao.updateHits(params);
 		return bDao.read(params);
 	}
 

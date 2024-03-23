@@ -4,8 +4,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
 <mapper namespace="com.hg.dao.BoardDao">
-	<!-- 닉네임 검색
-	매개 변수는 @Param사용 -->
+	<!-- 닉네임 검색 매개 변수는 @Param사용 -->
 	<select id="searchNick" resultType="java.util.HashMap">
 		select *
 		from S_gyulbbe.board
@@ -26,13 +25,11 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		and type_seq = 2
 	</select>
 
-	<!-- 제목 검색
-	매개 변수는 @Param사용 -->
+	<!-- 제목 검색 매개 변수는 @Param사용 -->
 	<select id="searchTitle" resultType="java.util.HashMap">
 		select *
 		from S_gyulbbe.board
-		where title LIKE CONCAT('%',
-		#{title}, '%')
+		where title LIKE CONCAT('%', #{title}, '%')
 		and type_seq = 2
 		order by board_seq desc
 		limit 10 offset
@@ -93,9 +90,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	<!-- 파일있는 글 작성 -->
 	<insert id="writeWithFile" parameterType="java.util.HashMap" useGeneratedKeys="true" keyProperty="boardSeq">
 		INSERT INTO S_gyulbbe.board
-		(type_seq, member_id, member_nick, title, content, has_file, hits,
-		create_dtm,
-		update_dtm)
+		(type_seq, member_id, member_nick, title, content, has_file, hits, create_dtm, update_dtm)
 		VALUES(
 		#{typeSeq},
 		#{memberId},
@@ -109,16 +104,21 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		)
 	</insert>
 
+	<!-- 게시글 읽기 -->
 	<select id="read" parameterType="java.util.HashMap" resultType="java.util.HashMap">
 		select type_seq, board_seq, member_id, member_nick, title, content, has_file, hits, create_dtm, update_dtm
 		from S_gyulbbe.board
 		where board_seq = #{boardSeq};
 	</select>
 
+	<!-- 조회수 -->
 	<update id="updateHits" parameterType="java.util.HashMap">
-	
+		UPDATE S_gyulbbe.board
+		SET hits = hits+1
+		WHERE board_seq = #{boardSeq};
 	</update>
 
+	<!-- 게시글 수정 -->
 	<update id="update" parameterType="java.util.HashMap">
 		update S_gyulbbe.board
 		set content = #{content}, title = #{title}, update_dtm = DATE_FORMAT(NOW(), '%Y%m%d%H%i%s')
@@ -131,6 +131,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 
 	</update>
 
+	<!-- 게시글 삭제 -->
 	<delete id="delete" parameterType="java.util.HashMap">
 		delete from S_gyulbbe.board
 		where board_seq = #{boardSeq}
