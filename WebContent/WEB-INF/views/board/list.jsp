@@ -42,7 +42,7 @@
 					<tr>
 						<th class="fw-30" align="center">&emsp;&emsp;&emsp;글 번호</th>
 						<th align="center">제목</th>
-						<th align="center">글쓴이</th>
+						<th align="center">닉네임</th>
 						<th align="center">조회수</th>
 						<th align="center">첨부파일</th>
 						<th align="center">작성일</th>
@@ -68,28 +68,75 @@
 		<div class="row text-center">
 			<div class="col-md-12">
 				<ul class="pagination pagination-simple pagination-sm">
+				
 					<!-- 1 페이지 -->
-					<li class="page-item"><a class="page-link"
-						href="javascript:movePage('/board/list.do?page=1')">&laquo;</a></li>
+					<c:choose>
+					<c:when test="${not empty searchType and not empty keyword}">
+						<li class="page-item"><a class="page-link"
+							href="javascript:movePage('/board/list.do?page=1&searchType=${searchType}&keyword=${keyword}')">&laquo;</a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="page-item"><a class="page-link"
+							href="javascript:movePage('/board/list.do?page=1')">&laquo;</a></li>
+					</c:otherwise>
+					</c:choose>
+						
 					<!-- 이전 페이지 -->
-					<c:if test="${beginPage != 1}">
+					<c:choose>
+					<c:when test="${beginPage != 1 and not empty searchType and not empty keyword}">
+						<li class="page-item"><a class="page-link"
+							href="javascript:movePage('/board/list.do?page=${beginPage-1}&searchType=${searchType}&keyword=${keyword}')">&lt;</a></li>
+					</c:when>
+					<c:otherwise>
 						<li class="page-item"><a class="page-link"
 							href="javascript:movePage('/board/list.do?page=${beginPage-1}')">&lt;</a></li>
-					</c:if>
+					</c:otherwise>
+					</c:choose>
+					
 					<!-- 페이징 -->
+					<c:choose>
+					<c:when test="${not empty searchType and not empty keyword}">
+					<c:forEach begin="${beginPage}" end="${endPage}" var="page">
+						<li class="${page == currentPage ? 'page-item active' : ''}"><a
+							class="page-link"
+							href="javascript:movePage('/board/list.do?page=${page}&searchType=${searchType}&keyword=${keyword}')">${page}</a></li>
+					</c:forEach>
+					</c:when>
+					
+					<c:otherwise>
 					<c:forEach begin="${beginPage}" end="${endPage}" var="page">
 						<li class="${page == currentPage ? 'page-item active' : ''}"><a
 							class="page-link"
 							href="javascript:movePage('/board/list.do?page=${page}')">${page}</a></li>
 					</c:forEach>
+					</c:otherwise>
+					</c:choose>
+					
 					<!-- 다음 페이지 -->
-					<c:if test="${endPage != totalPage}">
+					<c:choose>
+					<c:when test="${endPage != totalPage and not empty searchType and not empty keyword}">
 						<li class="page-item"><a class="page-link"
+							href="javascript:movePage('/board/list.do?page=${endPage+1}&searchType=${searchType}&keyword=${keyword}')">&gt;</a></li>
+					</c:when>
+					
+					<c:otherwise>
+					<li class="page-item"><a class="page-link"
 							href="javascript:movePage('/board/list.do?page=${endPage+1}')">&gt;</a></li>
-					</c:if>
+					</c:otherwise>
+					</c:choose>
+					
 					<!-- 맨 마지막 페이지 -->
+					<c:choose>
+					<c:when test="${endPage != totalPage and not empty searchType and not empty keyword}">
+					<li class="page-item"><a class="page-link"
+						href="javascript:movePage('/board/list.do?page=${totalPage}&searchType=${searchType}&keyword=${keyword}')">&raquo;</a></li>
+					</c:when>
+					
+					<c:otherwise>
 					<li class="page-item"><a class="page-link"
 						href="javascript:movePage('/board/list.do?page=${totalPage}')">&raquo;</a></li>
+					</c:otherwise>
+					</c:choose>
 				</ul>
 			</div>
 		</div>
@@ -99,7 +146,7 @@
 					<div class="input-group input-group-sm mb-3">
 						<!-- 드롭다운 메뉴 -->
 						<select class="custom-select custom-select-sm" id="searchType" name="searchType">
-							<option value="memberNick">닉네임</option>
+							<option value="memberNick">글쓴이</option>
 							<option value="title">제목</option>
 						</select>
 						<!-- 검색창 -->

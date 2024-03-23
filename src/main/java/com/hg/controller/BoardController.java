@@ -97,7 +97,11 @@ public class BoardController {
 		//현재 줄 마지막 페이지
 		int endPage = ph.getEndPage();
 		mv.addObject("endPage", endPage);
-
+		
+		//검색 후 페이지 이동을 위한 값 전달
+		mv.addObject("searchType", searchType);
+		mv.addObject("keyword", keyword);
+		
 		//다음 페이지
 		mv.setViewName("/board/list");
 
