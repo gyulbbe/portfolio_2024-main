@@ -53,7 +53,7 @@
 						<tr>
 							<td align="center">${board.board_seq}</td>
 							<td><span class="bold"> <a
-									href="javascript:movePage('/board/read.do?boardSeq=${board.board_seq}&currentPage=currentPage')">
+									href="javascript:movePage('/board/read.do?boardSeq=${board.board_seq}&currentPage=${currentPage}')">
 										${board.title} </a>
 							</span></td>
 							<td>${board.member_nick}</td>

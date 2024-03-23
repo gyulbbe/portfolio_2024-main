@@ -231,10 +231,7 @@ var memberNick = "${sessionScope.memberNick}";
 										</button>
 									</a>
 								</c:if>
-
 								<button type="button" class="btn btn-danger" id="btnDelete">삭제</button>
-
-
 								<c:choose>
 									<c:when test="${empty currentPage}">
 										<a href="javascript:movePage('/board/list.do')">
@@ -243,7 +240,7 @@ var memberNick = "${sessionScope.memberNick}";
 									</c:when>
 									<c:otherwise>
 										<a
-											href="javascript:movePage('/board/list.do?page=currentPage')">
+											href="javascript:movePage('/board/list.do?page=${currentPage}')">
 											<button type="button" class="btn btn-primary">목록</button>
 										</a>
 									</c:otherwise>

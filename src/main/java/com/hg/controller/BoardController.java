@@ -142,7 +142,10 @@ public class BoardController {
 		HashMap<String, Object> map = bService.read(params);
 		//댓글 리스트
 		ArrayList<HashMap<String, Object>> commentList = cService.commentList(params);
-
+		
+		//페이지 변경 후 게시글을 읽었다면 전의 페이지로 가기 위한 작업
+		mv.addObject("currentPage", params.get("currentPage"));
+		
 		mv.addObject("commentList", commentList);
 		mv.addObject("read", map);
 		
