@@ -137,18 +137,27 @@ public class BoardController {
 
 	//게시글 읽기
 	@GetMapping("/board/read.do")
-	public ModelAndView read(@RequestParam HashMap<String, Object> params, HttpSession session) {
+	public ModelAndView read(@RequestParam HashMap<String, Object> params, HttpSession session, 
+			@RequestParam(value = "searchType", required = false) String searchType, //닉네임 검색인지 제목 검색인지
+			@RequestParam(value = "keyword", required = false) String keyword //검색창에 입력한 값
+			) {
+		
 		if(!params.containsKey("typeSeq")) {
 			params.put("typeSeq", this.typeSeq);
 		}
+		
 		ModelAndView mv = new ModelAndView();
 		//전에 썼던 내용
 		HashMap<String, Object> map = bService.read(params);
 		//댓글 리스트
 		ArrayList<HashMap<String, Object>> commentList = cService.commentList(params);
 		
-		//페이지 변경 후 게시글을 읽었다면 전의 페이지로 가기 위한 작업
+		//페이지 변경 후 게시글을 읽었을 때, 전의 페이지로 가기 위한 작업
 		mv.addObject("currentPage", params.get("currentPage"));
+		
+		//게시글 검색 후 페이지 변경 후 게시글 읽었을 때, 전의 페이지로 가기 위한 작업
+		mv.addObject("searchType", searchType);
+		mv.addObject("keyword", keyword);
 		
 		mv.addObject("commentList", commentList);
 		mv.addObject("read", map);

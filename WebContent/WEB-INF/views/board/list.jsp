@@ -52,9 +52,21 @@
 					<c:forEach var="board" items="${boardList}">
 						<tr>
 							<td align="center">${board.board_seq}</td>
-							<td><span class="bold"> <a
-									href="javascript:movePage('/board/read.do?boardSeq=${board.board_seq}&currentPage=${currentPage}')">
-										${board.title} </a>
+							<td><span class="bold"> <!-- 페이징 이후 글 읽기에서 목록에 갔을 때, 필요로 하는 searchType, keyword값을 컨트롤러로 넘겨주기 위한 작업 -->
+									<c:choose>
+										<c:when test="${not empty searchType and not empty keyword}">
+											<a
+												href="javascript:movePage('/board/read.do?boardSeq=${board.board_seq}&currentPage=${currentPage}&searchType=${searchType}&keyword=${keyword}')">
+												${board.title} </a>
+										</c:when>
+										
+										<c:otherwise>
+											<a
+												href="javascript:movePage('/board/read.do?boardSeq=${board.board_seq}&currentPage=${currentPage}')">
+												${board.title} </a>
+										</c:otherwise>
+									</c:choose>
+
 							</span></td>
 							<td>${board.member_nick}</td>
 							<td>${board.hits}</td>
@@ -68,13 +80,14 @@
 		<div class="row text-center">
 			<div class="col-md-12">
 				<ul class="pagination pagination-simple pagination-sm">
-				
+					
 					<!-- 1 페이지 -->
 					<c:choose>
 					<c:when test="${not empty searchType and not empty keyword}">
 						<li class="page-item"><a class="page-link"
 							href="javascript:movePage('/board/list.do?page=1&searchType=${searchType}&keyword=${keyword}')">&laquo;</a></li>
 					</c:when>
+					
 					<c:otherwise>
 						<li class="page-item"><a class="page-link"
 							href="javascript:movePage('/board/list.do?page=1')">&laquo;</a></li>
@@ -87,6 +100,7 @@
 						<li class="page-item"><a class="page-link"
 							href="javascript:movePage('/board/list.do?page=${beginPage-1}&searchType=${searchType}&keyword=${keyword}')">&lt;</a></li>
 					</c:when>
+					
 					<c:otherwise>
 						<li class="page-item"><a class="page-link"
 							href="javascript:movePage('/board/list.do?page=${beginPage-1}')">&lt;</a></li>

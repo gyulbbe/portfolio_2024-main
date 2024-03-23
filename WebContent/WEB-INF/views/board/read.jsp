@@ -233,14 +233,22 @@ var memberNick = "${sessionScope.memberNick}";
 								</c:if>
 								<button type="button" class="btn btn-danger" id="btnDelete">삭제</button>
 								<c:choose>
-									<c:when test="${empty currentPage}">
-										<a href="javascript:movePage('/board/list.do')">
+									
+									<c:when test="${not empty currentPage and not empty searchType and not empty keyword}">
+										<a href="javascript:movePage('/board/list.do?page=${currentPage}&searchType=${searchType}&keyword=${keyword}')">
 											<button type="button" class="btn btn-primary">목록</button>
 										</a>
 									</c:when>
+									
+									<c:when test="${not empty currentPage}">
+										<a href="javascript:movePage('/board/list.do?page=${currentPage}')">
+											<button type="button" class="btn btn-primary">목록</button>
+										</a>
+									</c:when>
+									
 									<c:otherwise>
 										<a
-											href="javascript:movePage('/board/list.do?page=${currentPage}')">
+											href="javascript:movePage('/board/list.do')">
 											<button type="button" class="btn btn-primary">목록</button>
 										</a>
 									</c:otherwise>
