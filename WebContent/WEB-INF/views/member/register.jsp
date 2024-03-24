@@ -6,17 +6,59 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript">
 $(document).ready(function(){
+
+    
 	$('#msgDiv').hide();
 	$("#loading-div-background").css({ opacity: 1 });
 	$('#btnSignUp').click(function(e){
-		if( $('#memberId').val() == '' || $('#memberName').val() == '' || $('#pwAgain').val() == '' 
-				|| $('#memberNick').val() == '' || $('#memberPw').val() == '' || $('#email').val() == ''){
-			var msgTag = $('<strong>').text("모든 항목은 필수입니다.");
-			$('#msgDiv').html(msgTag).show();
-			e.preventDefault();
-			return;
-		}
+		// 입력 필드 값 검증
+	    var memberId = $('#memberId').val();
+	    var memberName = $('#memberName').val();
+	    var memberPw = $('#memberPw').val();
+	    var pwAgain = $('#pwAgain').val();
+	    var memberNick = $('#memberNick').val();
+	    var email = $('#email').val();
+	    
+		if(memberId == '' || memberName == '' || pwAgain == '' 
+	        || memberNick == '' || memberPw == '' || email == '') {
+	        var msgTag = $('<strong>').text("작성하지 않은 칸이 존재합니다.");
+	        $('#msgDiv').html(msgTag).show();
+	        return;
+	    }
 		
+		// 아이디 길이 검증
+        if (memberId.length < 6) {
+        	var msgTag = $('<strong>').text("아이디는 최소 4자 이상이어야 합니다.");
+	        $('#msgDiv').html(msgTag).show();
+            $('#memberId').focus();
+            return false; // 검증 실패
+        }
+		
+		// 이메일 형식 검증
+        var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        if (!emailRegex.test(email)) {
+        	var msgTag = $('<strong>').text("올바른 이메일 형식이 아닙니다.");
+        	$('#msgDiv').html(msgTag).show();
+            $('#email').focus();
+            return false; // 검증 실패
+        }
+        
+	    // 비밀번호 길이 검증
+        if (memberPw.length < 6) {
+        	var msgTag = $('<strong>').text("비밀번호는 최소 6자 이상이어야 합니다.");
+	        $('#msgDiv').html(msgTag).show();
+            $('#memberPw').focus();
+            return false; // 검증 실패
+        }
+
+        // 비밀번호 일치 검증
+        if (memberPw !== pwAgain) {
+        	var msgTag = $('<strong>').text("비밀번호가 일치하지 않습니다.");
+	        $('#msgDiv').html(msgTag).show();
+            $('#pwAgain').focus();
+            return false; // 검증 실패
+        }
+        
 		// overlay 보이기
 		$("#loading-div-background").css({'z-index' : '9999'}).show();
 		
@@ -96,7 +138,7 @@ $(document).ready(function(){
 									<label>ID *</label>
 									<label class="input mb-10">
 										<i class="ico-append fa fa-user"></i>
-										<input required="" type="text" id="memberId" name="memberId"/>
+										<input required="" type="text" id="memberId" name="memberId" placeholder="최소 4글자 이상"/>
 										<b class="tooltip tooltip-bottom-right">Your ID</b>
 									</label>
 								</div>
@@ -116,7 +158,7 @@ $(document).ready(function(){
 									<label for="register:pass1">Password *</label>
 									<label class="input mb-10">
 										<i class="ico-append fa fa-lock"></i>
-										<input required="" type="password" class="err" id="memberPw" name="memberPw" />
+										<input required="" type="password" class="err" id="memberPw" name="memberPw" placeholder="최소 6글자 이상" />
 										<b class="tooltip tooltip-bottom-right">Min. 6 characters</b>
 									</label>
 								</div>
@@ -125,7 +167,7 @@ $(document).ready(function(){
 									<label for="register:pass2">Password Again *</label>
 									<label class="input mb-10">
 										<i class="ico-append fa fa-lock"></i>
-										<input required="" type="password" id="pwAgain" name="pwAgain" class="err">
+										<input required="" type="password" id="pwAgain" name="pwAgain" class="err" placeholder="최소 6글자 이상" >
 										<b class="tooltip tooltip-bottom-right">Type the password again</b>
 									</label>
 								</div>
@@ -146,7 +188,7 @@ $(document).ready(function(){
 									<label for="register:email">Email *</label>
 									<label class="input mb-10">
 										<i class="ico-append fa fa-envelope"></i>
-										<input required="" type="text" id="email" name="email" />
+										<input required="" type="email" id="email" name="email" />
 										<b class="tooltip tooltip-bottom-right">Your Email</b>
 									</label>
 								</div>

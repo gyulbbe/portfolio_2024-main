@@ -7,7 +7,6 @@ import java.util.Objects;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -120,7 +119,7 @@ public class BoardRestController {
 		return map; // 비동기: map return 
 	}
 
-	@DeleteMapping("/board/deleteAttFile.do")
+	@PostMapping("/board/deleteAttFile.do")
 	public HashMap<String, Object> deleteAttFile(@RequestParam HashMap<String, Object> params) {
 
 		if(!params.containsKey("typeSeq")) {
