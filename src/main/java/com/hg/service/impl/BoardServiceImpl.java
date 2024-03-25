@@ -40,7 +40,6 @@ public class BoardServiceImpl implements BoardService{
 	//제목 검색
 	@Override
 	public ArrayList<HashMap<String, Object>> searchTitle(String title, int offset){
-
 		return bDao.searchTitle(title, offset);
 	}
 	

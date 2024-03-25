@@ -6,8 +6,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hg.service.EmailService;
@@ -27,10 +29,13 @@ public class MemberRestController {
 	@Value("#{config['site.context.path']}")
 	String ctx;
 	
-	@GetMapping("/member/checkId.do")
-	public HashMap<String, Object> checkId(@RequestParam HashMap<String, String> params){
+	@ResponseBody
+	@GetMapping("/member/checkId/{memberId}.do")
+	public HashMap<String, Object> checkId(@PathVariable("memberId") String memberId){
+		//cnt 초기화
 		int cnt = 0;
-		cnt = mService.checkId(params);
+		
+		cnt = mService.checkId(memberId);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("cnt", cnt);
 		map.put("msg", cnt==1? "중복된 ID 입니다.":"");
@@ -38,9 +43,28 @@ public class MemberRestController {
 		return map;
 	}
 	
-	@PostMapping("/member/join.do")
-	public HashMap<String, Object> join(@RequestParam HashMap<String, String> params){		
+	@PostMapping("/member/join/{memberId}/{memberName}/{memberNick}/{pwAgain}/{memberPw}/{email}.do")
+	public HashMap<String, Object> join(
+			@PathVariable("memberId") String memberId,
+			@PathVariable("memberName") String memberName,
+			@PathVariable("memberNick") String memberNick,
+			@PathVariable("pwAgain") String pwAgain,
+			@PathVariable("memberPw") String memberPw,
+			@PathVariable("email") String email
+			){
+		
+		//매개변수전용 HashMap
+		HashMap<String, String> params = new HashMap<>();
+		params.put("memberId", memberId);
+		params.put("memberName", memberName);
+		params.put("memberNick", memberNick);
+		params.put("pwAgain", pwAgain);
+		params.put("memberPw", memberPw);
+		params.put("email", email);
+		
+		//반환전용 HashMap
 		HashMap<String, Object> map = new HashMap<String, Object>();
+				
 		int cnt = 0;
 		cnt = mService.join(params);
 		map.put("cnt", cnt);

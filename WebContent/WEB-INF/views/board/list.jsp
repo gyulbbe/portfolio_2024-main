@@ -12,6 +12,17 @@
 		var searchType = document.getElementById('searchType').value;
 		var keyword = document.querySelector('input[name="keyword"]').value;
 
+		// 검색 길이 체크
+        if(keyword.length == 0) {
+            alert("검색어를 입력하세요.");
+            document.getElementById('keyword').focus();
+            return; // 자동 제출 방지
+        } else if(keyword.length > 10) {
+            alert("검색어는 10자를 넘길 수 없습니다.");
+            document.getElementById('keyword').focus();
+            return; // 자동 제출 방지
+        }
+		
 		// movePage 함수를 사용하여 서버에 검색 조건과 함께 AJAX 요청
 		movePage('/board/list.do', {
 			searchType : searchType,
@@ -95,18 +106,11 @@
 					</c:choose>
 						
 					<!-- 이전 페이지 -->
-					<c:choose>
-					<c:when test="${beginPage != 1 and not empty searchType and not empty keyword}">
-						<li class="page-item"><a class="page-link"
-							href="javascript:movePage('/board/list.do?page=${beginPage-1}&searchType=${searchType}&keyword=${keyword}')">&lt;</a></li>
-					</c:when>
-					
-					<c:otherwise>
-						<li class="page-item"><a class="page-link"
-							href="javascript:movePage('/board/list.do?page=${beginPage-1}')">&lt;</a></li>
-					</c:otherwise>
-					</c:choose>
-					
+					<c:if test="${beginPage != 1}">
+					    <li class="page-item"><a class="page-link"
+					        href="javascript:movePage('/board/list.do?page=${beginPage-1}${not empty searchType and not empty keyword ? '&searchType=' + searchType + '&keyword=' + keyword : ''}')">&lt;</a></li>
+					</c:if>
+
 					<!-- 페이징 -->
 					<c:choose>
 					<c:when test="${not empty searchType and not empty keyword}">
@@ -126,18 +130,12 @@
 					</c:otherwise>
 					</c:choose>
 					
-					<!-- 다음 페이지 -->
-					<c:choose>
-					<c:when test="${endPage != totalPage and not empty searchType and not empty keyword}">
-						<li class="page-item"><a class="page-link"
-							href="javascript:movePage('/board/list.do?page=${endPage+1}&searchType=${searchType}&keyword=${keyword}')">&gt;</a></li>
-					</c:when>
 					
-					<c:otherwise>
-					<li class="page-item"><a class="page-link"
-							href="javascript:movePage('/board/list.do?page=${endPage+1}')">&gt;</a></li>
-					</c:otherwise>
-					</c:choose>
+					<!-- 다음 페이지 -->
+					<c:if test="${endPage != totalPage}">
+					    <li class="page-item"><a class="page-link"
+					        href="javascript:movePage('/board/list.do?page=${endPage+1}${not empty searchType and not empty keyword ? '&searchType=' + searchType + '&keyword=' + keyword : ''}')">&gt;</a></li>
+					</c:if>
 					
 					<!-- 맨 마지막 페이지 -->
 					<c:choose>
@@ -165,10 +163,10 @@
 						</select>
 						<!-- 검색창 -->
 						<input type="text" class="form-control form-control-sm"
-							placeholder="검색어를 입력하세요" name="keyword" style="flex: auto;" required>
+							placeholder="검색어를 입력하세요" id="keyword" name="keyword" style="flex: auto;" required>
 						<!-- 검색 버튼 -->
 						<div class="input-group-append">
-							<button class="btn btn-primary" type="submit" onclick="search()">검색</button>
+							<button class="btn btn-primary" type="submit">검색</button>
 						</div>
 					</div>
 				</form>

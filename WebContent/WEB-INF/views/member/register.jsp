@@ -27,7 +27,7 @@ $(document).ready(function(){
 	    }
 		
 		// 아이디 길이 검증
-        if (memberId.length < 6) {
+        if (memberId.length < 4) {
         	var msgTag = $('<strong>').text("아이디는 최소 4자 이상이어야 합니다.");
 	        $('#msgDiv').html(msgTag).show();
             $('#memberId').focus();
@@ -62,9 +62,9 @@ $(document).ready(function(){
 		// overlay 보이기
 		$("#loading-div-background").css({'z-index' : '9999'}).show();
 		
+		console.log(memberId);
 		$.ajax({
-			url: "<c:url value='/member/checkId.do'/>",
-			data : {memberId : $('#memberId').val() },
+			url: `/member/checkId/${memberId}.do`,
 			success : function (data, textStatus, XMLHttpRequest) {
 				console.log(data);
 				if(data.cnt == 1){
@@ -81,7 +81,7 @@ $(document).ready(function(){
 // 					var formData = $("#registerForm").serialize();
 					console.log(formData);
 					$.ajax({
-						url: '<c:url value="/member/join.do" />',
+						url: `/member/join/${memberId}/${memberName}/${memberNick}/${pwAgain}/${memberPw}/${email}.do`,
 						type: "POST",
 						data: formData,
 						dataType:'TEXT',

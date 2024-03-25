@@ -55,18 +55,31 @@
 			//jQuery  #[id]
 			var title = $('#title').val();
 
+			var title = $('#title').val();			
 			if(title.length == 0){
 				alert("제목을 입력하세요.");
-				$('#title').focus();
-				
+				$('#title').focus();				
 				return;		
 			}
+			
+			if(title.length > 21){
+				alert("제목은 최대 20자까지 허용합니다.");
+				$('#title').focus();				
+				return false;
+			}
+			
 			//ck editor 가 textarea 위에 씌워져있어서 ck editor 불러와야함. 
 			var content = _summernote.code();
 			if(content.length < 0 ){
 				alert("내용을 입력하세요.");
 				_summernote.focus();
 				return;		
+			}
+			
+			if(content.length > 201){
+				alert("내용은 최대 200자까지 허용합니다.");
+				_summernote.focus();
+				return false;
 			}
 			$('#content').val(content);
 			

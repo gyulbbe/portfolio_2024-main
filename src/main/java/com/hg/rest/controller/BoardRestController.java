@@ -24,8 +24,6 @@ public class BoardRestController {
 	@Autowired AttFileService attFileService;
 	@Autowired FileUtil fileUtil;
 
-	private String typeSeq = "2";
-
 	@PostMapping("/board/write.do")
 	public HashMap<String, Object> write(@RequestParam HashMap<String, Object> params, HttpSession session) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -35,12 +33,6 @@ public class BoardRestController {
 			map.put("result", 0);
 			map.put("msg", "로그아웃된 상태입니다.");
 		} else {
-
-			if(!params.containsKey("typeSeq")) {
-				params.put("typeSeq", this.typeSeq);
-			}
-
-
 			int result = bService.write(params);
 			//jsp창에서 result값이 1인 경우 정상 작동 아니면 index로 가게하는 코드 있음
 			map.put("result", result);
@@ -60,10 +52,6 @@ public class BoardRestController {
 			map.put("result", 0);
 			map.put("msg", "로그아웃된 상태입니다.");
 		} else {
-			if(!params.containsKey("typeSeq")) {
-				params.put("typeSeq", this.typeSeq);
-			}
-
 			int result = bService.update(params, null);
 			//jsp에서 result를 이용해서 페이지 이동을 하는 함수가 있길래 넣어줌
 			if(result==1) {
@@ -95,9 +83,6 @@ public class BoardRestController {
 		String articleMemberId = (String) params.get("memberId");
 		//세션 아이디와 게시물 아이디가 일치한다면
 		if(memberId.equals(articleMemberId)) {
-			if(!params.containsKey("typeSeq")) {
-				params.put("typeSeq", this.typeSeq);
-			}
 			
 			int result = bService.delete(params);
 			
@@ -119,14 +104,11 @@ public class BoardRestController {
 		return map; // 비동기: map return 
 	}
 
-	@PostMapping("/board/deleteAttFile.do")
-	public HashMap<String, Object> deleteAttFile(@RequestParam HashMap<String, Object> params) {
-
-		if(!params.containsKey("typeSeq")) {
-			params.put("typeSeq", this.typeSeq);
-		}
-		return null;
-	}
+//	@PostMapping("/board/deleteAttFile.do")
+//	public HashMap<String, Object> deleteAttFile(@RequestParam HashMap<String, Object> params) {
+//		
+//		return null;
+//	}
 	
 	//	@RequestMapping("/board/download.do")
 	//	public byte[] downloadFile(@RequestParam int fileIdx,

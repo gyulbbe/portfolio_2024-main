@@ -10,22 +10,34 @@
 <script src="<c:url value='/resources/js/scripts.js'/>"></script>
 
 <script type="text/javascript">
-//서버 사이드에서 생성된 값을 JavaScript 변수에 할당
-var boardSeq = "${read.board_seq}";
-var memberId = "${sessionScope.memberId}";
-var memberNick = "${sessionScope.memberNick}";
-
 	$(document).ready(function() {
+		//서버 사이드에서 생성된 값을 JavaScript 변수에 할당
 		//댓글 작성
 				$('#btnComment').on('click',function(e) {
+					
+					var boardSeq = "${read.board_seq}";
+			        var memberId = "${sessionScope.memberId}";
+			        var memberNick = "${sessionScope.memberNick}";
+			        var commentContent = $("#commentContent").val().trim();
+					
 							e.preventDefault(); // 폼 제출 방지
 							var data = {
 								boardSeq : boardSeq,
 								memberId : memberId,
 								memberNick : memberNick,
-								commentContent : $("#commentContent").val()
+								commentContent : commentContent
 							};
 
+						    if (commentContent.length === 0) {
+						        alert("댓글을 입력하세요.");
+						        $('#commentContent').focus();
+						        return;
+						    } else if (commentContent.length > 20) {
+						        alert("댓글은 최대 20자까지 허용합니다.");
+						        $('#commentContent').focus();
+						        return;
+						    }
+							
 							$.ajax({
 								url : "<c:url value='/comment/write.do'/>",
 								type : 'POST',

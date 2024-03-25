@@ -15,7 +15,7 @@ public interface MemberService {
 
 	public int join(HashMap<String, String> params);
 	
-	public int checkId(HashMap<String, String> params);
+	public int checkId(String memberId);
 	
 	public HashMap<String, Object> login(HashMap<String, String> params) throws UserNotFoundException, PasswordMissMatchException;
 

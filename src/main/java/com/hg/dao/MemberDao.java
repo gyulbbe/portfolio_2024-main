@@ -11,7 +11,7 @@ public interface MemberDao {
 
 	public int join(HashMap<String, String> params);
 	
-	public int checkId(HashMap<String, String> params);
+	public int checkId(String memberId);
 	
 	public HashMap<String, Object> getMemberById(HashMap<String, String> params);
 	

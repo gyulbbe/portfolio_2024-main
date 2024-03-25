@@ -62,8 +62,8 @@ public class MemberServiceImpl implements MemberService {
 
 	//아이디 중복 검사
 	@Override
-	public int checkId(HashMap<String, String> params) {
-		return mDao.checkId(params);
+	public int checkId(String memberId) {
+		return mDao.checkId(memberId);
 	}
 
 	//로그인
