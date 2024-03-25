@@ -105,11 +105,20 @@
 					</c:otherwise>
 					</c:choose>
 						
+						
+						
 					<!-- 이전 페이지 -->
-					<c:if test="${beginPage != 1}">
-					    <li class="page-item"><a class="page-link"
-					        href="javascript:movePage('/board/list.do?page=${beginPage-1}${not empty searchType and not empty keyword ? '&searchType=' + searchType + '&keyword=' + keyword : ''}')">&lt;</a></li>
-					</c:if>
+					<c:choose>
+					<c:when test="${beginPage != 1 and not empty searchType and not empty keyword}">
+						<li class="page-item"><a class="page-link"
+							href="javascript:movePage('/board/list.do?page=${beginPage-1}&searchType=${searchType}&keyword=${keyword}')">&lt;</a></li>
+					</c:when>
+					
+					<c:when test="${beginPage != 1 and empty searchType and empty keyword}">
+						<li class="page-item"><a class="page-link"
+							href="javascript:movePage('/board/list.do?page=${beginPage-1}')">&lt;</a></li>
+					</c:when>
+					</c:choose>
 
 					<!-- 페이징 -->
 					<c:choose>
@@ -131,24 +140,36 @@
 					</c:choose>
 					
 					
+					
 					<!-- 다음 페이지 -->
-					<c:if test="${endPage != totalPage}">
-					    <li class="page-item"><a class="page-link"
-					        href="javascript:movePage('/board/list.do?page=${endPage+1}${not empty searchType and not empty keyword ? '&searchType=' + searchType + '&keyword=' + keyword : ''}')">&gt;</a></li>
-					</c:if>
+					
+					<c:choose>
+					<c:when test="${endPage != totalPage and not empty searchType and not empty keyword}">
+						<li class="page-item"><a class="page-link"
+							href="javascript:movePage('/board/list.do?page=${endPage+1}&searchType=${searchType}&keyword=${keyword}')">&gt;</a></li>
+					</c:when>
+					
+					<c:when test="${endPage != totalPage and empty searchType and empty keyword}">
+						<li class="page-item"><a class="page-link"
+							href="javascript:movePage('/board/list.do?page=${endPage+1}')">&gt;</a></li>
+					</c:when>
+					</c:choose>
+					
 					
 					<!-- 맨 마지막 페이지 -->
 					<c:choose>
-					<c:when test="${endPage != totalPage and not empty searchType and not empty keyword}">
-					<li class="page-item"><a class="page-link"
-						href="javascript:movePage('/board/list.do?page=${totalPage}&searchType=${searchType}&keyword=${keyword}')">&raquo;</a></li>
-					</c:when>
-					
-					<c:otherwise>
-					<li class="page-item"><a class="page-link"
-						href="javascript:movePage('/board/list.do?page=${totalPage}')">&raquo;</a></li>
-					</c:otherwise>
+					    <c:when test="${not empty searchType and not empty keyword and totalPage > 0}">
+					        <li class="page-item"><a class="page-link" href="javascript:movePage('/board/list.do?page=${totalPage}&searchType=${searchType}&keyword=${keyword}')">&raquo;</a></li>
+					    </c:when>
+					    <c:when test="${empty searchType and empty keyword and totalPage > 0}">
+					        <li class="page-item"><a class="page-link" href="javascript:movePage('/board/list.do?page=${totalPage}')">&raquo;</a></li>
+					    </c:when>
+					    <c:otherwise>
+					        <!-- 검색 결과가 없을 때 첫 번째 페이지로 이동하는 링크 -->
+					        <li class="page-item"><a class="page-link" href="javascript:movePage('/board/list.do?page=1')">&raquo;</a></li>
+					    </c:otherwise>
 					</c:choose>
+					
 				</ul>
 			</div>
 		</div>

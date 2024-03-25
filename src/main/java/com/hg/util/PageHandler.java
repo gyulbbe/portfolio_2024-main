@@ -17,7 +17,7 @@ public class PageHandler {
 		this.totalPage = totalPage();
 		this.offset = calculateOffset(currentPage);
 		this.beginPage = beginPage(currentPage);
-		this.endPage = endPage(currentPage);
+		this.endPage = endPage();
 	}
 	
 	//총 페이지 수 = (총 게시물/페이지 크기)올림
@@ -31,7 +31,7 @@ public class PageHandler {
     }
 	
 	//끝 페이지
-	public int endPage(int currentPage) {
+	public int endPage() {
 		return Math.min(beginPage + naviSize - 1, totalPage);
 	}
 	

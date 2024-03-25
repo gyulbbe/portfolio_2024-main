@@ -64,7 +64,7 @@
 				return;		
 			}
 			
-			if(title.length > 21){
+			if(title.length > 20){
 				alert("제목은 최대 20자까지 허용합니다.");
 				$('#title').focus();				
 				return false;
@@ -78,7 +78,7 @@
 				return;		
 			}
 			
-			if(content.length > 201){
+			if(content.length > 200){
 				alert("내용은 최대 200자까지 허용합니다.");
 				_summernote.focus();
 				return false;
