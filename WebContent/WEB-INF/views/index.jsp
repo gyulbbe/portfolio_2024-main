@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>JohnDoe's Portfolio </title>
+	<title>Gyeol's Portfolio </title>
 	<meta name="description" content="" />
 	<meta name="Author" content="Dorin Grigoras [www.stepofweb.com]" />
 
@@ -118,19 +118,16 @@
 											PROFILE
 										</a>
 									</li>
-									<li class="dropdown"><!-- SPRING BOARD -->
+									<li class="dropdown"><!-- BOARD -->
 										<a class="dropdown-toggle">
-											SPRING BOARD
+											BOARD
 										</a>
 										<ul class="dropdown-menu">
+											<!--
 											<li><a href="javascript:movePage('/notice/list.do')">공지사항</a></li>
+											-->
 											<li><a href="javascript:movePage('/board/list.do')">자유게시판</a></li>
 										</ul>
-									</li>
-									<li class="dropdown"><!-- NOTES -->
-										<a class="dropdown-toggle noicon" href="javascript:movePage('/devNotes.do')">
-											DEV-NOTES
-										</a>
 									</li>
 									
 							
@@ -204,8 +201,8 @@
 										<br/>
 										<li>Languages : JAVA, JSP, JavaScript</li>
 										<li>Server : AWS t2.micro free tier</li>
-										<li>DBMS : MySql</li>
-										<li>WAS : Tomcat 8.0</li>
+										<li>DBMS : MariaDB</li>
+										<li>WAS : Tomcat 9.0</li>
 									</ul>
 									</span>								
 								</div>
@@ -288,9 +285,11 @@
 
 					<div class="col-md-7">
 					
+					<!--
 					<h4 class="letter-spacing-1">관리자 계정</h4>
 					<p> ID: admin / PW: admin123
 					</div>
+					-->
 						
 					<div id="sidepanel" class="sidepanel-light">
 						<a id="sidepanel_close" href="#"><!-- close -->
@@ -298,7 +297,7 @@
 						</a>
 			
 						<div class="sidepanel-content">
-							<h2 class="sidepanel-title">HYESUE's Portfolio</h2>
+							<h2 class="sidepanel-title">Gyeol's Portfolio</h2>
 			
 							<!-- SIDE NAV -->
 							<ul class="list-group">
@@ -315,53 +314,25 @@
 										PROFILE
 									</a>
 								</li>
-								<li class="list-group-item">
-									<a href="javascript:movePage('/notice/list.do')">
-										<i class="ico-category et-happy"></i>  
-										NOTICE
-									</a>
-								</li>
+								
 								<li class="list-group-item">
 									<a href="javascript:movePage('/board/list.do')">
 										<i class="ico-category et-happy"></i>  
 										FREE-BOARD
 									</a>
 								</li>
-							
-								<li class="list-group-item">
-									<a href="javascript:movePage('/tables.do')">
-										<i class="ico-category et-happy"></i>  
-										DEV-NOTES
-									</a>
-								</li>
-								<li class="list-group-item">
-									<a href="#">
-										<i class="ico-category et-beaker"></i> 
-										LEARNING
-									</a>
-								</li>
-			
-			
 							</ul>
 							<!-- /SIDE NAV -->
 			
 							<!-- Social Icons -->
 							<div class="mt-20">							
-								<a href="#" target='_blank' class="social-icon social-icon-border social-gplus float-left" data-toggle="tooltip" data-placement="top" title="Google plus">
+								<a href="https://github.com/gyulbbe" target='_blank' class="social-icon social-icon-border social-gplus float-left" data-toggle="tooltip" data-placement="top" title="Google plus">
 									<i class="icon-github-circled"></i>
 									<i class="icon-github-circled"></i>
 								</a>
-								<a href="#" target='_blank' class="social-icon social-icon-border social-facebook float-left" data-toggle="tooltip" data-placement="top" title="Facebook">
-									<i class="icon-facebook"></i>
-									<i class="icon-facebook"></i>
-								</a>
-								<a href="#" class="social-icon social-icon-border social-twitter float-left" data-toggle="tooltip" data-placement="top" title="Twitter">
-									<i class="icon-instagram"></i>
-									<i class="icon-instagram"></i>
-								</a>
-								<a href="#" class="social-icon social-icon-border social-linkedin float-left" data-toggle="tooltip" data-placement="top" title="Linkedin">
-									<i class="icon-linkedin"></i>
-									<i class="icon-linkedin"></i>
+								<a href="https://shore-houseboat-141.notion.site/81eca21e7f9b4e5da81894190ad75e1d" target="_blank" class="social-icon social-icon-border social-notion float-left" data-toggle="tooltip" data-placement="top" title="Notion">
+								  <i class="icon-globe"></i>
+								  <i class="icon-globe"></i>
 								</a>
 							</div>
 							<!-- /Social Icons -->
