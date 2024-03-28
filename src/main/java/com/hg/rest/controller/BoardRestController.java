@@ -56,6 +56,8 @@ public class BoardRestController {
 	    }
 	    return map;
 	}
+	
+	
 
 	@PostMapping("/board/update.do")// !!!!!!!!!!!! 비동기 응답 
 	public HashMap<String, Object> update(@ModelAttribute BoardDto bDto, MultipartHttpServletRequest mReq, HttpSession session) {
