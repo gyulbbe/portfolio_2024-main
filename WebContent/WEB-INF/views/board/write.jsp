@@ -85,7 +85,7 @@
 			}
 			
 			$('#content').val(content);
-			customAjax("<c:url value='/board/write.do' />", "/board/list.do");
+			customAjax("<c:url value='/board/write.do' />", "/board/read.do");
 	});
 });
 
@@ -104,7 +104,8 @@ function customAjax(url, responseUrl) {
              alert(data.msg);
              var boardSeq = data.boardSeq;
              if(data.result == 1){
-                movePage(responseUrl);
+            //바로 작성한 페이지로 이동
+            	 movePage(responseUrl + "?boardSeq=" + boardSeq);
              } else {
                window.location.href="<c:url value='/index.do'/>";
              }
@@ -169,7 +170,7 @@ function customAjax(url, responseUrl) {
 										<div class="row">
 											<div class="col-md-12">
 												<label>
-													File Attachment 
+													File Attachment (파일 아직 미구현)
 													<small class="text-muted">Curriculum Vitae - optional</small>
 												</label>
 

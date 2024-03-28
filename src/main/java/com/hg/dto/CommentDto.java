@@ -13,7 +13,6 @@ public class CommentDto {
 	// 기본 생성자
 	public CommentDto() {}
 	
-	
 	public CommentDto(String commentContent, String memberId, String memberNick, String createDtm, int commentSeq,
 			int boardSeq, String boardTypeSeq) {
 		this.commentContent = commentContent;
@@ -24,9 +23,6 @@ public class CommentDto {
 		this.boardSeq = boardSeq;
 		this.boardTypeSeq = boardTypeSeq;
 	}
-
-
-
 
 	public String getCommentContent() {
 		return commentContent;

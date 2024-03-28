@@ -82,7 +82,7 @@
 			
 			$('#content').val(content);
 			
-			customAjax("<c:url value='/board/update.do' />", "/board/read.do?boardSeq=${boardInfo.board_seq}");
+			customAjax("<c:url value='/board/update.do' />", "/board/read.do?boardSeq=${boardInfo.boardSeq}");
 		
 		}); //#btnUpdate end 		
 }); //ready End 
@@ -99,9 +99,6 @@ function customAjax(url, responseUrl) {
          contentType : false,
          success : function (map, textStatus, XMLHttpRequest) {
              var data = $.parseJSON(map);
-             
-             console.log('data' + data);
-             console.log('boardSeq' + data.boardSeq);
              
              alert(data.msg);
              var boardSeq = data.boardSeq;
@@ -146,9 +143,9 @@ function deleteFile(fileIdx, boardSeq){
 								<input type="hidden" name="memberId" value="${ sessionScope.memberId }"/>
 								<input type="hidden" name="memberIdx" value="${ sessionScope.memberIdx }"/>
 								<input type="hidden" name="memberNick" value="${ sessionScope.memberNick }"/>
-								<input type="hidden" name="typeSeq" value="${ boardInfo.type_seq}"/>
-								<input type="hidden" name="boardSeq" value="${ boardInfo.board_seq }"/>
-								<input type="hidden" name="hasFile" value="${ boardInfo.has_file }"/>
+								<input type="hidden" name="typeSeq" value="${ boardInfo.typeSeq}"/>
+								<input type="hidden" name="boardSeq" value="${ boardInfo.boardSeq }"/>
+								<input type="hidden" name="hasFile" value="${ boardInfo.hasFile }"/>
 									
 								<fieldset>
 									<!-- required [php action request] -->

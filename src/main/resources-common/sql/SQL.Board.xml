@@ -73,10 +73,14 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<!-- 글만 작성 -->
-	<insert id="write" parameterType="java.util.HashMap">
+	<insert id="write" parameterType="BoardDto">
+	<!-- keyProperty의 값을 key가 되고, parameterType의 객체에 저장된다.-->
+	<selectKey resultType="int" keyProperty="boardSeq" order="AFTER">
+	        SELECT LAST_INSERT_ID()
+	    </selectKey>
 		INSERT INTO S_gyulbbe.board
 		(type_seq, member_id, member_nick, title, content, hits, create_dtm, update_dtm) VALUES(
-		#{typeSeq},
+		2,
 		#{memberId},
 		#{memberNick},
 		#{title},
@@ -105,21 +109,21 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	</insert>
 
 	<!-- 게시글 읽기 -->
-	<select id="read" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+	<select id="read" parameterType="BoardDto" resultType="BoardDto">
 		select type_seq, board_seq, member_id, member_nick, title, content, has_file, hits, create_dtm, update_dtm
 		from S_gyulbbe.board
 		where board_seq = #{boardSeq};
 	</select>
 
 	<!-- 조회수 -->
-	<update id="updateHits" parameterType="java.util.HashMap">
+	<update id="updateHits" parameterType="BoardDto">
 		UPDATE S_gyulbbe.board
 		SET hits = hits+1
 		WHERE board_seq = #{boardSeq};
 	</update>
 
 	<!-- 게시글 수정 -->
-	<update id="update" parameterType="java.util.HashMap">
+	<update id="update" parameterType="BoardDto">
 		update S_gyulbbe.board
 		set content = #{content}, title = #{title}, update_dtm = DATE_FORMAT(NOW(), '%Y%m%d%H%i%s')
 		where board_seq = #{boardSeq}
@@ -132,7 +136,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	</update>
 
 	<!-- 게시글 삭제 -->
-	<delete id="delete" parameterType="java.util.HashMap">
+	<delete id="delete" parameterType="BoardDto">
 		delete from S_gyulbbe.board
 		where board_seq = #{boardSeq}
 		and member_id = #{memberId}

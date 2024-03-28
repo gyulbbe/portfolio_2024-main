@@ -56,7 +56,7 @@
 						<th align="center">닉네임</th>
 						<th align="center">조회수</th>
 						<th align="center">첨부파일</th>
-						<th align="center">작성일</th>
+						<th align="center">작성일시</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -184,7 +184,7 @@
 						</select>
 						<!-- 검색창 -->
 						<input type="text" class="form-control form-control-sm"
-							placeholder="검색어를 입력하세요" id="keyword" name="keyword" style="flex: auto;" required>
+							placeholder="입력해주세요." id="keyword" name="keyword" style="flex: auto;" required>
 						<!-- 검색 버튼 -->
 						<div class="input-group-append">
 							<button class="btn btn-primary" type="submit">검색</button>

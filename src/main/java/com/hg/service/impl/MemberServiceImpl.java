@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hg.dao.MemberDao;
+import com.hg.dto.MemberDto;
 import com.hg.exception.PasswordMissMatchException;
 import com.hg.exception.UserNotFoundException;
 import com.hg.service.MemberService;
@@ -30,28 +31,29 @@ public class MemberServiceImpl implements MemberService {
 
 	//회원가입
 	@Override
-	public int join(HashMap<String, String> params) {
+	public int join(MemberDto mDto) {
 		
 		//비밀번호 길이가 6보다 작으면 안됨
-		int pwLength = params.get("memberPw").length();
+		int pwLength = mDto.getMemberPw().length();
+				
 		if(pwLength<6) {
 			return 0;
 		}
 
 		//비밀번호와 비밀번호 확인이 같아야 함
-		String firstPw = params.get("memberPw");
-		String againPw = params.get("pwAgain");
+		String firstPw = mDto.getMemberPw();
+		String againPw = mDto.getPwAgain();
 		if(!Objects.equals(firstPw, againPw)) {
 			return 0;
 		}
 		
 		//비밀번호 암호화 후 저장
-		firstPw = mDao.makeCipherText(params);
-		params.put("memberPw",firstPw);
+		firstPw = mDao.makeCipherText(mDto);
+		mDto.setMemberPw(firstPw);
 		
 		//join이 제대로 실행되면 result는 1
 		int result = 0;
-		result = mDao.join(params);
+		result = mDao.join(mDto);
 		
 		//result가 1이 아니라면 join자체가 실행이 제대로 안된 것
 		if(result != 1) {
@@ -68,10 +70,11 @@ public class MemberServiceImpl implements MemberService {
 
 	//로그인
 	@Override
-	public HashMap<String, Object> login(HashMap<String, String> params) throws UserNotFoundException, PasswordMissMatchException {
+	public HashMap<String, Object> login(MemberDto mDto) throws UserNotFoundException, PasswordMissMatchException {
 
 		//db에 저장되어 있지 않으면 member에는 아무것도 들어가지 않음.
-		HashMap<String, Object> member = mDao.getMemberById(params);
+		//이거 편의를 위해서 sql문에서 dto대신 map형태로 반환
+		HashMap<String, Object> member = mDao.getMemberById(mDto);
 
 		//입력한 id가 db에 없을 때
 		if(Objects.isNull(member)) {
@@ -79,10 +82,10 @@ public class MemberServiceImpl implements MemberService {
 		}
 
 		//사용자가 입력한 pw 암호화 시킨 pw
-		String encodePw = mDao.makeCipherText(params);
+		String encodePw = mDao.makeCipherText(mDto);
 
 		//db에 저장되어 있는 pw(암호화가 되어있는 pw)
-		String dbPw = mDao.getMemberPwById(params);
+		String dbPw = mDao.getMemberPwById(mDto);
 
 		if(!Objects.equals(dbPw, encodePw)) {
 			throw new PasswordMissMatchException();

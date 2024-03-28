@@ -2,7 +2,8 @@ package com.hg.dto;
 
 public class BoardDto {
 
-	private int type_seq;
+	private int boardSeq;
+	private int typeSeq;
 	private String memberId;
 	private String memberNick;
 	private String title;
@@ -12,11 +13,11 @@ public class BoardDto {
 	private String createDtm;
 	private String updateDtm;
 	
-	public int getType_seq() {
-		return type_seq;
+	public int getTypeSeq() {
+		return typeSeq;
 	}
-	public void setType_seq(int type_seq) {
-		this.type_seq = type_seq;
+	public void setTypeSeq(int typeSeq) {
+		this.typeSeq = typeSeq;
 	}
 	public String getMemberId() {
 		return memberId;
@@ -65,5 +66,11 @@ public class BoardDto {
 	}
 	public void setUpdateDtm(String updateDtm) {
 		this.updateDtm = updateDtm;
+	}
+	public int getBoardSeq() {
+		return boardSeq;
+	}
+	public void setBoardSeq(int boardSeq) {
+		this.boardSeq = boardSeq;
 	}
 }

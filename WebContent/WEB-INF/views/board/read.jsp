@@ -11,13 +11,15 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
+		
+		var memberId = "${sessionScope.memberId}";
+        var memberNick = "${sessionScope.memberNick}";
+        
 		//서버 사이드에서 생성된 값을 JavaScript 변수에 할당
 		//댓글 작성
 				$('#btnComment').on('click',function(e) {
 					
-					var boardSeq = "${read.board_seq}";
-			        var memberId = "${sessionScope.memberId}";
-			        var memberNick = "${sessionScope.memberNick}";
+					var boardSeq = "${read.boardSeq}";
 			        var commentContent = $("#commentContent").val().trim();
 					
 							e.preventDefault(); // 폼 제출 방지
@@ -138,16 +140,16 @@
 		<div class="row">
 			<!-- LEFT -->
 			<div class="col-md-12 order-md-1">
-				<form name="readForm" class="validate" enctype="multipart/form-data" data-success="Sent! Thank you!" data-toastr-position="top-right">
-					<input type="hidden" name="boardSeq" value="${read.board_seq}" />
-					<input type="hidden" name="typeSeq" value="${read.type_seq}" />
-					<input type="hidden" name="memberId" value="${read.member_id}" />
-					<input type="hidden" name="memberNick" value="${read.member_nick}" />
+				<form name="readForm" class="validate" enctype="multipart/form-data" data-success="Sent! Thank you!" data-toastr-position="top-right" method="post">
+					<input type="hidden" name="boardSeq" value="${read.boardSeq}" />
+					<input type="hidden" name="typeSeq" value="${read.typeSeq}" />
+					<input type="hidden" name="memberId" value="${read.memberId}" />
+					<input type="hidden" name="memberNick" value="${read.memberNick}" />
 				</form>
 				<!-- post -->
 				<div class="clearfix mb-80">
 					<div class="border-bottom-1 border-top-1 p-12">
-						<span class="float-right fs-10 mt-10 text-muted">${read.create_dtm}</span>
+						<span class="float-right fs-10 mt-10 text-muted">${read.createDtm}</span>
 						<center>
 							<strong>${read.title}</strong>
 						</center>
@@ -160,7 +162,7 @@
 										alt="avatar">
 									<!--  <i class="fa fa-user" style="font-size:30px"></i>-->
 								</div>
-								<small class="block">${read.member_nick}</small>
+								<small class="block">${read.memberNick}</small>
 								<hr />
 							</div>
 							<p>${read.content}</p>
@@ -236,8 +238,8 @@
 						</div>
 						<div class="row">
 							<div class="col-md-12 text-right">
-								<c:if test="${sessionScope.memberId == read.member_id}">
-									<a href="javascript:movePage('/board/goToUpdate.do?boardSeq=${read.board_seq}&memberId=${read.member_id}')">
+								<c:if test="${sessionScope.memberId == read.memberId}">
+									<a href="javascript:movePage('/board/goToUpdate.do?boardSeq=${read.boardSeq}&memberId=${read.memberId}')">
 										<button type="button" class="btn btn-primary">
 											<i class="fa fa-pencil"></i> 수정
 										</button>

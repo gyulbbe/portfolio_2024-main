@@ -6,11 +6,13 @@ import java.util.HashMap;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import com.hg.dto.BoardDto;
+
 @Repository
 public interface BoardDao {
 	
 	//닉네임 검색
-	public ArrayList<HashMap<String, Object>> searchNick(@Param("memberNick") String memberNick,@Param("offset") int offset);
+	public ArrayList<HashMap<String, Object>> searchNick(@Param("memberNick") String memberNick, @Param("offset") int offset);
 	//닉네임 검색 총 게시물
 	public int getTotalArticleCntNick(String memberNick);
 	//제목 검색
@@ -44,31 +46,31 @@ public interface BoardDao {
 	
 	/**
 	 * 글 작성 insert 
-	 * @param params
+	 * @param bDto
 	 * @return
 	 */
-	public int write(HashMap<String, Object> params);
+	public int write(BoardDto bDto);
 	
 	public int writeWithFile(HashMap<String, Object> params);
 	
 	/**
 	 * 글 조회  
 	 */
-	public HashMap<String, Object> read(HashMap<String, Object> params);
+	public BoardDto read(BoardDto bDto);
 	
 	/**
 	 * 조회수 증가.
-	 * @param params
+	 * @param bDto
 	 * @return
 	 */
-	public int updateHits(HashMap<String, Object> params);
+	public int updateHits(BoardDto bDto);
 	
 	/**
 	 * 글 수정 update 
-	 * @param params
+	 * @param bDto
 	 * @return
 	 */
-	public int update(HashMap<String, Object> params);
+	public int update(BoardDto bDto);
 	
 	/**
 	 * 모든 첨부파일 삭제시 has_file = 0 으로 수정 
@@ -82,7 +84,7 @@ public interface BoardDao {
 	 * @param params
 	 * @return
 	 */
-	public int delete(HashMap<String, Object> params);
+	public int delete(BoardDto bDto);
 
 	
 	

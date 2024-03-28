@@ -16,33 +16,32 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		FROM S_gyulbbe.member;
 	</select>
 	
-	<select id="getMemberById" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+	<select id="getMemberById" parameterType="MemberDto" resultType="java.util.HashMap">
 		SELECT member_id, member_idx, member_nick
 		FROM S_gyulbbe.member
 		WHERE member_id = #{memberId};
 	</select>
 	
-	<select id="getMemberPwById" parameterType="java.util.HashMap" resultType="String">
+	<select id="getMemberPwById" parameterType="MemberDto" resultType="String">
 		SELECT member_pw
 		FROM S_gyulbbe.member
 		WHERE member_id = #{memberId};
 	</select>
 	
-	<select id="makeCipherText" parameterType="map" resultType="String">
+	<select id="makeCipherText" parameterType="MemberDto" resultType="String">
 		SELECT SHA2(MD5(#{memberPw}), 256) AS pw
 	</select>
 	
 	<!-- checkId(HashMap<String, String> params) -->
-	<select id="checkId" parameterType="java.util.HashMap" resultType="int">
+	<select id="checkId" parameterType="String" resultType="int">
 		SELECT count(*)
 		FROM S_gyulbbe.member
 		WHERE member_id = #{memberId};
 	</select>
 	
-	<!-- public int join(HashMap<String, String> params) -->
-	<insert id="join" parameterType="java.util.HashMap">
+	<insert id="join" parameterType="MemberDto">
 	    <!-- keyProperty의 값을 key가 되고, parameterType의 객체에 저장된다.-->
-	    <selectKey resultType="int" keyProperty="seq" order="AFTER">
+	    <selectKey resultType="int" keyProperty="memberIdx" order="AFTER">
 	        SELECT LAST_INSERT_ID()
 	    </selectKey>
 	

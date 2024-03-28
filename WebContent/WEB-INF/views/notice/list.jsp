@@ -27,7 +27,7 @@
 						<th align="center">글쓴이</th>
 						<th align="center">조회수</th>
 						<th align="center">첨부파일</th>
-						<th align="center">작성일</th>
+						<th align="center">작성일시</th>
 					</tr>
 
 				</thead>

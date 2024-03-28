@@ -119,15 +119,17 @@
 										</a>
 									</li>
 									<li class="dropdown"><!-- BOARD -->
-										<a class="dropdown-toggle">
+										<a class="dropdown-toggle" href="javascript:movePage('/board/list.do')">
 											BOARD
 										</a>
+										<!--
 										<ul class="dropdown-menu">
-											<!--
+											
 											<li><a href="javascript:movePage('/notice/list.do')">공지사항</a></li>
-											-->
+											
 											<li><a href="javascript:movePage('/board/list.do')">자유게시판</a></li>
 										</ul>
+										-->
 									</li>
 									
 							
@@ -214,6 +216,37 @@
 								<img src="" data-lazyload="resources/demo_files/images/index/24-min.jpg" alt="" data-bgposition="center center" data-kenburns="on" data-duration="10000" data-ease="Linear.easeNone" data-bgfit="100" data-bgfitend="110" />
 	
 								<div class="tp-caption very_large_text lfb ltt tp-resizeme"
+									data-x="left" data-hoffset="-100"
+									data-y="center" data-voffset="-50"
+									data-speed="600"
+									data-start="800"
+									data-easing="Power4.easeOut"
+									data-splitin="none"
+									data-splitout="none"
+									data-elementdelay="0.01"
+									data-endelementdelay="0.1"
+									data-endspeed="500"
+									data-endeasing="Power4.easeIn">
+									to-do:
+								</div>
+	
+								<div class="tp-caption medium_light_white lfb ltt tp-resizeme"
+									data-x="left" data-hoffset="-110"
+									data-y="center" data-voffset="60"
+									data-speed="600"
+									data-start="900"
+									data-easing="Power4.easeOut"
+									data-splitin="none"
+									data-splitout="none"
+									data-elementdelay="0.01"
+									data-endelementdelay="0.1"
+									data-endspeed="500"
+									data-endeasing="Power4.easeIn">
+									파일 업로드<br/>
+									관리자 전용 계정
+								</div>
+								
+								<div class="tp-caption very_large_text lfb ltt tp-resizeme"
 									data-x="right" data-hoffset="-100"
 									data-y="center" data-voffset="-50"
 									data-speed="600"
@@ -225,7 +258,7 @@
 									data-endelementdelay="0.1"
 									data-endspeed="500"
 									data-endeasing="Power4.easeIn">
-									구현 기능
+									finish:
 								</div>
 	
 								<div class="tp-caption medium_light_white lfb ltt tp-resizeme"

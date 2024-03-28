@@ -6,7 +6,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript">
 $(document).ready(function(){
-
     
 	$('#msgDiv').hide();
 	$("#loading-div-background").css({ opacity: 1 });
@@ -62,9 +61,9 @@ $(document).ready(function(){
 		// overlay 보이기
 		$("#loading-div-background").css({'z-index' : '9999'}).show();
 		
-		console.log(memberId);
 		$.ajax({
-			url: `/member/checkId/${memberId}.do`,
+			url: "<c:url value='/member/checkId.do'/>",
+			data: {memberId:memberId},
 			success : function (data, textStatus, XMLHttpRequest) {
 				console.log(data);
 				if(data.cnt == 1){
@@ -81,7 +80,7 @@ $(document).ready(function(){
 // 					var formData = $("#registerForm").serialize();
 					console.log(formData);
 					$.ajax({
-						url: `/member/join/${memberId}/${memberName}/${memberNick}/${pwAgain}/${memberPw}/${email}.do`,
+						url: "<c:url value='/member/join.do'/>",
 						type: "POST",
 						data: formData,
 						dataType:'TEXT',

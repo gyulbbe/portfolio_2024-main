@@ -7,11 +7,14 @@ import java.util.Objects;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.hg.dto.BoardDto;
 import com.hg.service.AttFileService;
 import com.hg.service.BoardService;
 import com.hg.service.CommentService;
@@ -25,9 +28,9 @@ public class BoardController {
 	@Autowired CommentService cService;
 	@Autowired AttFileService attFileService;
 	@Autowired FileUtil fileUtil;
-
-	private String typeSeq = "2";
-
+	@Value("#{config['site.context.path']}")
+	String ctx;
+	
 	//보드 리스트로 + 검색
 	@GetMapping("/board/list.do")
 	public ModelAndView goList(@RequestParam HashMap<String, Object> params, //그냥 리스트
@@ -118,7 +121,7 @@ public class BoardController {
 
 	//글쓰기 페이지로 	
 	@GetMapping("/board/goToWrite.do")
-	public ModelAndView goToWrite(@RequestParam HashMap<String, Object> params, HttpSession session) {
+	public ModelAndView goToWrite(HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		//세션아이디가 없으면 로그인 화면으로
 		String memberId = (String) session.getAttribute("memberId");
@@ -127,9 +130,6 @@ public class BoardController {
 		}
 		//세션아이디가 있으면 글쓰기 페이지로
 		else {
-			if(!params.containsKey("typeSeq")) {
-				params.put("typeSeq", this.typeSeq);
-			}
 			mv.setViewName("/board/write");
 		}
 		return mv;
@@ -137,51 +137,45 @@ public class BoardController {
 
 	//게시글 읽기
 	@GetMapping("/board/read.do")
-	public ModelAndView read(@RequestParam HashMap<String, Object> params, HttpSession session, 
+	public ModelAndView read(@ModelAttribute BoardDto bDto, HttpSession session, 
+			@RequestParam(value = "currentPage", required = false) Integer currentPage, 
 			@RequestParam(value = "searchType", required = false) String searchType, //닉네임 검색인지 제목 검색인지
 			@RequestParam(value = "keyword", required = false) String keyword //검색창에 입력한 값
 			) {
 		
-		if(!params.containsKey("typeSeq")) {
-			params.put("typeSeq", this.typeSeq);
-		}
-		
 		ModelAndView mv = new ModelAndView();
 		//전에 썼던 내용
-		HashMap<String, Object> map = bService.read(params);
+		BoardDto boardInfo = bService.read(bDto);
 		//댓글 리스트
-		ArrayList<HashMap<String, Object>> commentList = cService.commentList(params);
+		ArrayList<HashMap<String, Object>> commentList = cService.commentList(bDto);
 		
 		//페이지 변경 후 게시글을 읽었을 때, 전의 페이지로 가기 위한 작업
-		mv.addObject("currentPage", params.get("currentPage"));
+		mv.addObject("currentPage", currentPage);
 		
 		//게시글 검색 후 페이지 변경 후 게시글 읽었을 때, 전의 페이지로 가기 위한 작업
 		mv.addObject("searchType", searchType);
 		mv.addObject("keyword", keyword);
 		
 		mv.addObject("commentList", commentList);
-		mv.addObject("read", map);
+		mv.addObject("read", boardInfo);
 		
 		mv.setViewName("/board/read");
 		return mv;
-	}	
+	}
 
 	//수정 페이지로 
 	@GetMapping("/board/goToUpdate.do")
-	public ModelAndView goToUpdate(@RequestParam HashMap<String, Object> params) {
-		if(!params.containsKey("typeSeq")) {
-			params.put("typeSeq", this.typeSeq);
-		}
+	public ModelAndView goToUpdate(@ModelAttribute BoardDto bDto) {
+		
 		
 		ModelAndView mv = new ModelAndView();
 		
 		//수정페이지에서 전에 썼던 제목이나 본문 글 등을 불러오기 위한 작업
-		HashMap<String, Object> read = bService.read(params);
-		if(!Objects.isNull(read)) {
-			mv.addObject("boardInfo", read);
+		BoardDto boardInfo = bService.read(bDto);
+		if(!Objects.isNull(boardInfo)) {
+			mv.addObject("boardInfo", boardInfo);
 			mv.setViewName("/board/update");
 		}
-
 		return mv;
 	}
 }

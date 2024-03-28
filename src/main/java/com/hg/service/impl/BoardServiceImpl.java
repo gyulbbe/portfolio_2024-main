@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.hg.dao.AttFileDao;
 import com.hg.dao.BoardDao;
+import com.hg.dto.BoardDto;
 import com.hg.service.BoardService;
 import com.hg.util.FileUtil;
 
@@ -69,8 +70,8 @@ public class BoardServiceImpl implements BoardService{
 
 	//글만 작성
 	@Override
-	public int write(HashMap<String, Object> params) {
-		return bDao.write(params);
+	public int write(BoardDto bDto) {
+		return bDao.write(bDto);
 	}
 	
 	//파일있는 글 작성
@@ -113,27 +114,27 @@ public class BoardServiceImpl implements BoardService{
 
 	//글 조회 
 	@Override
-	public HashMap<String, Object> read(HashMap<String, Object> params) {
+	public BoardDto read(BoardDto bDto) {
 		//조회수 증가
-		bDao.updateHits(params);
-		return bDao.read(params);
+		bDao.updateHits(bDto);
+		return bDao.read(bDto);
 	}
 
 	@Override
-	public int update(HashMap<String, Object> params, List<MultipartFile> mFiles) {
+	public int update(BoardDto bDto, List<MultipartFile> mFiles) {
 //		if(params.get("hasFile").equals("Y")) { // 첨부파일 존재시 			
 //			// 파일 처리
 //		}	
 //		// 글 수정 dao 
-		return bDao.update(params);
+		return bDao.update(bDto);
 	}
 
 	@Override
-	public int delete(HashMap<String, Object> params) {
+	public int delete(BoardDto bDto) {
 //		if(params.get("hasFile").equals("Y")) { // 첨부파일 있으면 		
 //			 // 파일 처리
 //		}
-		return bDao.delete(params);
+		return bDao.delete(bDto);
 	}
 
 	@Override

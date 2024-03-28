@@ -22,6 +22,7 @@ public class MemberDto {
 	int typeSeq;
 	String memberId;
 	String memberPw;
+	String pwAgain;
 	String memberName;
 	String memberNick;
 	String email;

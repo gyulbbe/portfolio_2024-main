@@ -5,13 +5,14 @@ import java.util.HashMap;
 
 import org.springframework.stereotype.Repository;
 
+import com.hg.dto.BoardDto;
 import com.hg.dto.CommentDto;
 
 @Repository
 public interface CommentDao {
 
 //	댓글 리스트
-	public ArrayList<HashMap<String, Object>> commentList(HashMap<String, Object> params);
+	public ArrayList<HashMap<String, Object>> commentList(BoardDto bDto);
 	
 //	댓글 작성
 	public int writeComment(CommentDto dto);

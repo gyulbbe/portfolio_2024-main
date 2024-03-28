@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hg.dao.CommentDao;
+import com.hg.dto.BoardDto;
 import com.hg.dto.CommentDto;
 import com.hg.service.CommentService;
 
@@ -18,8 +19,8 @@ public class CommentServiceImpl implements CommentService{
 
 	//	댓글 리스트
 	@Override
-	public ArrayList<HashMap<String, Object>> commentList(HashMap<String, Object> params){
-		return cDao.commentList(params);
+	public ArrayList<HashMap<String, Object>> commentList(BoardDto bDto){
+		return cDao.commentList(bDto);
 	}
 
 	//	댓글 작성

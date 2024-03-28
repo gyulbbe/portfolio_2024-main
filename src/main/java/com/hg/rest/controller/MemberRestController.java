@@ -6,12 +6,14 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hg.dto.MemberDto;
 import com.hg.service.EmailService;
 import com.hg.service.MemberService;
 
@@ -29,9 +31,8 @@ public class MemberRestController {
 	@Value("#{config['site.context.path']}")
 	String ctx;
 	
-	@ResponseBody
-	@GetMapping("/member/checkId/{memberId}.do")
-	public HashMap<String, Object> checkId(@PathVariable("memberId") String memberId){
+	@GetMapping("/member/checkId.do")
+	public HashMap<String, Object> checkId(@RequestParam("memberId") String memberId){
 		//cnt 초기화
 		int cnt = 0;
 		
@@ -43,45 +44,30 @@ public class MemberRestController {
 		return map;
 	}
 	
-	@PostMapping("/member/join/{memberId}/{memberName}/{memberNick}/{pwAgain}/{memberPw}/{email}.do")
-	public HashMap<String, Object> join(
-			@PathVariable("memberId") String memberId,
-			@PathVariable("memberName") String memberName,
-			@PathVariable("memberNick") String memberNick,
-			@PathVariable("pwAgain") String pwAgain,
-			@PathVariable("memberPw") String memberPw,
-			@PathVariable("email") String email
-			){
+	@PostMapping("/member/join.do")
+	public HashMap<String, Object> join(@ModelAttribute MemberDto mDto){
 		
-		//매개변수전용 HashMap
-		HashMap<String, String> params = new HashMap<>();
-		params.put("memberId", memberId);
-		params.put("memberName", memberName);
-		params.put("memberNick", memberNick);
-		params.put("pwAgain", pwAgain);
-		params.put("memberPw", memberPw);
-		params.put("email", email);
 		
 		//반환전용 HashMap
 		HashMap<String, Object> map = new HashMap<String, Object>();
 				
 		int cnt = 0;
-		cnt = mService.join(params);
+		cnt = mService.join(mDto);
 		map.put("cnt", cnt);
 		map.put("msg", cnt==1 ? "회원 가입 완료!":"회원 가입 실패!");
 		if(cnt== 1) {
-			eService.sendEmail(params);
+			eService.sendEmail(mDto);
 		}
 		map.put("nextPage", cnt==1 ? "/member/goLoginPage.do" : "/member/goRegisterPage.do");
 		return map;
 	}
 	
 	@PostMapping("/member/login.do")
-	public HashMap<String, Object> login(@RequestParam HashMap<String, String> params, HttpSession session){
+	public HashMap<String, Object> login(@ModelAttribute MemberDto mDto, HttpSession session){
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		try {
 			//mService맵 형태로 보냄
-			map.putAll(mService.login(params));
+			map.putAll(mService.login(mDto));
 			
 			//세션 생성
 			session.setAttribute("memberId", map.get("member_id"));

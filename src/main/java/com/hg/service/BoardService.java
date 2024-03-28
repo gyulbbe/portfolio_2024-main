@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.hg.dto.BoardDto;
+
 public interface BoardService {
 	//닉네임 검색 목록 받아오기
 	public ArrayList<HashMap<String, Object>> searchNick(String memberNick, int offset);
@@ -24,18 +26,18 @@ public interface BoardService {
 	
 	public int writeWithFile(HashMap<String, Object> params, List<MultipartFile> mFiles);
 	
-	public int write(HashMap<String, Object> params);
+	public int write(BoardDto bDto);
 
 	/**
 	 * 글 조회  
 	 */
-	public HashMap<String, Object> read(HashMap<String, Object> params);
+	public BoardDto read(BoardDto bDto);
 	/**
 	 * 글 수정 update 
-	 * @param params
+	 * @param bDto
 	 * @return
 	 */
-	public int update(HashMap<String, Object> params, List<MultipartFile> mFiles);
+	public int update(BoardDto bDto, List<MultipartFile> mFiles);
 	
 	/**첨부파일 삭제(수정 페이지에서 삭제버튼 눌러 삭제하는 경우임) 
 	 * 
@@ -45,9 +47,9 @@ public interface BoardService {
 	public boolean deleteAttFile(HashMap<String, Object> params);
 	
 	/** 글 삭제 delete 
-	 * @param params
+	 * @param bDto
 	 * @return
 	 */
-	public int delete(HashMap<String, Object> params);
+	public int delete(BoardDto bDto);
 
 }
