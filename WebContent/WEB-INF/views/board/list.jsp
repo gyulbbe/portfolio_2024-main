@@ -139,8 +139,6 @@
 					</c:otherwise>
 					</c:choose>
 					
-					
-					
 					<!-- 다음 페이지 -->
 					
 					<c:choose>

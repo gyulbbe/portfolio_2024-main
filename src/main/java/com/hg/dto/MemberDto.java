@@ -19,7 +19,7 @@ import lombok.ToString;
 public class MemberDto {
 	
 	int memberIdx;
-	int typeSeq;
+	int memberTypeSeq;
 	String memberId;
 	String memberPw;
 	String pwAgain;
@@ -29,5 +29,4 @@ public class MemberDto {
 	String createDtm;
 	String updateDtm;
 	String membercol;
-	
 }

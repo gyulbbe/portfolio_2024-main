@@ -11,7 +11,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		
+		var memberIdx = "${sessionScope.memberIdx}";
 		var memberId = "${sessionScope.memberId}";
         var memberNick = "${sessionScope.memberNick}";
         
@@ -125,7 +125,10 @@
 							},
 							error : function(xhr, status, error) {
 								alert('삭제 중 실패 오류');
-								window.location.reload();
+								console.log(xhr.responseText); // 서버에서 반환한 오류 메시지 출력
+							    console.log(status); // 요청 상태 출력
+							    console.log(error); // 오류 정보 출력
+								//window.location.reload();
 							}
 						});
 					}
@@ -143,6 +146,7 @@
 				<form name="readForm" class="validate" enctype="multipart/form-data" data-success="Sent! Thank you!" data-toastr-position="top-right" method="post">
 					<input type="hidden" name="boardSeq" value="${read.boardSeq}" />
 					<input type="hidden" name="typeSeq" value="${read.typeSeq}" />
+					<input type="hidden" name="memberIdx" value="${read.memberIdx}" />
 					<input type="hidden" name="memberId" value="${read.memberId}" />
 					<input type="hidden" name="memberNick" value="${read.memberNick}" />
 				</form>

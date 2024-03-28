@@ -79,8 +79,9 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	        SELECT LAST_INSERT_ID()
 	    </selectKey>
 		INSERT INTO S_gyulbbe.board
-		(type_seq, member_id, member_nick, title, content, hits, create_dtm, update_dtm) VALUES(
+		(type_seq, member_idx, member_id, member_nick, title, content, hits, create_dtm, update_dtm) VALUES(
 		2,
+		#{memberIdx},
 		#{memberId},
 		#{memberNick},
 		#{title},
@@ -110,9 +111,10 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 
 	<!-- 게시글 읽기 -->
 	<select id="read" parameterType="BoardDto" resultType="BoardDto">
-		select type_seq, board_seq, member_id, member_nick, title, content, has_file, hits, create_dtm, update_dtm
-		from S_gyulbbe.board
-		where board_seq = #{boardSeq};
+		SELECT b.type_seq, b.board_seq, b.member_idx, m.member_id, m.member_nick, b.title, b.content, b.has_file, b.hits, b.create_dtm, b.update_dtm
+		FROM S_gyulbbe.board b
+		JOIN S_gyulbbe.member m ON m.member_idx = b.member_idx
+		WHERE board_seq = #{boardSeq};
 	</select>
 
 	<!-- 조회수 -->

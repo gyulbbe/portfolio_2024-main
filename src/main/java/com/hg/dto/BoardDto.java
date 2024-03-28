@@ -4,6 +4,7 @@ public class BoardDto {
 
 	private int boardSeq;
 	private int typeSeq;
+	private int memberIdx;
 	private String memberId;
 	private String memberNick;
 	private String title;
@@ -72,5 +73,11 @@ public class BoardDto {
 	}
 	public void setBoardSeq(int boardSeq) {
 		this.boardSeq = boardSeq;
+	}
+	public int getMemberIdx() {
+		return memberIdx;
+	}
+	public void setMemberIdx(int memberIdx) {
+		this.memberIdx = memberIdx;
 	}
 }

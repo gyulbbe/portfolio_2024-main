@@ -47,7 +47,6 @@ public class MemberRestController {
 	@PostMapping("/member/join.do")
 	public HashMap<String, Object> join(@ModelAttribute MemberDto mDto){
 		
-		
 		//반환전용 HashMap
 		HashMap<String, Object> map = new HashMap<String, Object>();
 				

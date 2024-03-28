@@ -158,6 +158,7 @@ public class BoardController {
 		
 		mv.addObject("commentList", commentList);
 		mv.addObject("read", boardInfo);
+		System.out.println("3333333333333333333333333333333:"+bDto.getMemberId());
 		
 		mv.setViewName("/board/read");
 		return mv;
@@ -165,10 +166,13 @@ public class BoardController {
 
 	//수정 페이지로 
 	@GetMapping("/board/goToUpdate.do")
-	public ModelAndView goToUpdate(@ModelAttribute BoardDto bDto) {
-		
-		
+	public ModelAndView goToUpdate(@ModelAttribute BoardDto bDto, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
+		//세션 없으면 로그인 페이지로
+		int memberIdx = (int) session.getAttribute("memberIdx");
+		if(Objects.isNull(memberIdx)||memberIdx ==0 ) {
+			mv.setViewName("/member/login");
+		}
 		
 		//수정페이지에서 전에 썼던 제목이나 본문 글 등을 불러오기 위한 작업
 		BoardDto boardInfo = bService.read(bDto);
