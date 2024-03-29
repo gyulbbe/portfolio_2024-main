@@ -4,17 +4,16 @@ package com.hg.rest.controller;
 import java.util.HashMap;
 import java.util.Objects;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-
 import com.hg.dto.BoardDto;
 import com.hg.service.AttFileService;
 import com.hg.service.BoardService;
@@ -35,8 +34,8 @@ public class BoardRestController {
 	public HashMap<String, Object> write(@ModelAttribute BoardDto bDto, HttpSession session) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		//세션 끊긴 상태로 글 작성 막기
-		String sessionId = (String) session.getAttribute("memberId");
-		if (Objects.isNull(sessionId)) {
+		Integer sessionIdx = (Integer) session.getAttribute("memberIdx");
+		if (Objects.isNull(sessionIdx)||sessionIdx==0) {
 	        map.put("result", 0);
 	        map.put("msg", "로그아웃된 상태입니다.");
 	    } else {
@@ -57,14 +56,18 @@ public class BoardRestController {
 	    return map;
 	}
 	
-	
-
-	@PostMapping("/board/update.do")// !!!!!!!!!!!! 비동기 응답 
-	public HashMap<String, Object> update(@ModelAttribute BoardDto bDto, MultipartHttpServletRequest mReq, HttpSession session) {
+	@PostMapping("/board/{boardSeq}/update.do")
+	public HashMap<String, Object> update(
+			@PathVariable("boardSeq") Integer boardSeq,
+			BoardDto bDto,
+			HttpSession session) {
+		//받아온 boardSeq dto에 넣기
+		bDto.setBoardSeq(boardSeq);
+		
 		HashMap<String, Object> map = new HashMap<>();
 		//세션 끊긴 상태로 글 작성 막기
-		String sessionId = (String) session.getAttribute("memberId");
-		if(Objects.isNull(sessionId)) {
+		Integer sessionIdx = (Integer) session.getAttribute("memberIdx");
+		if(Objects.isNull(sessionIdx)||sessionIdx==0) {
 			map.put("result", 0);
 			map.put("msg", "로그아웃된 상태입니다.");
 		} else {
@@ -72,8 +75,6 @@ public class BoardRestController {
 			//jsp에서 result를 이용해서 페이지 이동을 하는 함수가 있길래 넣어줌
 			if(result==1) {
 				map.put("result", result);
-				//jsp에 보낼 params 이거 왜 필요한거지?
-//				map.put("map", );
 				//jsp에서 성공 시 뜨게 할 메시지 전달
 				map.put("msg", "수정 완료");
 			} else {
@@ -85,24 +86,27 @@ public class BoardRestController {
 		return map;
 	}
 	
-	@PostMapping("/board/delete.do")
-	public HashMap<String, Object> delete(@ModelAttribute BoardDto bDto, HttpSession session) {
+	@DeleteMapping("/board/{boardSeq}/delete.do")
+	public HashMap<String, Object> delete(
+			@PathVariable("boardSeq") Integer boardSeq,
+			BoardDto bDto,
+			HttpSession session) {
 
+		bDto.setBoardSeq(boardSeq);
+		
 		HashMap<String, Object> map = new HashMap<>();
 		//세션아이디가 없으면 로그인 화면으로
-		int sessionIdx = (int) session.getAttribute("memberIdx");
-		System.out.println("sessionIdx22222222222222222222222222222222222222222222222222"+sessionIdx);
+		Integer sessionIdx = (Integer) session.getAttribute("memberIdx");
 		
 		if(Objects.isNull(sessionIdx)||sessionIdx==0) {
 			map.put("success", false);
 			map.put("message", "비로그인 상태입니다.");
 			return map;
 		}
-		
-		
-		//게시판 아이디
-		int articleMemberIdx = bDto.getMemberIdx();
-		System.out.println("articleMemberIdx11111111111111111111111: " + bDto.getMemberIdx());
+		//게시판 번호로 idx를 가져오기 위한 작업
+		BoardDto articleMemberIdxDto = bService.read(bDto);
+		//게시판 번호로 가져온 idx
+		int articleMemberIdx = articleMemberIdxDto.getMemberIdx();
 		//세션 아이디와 게시물 아이디가 일치한다면
 		if(sessionIdx==articleMemberIdx) {
 			

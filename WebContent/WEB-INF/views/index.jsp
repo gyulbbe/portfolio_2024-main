@@ -318,11 +318,11 @@
 
 					<div class="col-md-7">
 					
-					<!--
-					<h4 class="letter-spacing-1">관리자 계정</h4>
-					<p> ID: admin / PW: admin123
+					
+					<h4 class="letter-spacing-1">시험용 계정</h4>
+					<p> ID: admin123 / PW: admin123
 					</div>
-					-->
+					
 						
 					<div id="sidepanel" class="sidepanel-light">
 						<a id="sidepanel_close" href="#"><!-- close -->

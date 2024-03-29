@@ -6,18 +6,17 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.hg.dao.CommentDao">
 	<!-- 댓글 리스트 -->
 	<select id="commentList" parameterType="BoardDto" resultType="java.util.HashMap">
-		SELECT c.member_id, c.member_nick, c.comment_content, c.create_dtm, c.comment_seq
-		FROM S_gyulbbe.comment c
-		JOIN S_gyulbbe.board b ON b.board_seq = c.board_seq
-		WHERE c.board_seq = #{boardSeq}
-		ORDER BY c.comment_seq DESC
+		SELECT member_id, member_nick, comment_content, create_dtm, comment_seq
+		FROM S_gyulbbe.comment
+		WHERE board_seq = #{boardSeq}
+		ORDER BY comment_seq DESC
 	</select>
 	
 	<!-- 댓글 작성 -->
 	<insert id="writeComment" parameterType="CommentDto" useGeneratedKeys="true" keyProperty="commentSeq">
 		INSERT INTO S_gyulbbe.comment
-		(board_type_seq, board_seq, comment_content, create_dtm, member_id, member_nick)
-		VALUES(2, #{boardSeq}, #{commentContent}, DATE_FORMAT(NOW(), '%Y%m%d%H%i%s'), #{memberId}, #{memberNick})
+		(board_type_seq, board_seq, comment_content, create_dtm, member_id, member_nick, member_idx)
+		VALUES(2, #{boardSeq}, #{commentContent}, DATE_FORMAT(NOW(), '%Y%m%d%H%i%s'), #{memberId}, #{memberNick}, #{memberIdx})
 	</insert>
 	
 	<!-- 댓글 삭제 -->

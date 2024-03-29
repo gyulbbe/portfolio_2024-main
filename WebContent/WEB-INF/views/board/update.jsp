@@ -82,7 +82,7 @@
 			
 			$('#content').val(content);
 			
-			customAjax("<c:url value='/board/update.do' />", "/board/read.do?boardSeq=${boardInfo.boardSeq}");
+			customAjax("<c:url value='/board/" + ${boardInfo.boardSeq} + "/update.do'/>", "/board/read.do?boardSeq=${boardInfo.boardSeq}");
 		
 		}); //#btnUpdate end 		
 }); //ready End 
@@ -91,17 +91,14 @@ function customAjax(url, responseUrl) {
   var frm = document.updateForm;
   var formData = new FormData(frm);
      $.ajax({
-         url : "<c:url value='/board/update.do'/>",
+    	 url: url,
          data : formData,
          type : 'POST',
-         dataType : "text",
          processData : false,
          contentType : false,
-         success : function (map, textStatus, XMLHttpRequest) {
-             var data = $.parseJSON(map);
+         success : function (data, textStatus, XMLHttpRequest) {
              
              alert(data.msg);
-             var boardSeq = data.boardSeq;
              if(data.result == 1){
                 movePage(responseUrl);
              } else {
@@ -140,11 +137,9 @@ function deleteFile(fileIdx, boardSeq){
 						</div>
 						<div class="card-block">
 							<form name="updateForm" class="validate" method="post" enctype="multipart/form-data" data-success="Sent! Thank you!" data-toastr-position="top-right">
-								<input type="hidden" name="memberId" value="${ sessionScope.memberId }"/>
-								<input type="hidden" name="memberIdx" value="${ sessionScope.memberIdx }"/>
-								<input type="hidden" name="memberNick" value="${ sessionScope.memberNick }"/>
+								
 								<input type="hidden" name="typeSeq" value="${ boardInfo.typeSeq}"/>
-								<input type="hidden" name="boardSeq" value="${ boardInfo.boardSeq }"/>
+								
 								<input type="hidden" name="hasFile" value="${ boardInfo.hasFile }"/>
 									
 								<fieldset>

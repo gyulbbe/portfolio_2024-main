@@ -158,8 +158,6 @@ public class BoardController {
 		
 		mv.addObject("commentList", commentList);
 		mv.addObject("read", boardInfo);
-		System.out.println("3333333333333333333333333333333:"+bDto.getMemberId());
-		
 		mv.setViewName("/board/read");
 		return mv;
 	}

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +16,7 @@ import com.hg.dto.CommentDto;
 import com.hg.service.CommentService;
 
 @RestController
-public class CommentResstController {
+public class CommentRestController {
 
 	@Autowired
 	CommentService cService;
@@ -26,8 +27,8 @@ public class CommentResstController {
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		//세션아이디가 없으면 댓글 입력 막기
-		String memberId = (String) session.getAttribute("memberId");
-		if(Objects.isNull(memberId)||memberId.isEmpty()) {
+		Integer memberIdx = (Integer) session.getAttribute("memberIdx");
+		if(Objects.isNull(memberIdx)||memberIdx==0) {
 			map.put("success", false);
 			map.put("msg", "비로그인 상태입니다.");
 			return map;
@@ -55,22 +56,24 @@ public class CommentResstController {
 		return map;
 	}
 
-	@DeleteMapping("/comment/delete.do")
-	public HashMap<String, Object> deleteComment(@RequestBody CommentDto dto, HttpSession session) {
+	@DeleteMapping("/comment/{commentSeq}/delete.do")
+	public HashMap<String, Object> deleteComment(
+			@PathVariable Integer commentSeq, HttpSession session) {
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		CommentDto dto = new CommentDto();
+		//받아온 commentSeq 집어넣기
+		dto.setCommentSeq(commentSeq);
 		int result = cService.deleteComment(dto);
 		
-		//세션아이디가 없으면 댓글 삭제 막기
-		String memberId = (String) session.getAttribute("memberId");
-		if(Objects.isNull(memberId)||memberId.isEmpty()) {
-			map.put("result", 0);
+		//세션아이디가 없으면 댓글 입력 막기
+		Integer memberIdx = (Integer) session.getAttribute("memberIdx");
+		if(Objects.isNull(memberIdx)||memberIdx==0) {
+			map.put("success", false);
 			map.put("msg", "비로그인 상태입니다.");
 			return map;
 		}
-
 		
-
 		if(result==1) {
 			map.put("result", result);
 			map.put("msg", "삭제 완료");

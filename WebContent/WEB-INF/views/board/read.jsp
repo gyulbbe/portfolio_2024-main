@@ -25,6 +25,7 @@
 							e.preventDefault(); // 폼 제출 방지
 							var data = {
 								boardSeq : boardSeq,
+								memberIdx : memberIdx,
 								memberId : memberId,
 								memberNick : memberNick,
 								commentContent : commentContent
@@ -62,11 +63,9 @@
 									// 댓글 입력 필드 초기화
 									$("#commentContent").val('');
 									alert(response.msg);
-									}
-								
-								else{
+									} else{
 									alert(response.msg);
-								}
+									}
 								},
 								error : function(xhr, status, error) {
 									alert('작성 중 오류 발생');
@@ -80,13 +79,12 @@
         var commentItem = $(this).closest('.comment-item');
         var commentSeq = $(this).data('comment-seq'); // data-comment-seq 속성에서 commentSeq 값을 가져옴
         var data = {
-				memberId : memberId,
 				commentSeq : commentSeq
 			};
         // 사용자에게 삭제 확인 받음
         if (confirm("댓글을 삭제하시겠습니까?")) {
             $.ajax({
-                url: "<c:url value='/comment/delete.do'/>", // 서버의 댓글 삭제 처리 URL
+            	url: "<c:url value='/comment/" + commentSeq + "/delete.do'/>", // 서버의 댓글 삭제 처리 URL
                 type: 'DELETE',
                 contentType: 'application/json',
                 data: JSON.stringify(data),
@@ -110,8 +108,8 @@
 					var formData = new FormData(document.readForm);
 					if (confirm("삭제하시겠습니까?")) {
 						$.ajax({
-							url : "<c:url value='/board/delete.do'/>", // 요청을 보낼 서버의 URL
-							type : 'POST', // HTTP 요청 방식
+							url: `<c:url value='/board/${read.boardSeq}/delete.do'/>`, // 요청을 보낼 서버의 URL
+							type : 'DELETE', // HTTP 요청 방식
 							data : formData, // 서버로 보낼 데이터
 							processData : false,
 							contentType : false,
@@ -125,9 +123,6 @@
 							},
 							error : function(xhr, status, error) {
 								alert('삭제 중 실패 오류');
-								console.log(xhr.responseText); // 서버에서 반환한 오류 메시지 출력
-							    console.log(status); // 요청 상태 출력
-							    console.log(error); // 오류 정보 출력
 								//window.location.reload();
 							}
 						});
@@ -144,9 +139,8 @@
 			<!-- LEFT -->
 			<div class="col-md-12 order-md-1">
 				<form name="readForm" class="validate" enctype="multipart/form-data" data-success="Sent! Thank you!" data-toastr-position="top-right" method="post">
-					<input type="hidden" name="boardSeq" value="${read.boardSeq}" />
+					
 					<input type="hidden" name="typeSeq" value="${read.typeSeq}" />
-					<input type="hidden" name="memberIdx" value="${read.memberIdx}" />
 					<input type="hidden" name="memberId" value="${read.memberId}" />
 					<input type="hidden" name="memberNick" value="${read.memberNick}" />
 				</form>
