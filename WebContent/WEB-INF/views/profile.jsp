@@ -71,7 +71,7 @@
 		<div class="row">
 			<div class="col-lg-12 col-md-12 col-sm-12">
 				<div class="heading-title heading-border-bottom">
-					<h3>The History Of Making This Portfolio</h3>
+					<h3>The History Of Making This Portfolio(아래 탭을 눌렀을 때 바로 뜨지 않으면 새로고침 한번)</h3>
 				</div>
 				<ul class="nav nav-tabs nav-clean">
 					<li class="active"><a href="#tab1" data-toggle="tab">ERROR
