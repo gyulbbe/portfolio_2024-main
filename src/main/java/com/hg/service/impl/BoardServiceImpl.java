@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,12 +16,15 @@ import com.hg.dto.BoardDto;
 import com.hg.service.BoardService;
 import com.hg.util.FileUtil;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Service
 public class BoardServiceImpl implements BoardService{
 
-	@Autowired BoardDao bDao;
-	@Autowired AttFileDao attFileDao;
-	@Autowired FileUtil fileUtil;
+	private final BoardDao bDao;
+	private final AttFileDao attFileDao;
+	private final FileUtil fileUtil;
 	@Value("#{config['project.file.upload.location']}")
 	private String saveLocation;
 	

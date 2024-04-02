@@ -6,7 +6,6 @@ import java.util.Objects;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,13 +20,16 @@ import com.hg.service.CommentService;
 import com.hg.util.FileUtil;
 import com.hg.util.PageHandler;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Controller
 public class BoardController {
 
-	@Autowired BoardService bService;
-	@Autowired CommentService cService;
-	@Autowired AttFileService attFileService;
-	@Autowired FileUtil fileUtil;
+	private final BoardService bService;
+	private final CommentService cService;
+//	private final AttFileService attFileService;
+//	private final FileUtil fileUtil;
 	@Value("#{config['site.context.path']}")
 	String ctx;
 	

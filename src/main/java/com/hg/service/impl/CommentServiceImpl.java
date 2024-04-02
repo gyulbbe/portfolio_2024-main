@@ -3,7 +3,6 @@ package com.hg.service.impl;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hg.dao.CommentDao;
@@ -11,10 +10,13 @@ import com.hg.dto.BoardDto;
 import com.hg.dto.CommentDto;
 import com.hg.service.CommentService;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Service
 public class CommentServiceImpl implements CommentService{
 
-	@Autowired CommentDao cDao;
+	private final CommentDao cDao;
 
 
 	//	댓글 리스트

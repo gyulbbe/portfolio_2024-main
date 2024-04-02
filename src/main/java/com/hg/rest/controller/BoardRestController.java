@@ -19,13 +19,15 @@ import com.hg.service.AttFileService;
 import com.hg.service.BoardService;
 import com.hg.util.FileUtil;
 
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 @RestController
 public class BoardRestController {
 
-	@Autowired BoardService bService;
-	@Autowired AttFileService attFileService;
-	@Autowired FileUtil fileUtil;
+	private final BoardService bService;
+//	private final AttFileService attFileService;
+//	private final FileUtil fileUtil;
 
 	@Value("#{config['site.context.path']}")
 	String ctx;
