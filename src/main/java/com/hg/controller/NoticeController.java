@@ -18,12 +18,13 @@
 //import com.hg.service.BoardService;
 //import com.hg.util.FileUtil;
 //
+//@RequiredArgsConstructor
 //@Controller
 //public class NoticeController {
 //
-//	@Autowired BoardService bService;
-//	@Autowired AttFileService attFileService;
-//	@Autowired FileUtil fileUtil;
+//	private final BoardService bService;
+//	private final AttFileService attFileService;
+//	private final FileUtil fileUtil;
 //
 //	private String typeSeq = "1";
 //
@@ -194,7 +195,11 @@
 //		}else {
 //			// 로그인 세션 풀렸을때
 //		}
-//		return map; // 비동기: map return 
+//		return map; // 비동기: map 
+
+import lombok.RequiredArgsConstructor;
+
+return 
 //	}
 //
 //}

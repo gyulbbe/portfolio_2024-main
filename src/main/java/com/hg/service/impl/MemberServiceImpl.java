@@ -4,7 +4,6 @@ package com.hg.service.impl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hg.dao.MemberDao;
@@ -13,10 +12,13 @@ import com.hg.exception.PasswordMissMatchException;
 import com.hg.exception.UserNotFoundException;
 import com.hg.service.MemberService;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Service
 public class MemberServiceImpl implements MemberService {
 
-	@Autowired MemberDao mDao; 
+	private final MemberDao mDao; 
 
 	@Override
 	public ArrayList<HashMap<String, Object>> memberList(HashMap<String, Object> params) {

@@ -9,10 +9,13 @@ import org.springframework.stereotype.Service;
 import com.hg.dao.AttFileDao;
 import com.hg.service.AttFileService;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Service
 public class AttFileServiceImpl implements AttFileService{
 
-	@Autowired AttFileDao attFileDao;
+	private final AttFileDao attFileDao;
 
 	//해당게시글의 모든첨부파일(다중이니까)
 	@Override

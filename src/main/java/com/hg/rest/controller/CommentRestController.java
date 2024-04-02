@@ -5,7 +5,6 @@ import java.util.Objects;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,11 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hg.dto.CommentDto;
 import com.hg.service.CommentService;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @RestController
 public class CommentRestController {
 
-	@Autowired
-	CommentService cService;
+	private final CommentService cService;
 
 	//댓글 작성
 	@PostMapping("/comment/write.do")
