@@ -22,4 +22,4 @@ index : /hg/index.do<br/>
 # to-do:<br/>
 게시글 파일 추가와 삭제<br/>
 관리자가 게시물과 댓글 삭제 가능하게<br/>
-관리자 페이지에는 관리자만 게시 가능하게
+관리자 페이지에는 관리자만 게시 가능하게"# portfolio_thymeleaf" 
